@@ -8,8 +8,10 @@ public class TriggerDispatcher {
             SELECT isActive__c 
             FROM TriggerSetting__mdt 
             WHERE DeveloperName = :triggerName
-        ].isActive__c;
-
+        ]?.isActive__c;
+        if (isActive == null) {
+            isActive = false;
+        }
         if (isActive) {
             switch on Trigger.operationType {
                 when BEFORE_INSERT {
