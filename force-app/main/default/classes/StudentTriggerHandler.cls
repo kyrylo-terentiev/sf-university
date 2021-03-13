@@ -7,6 +7,7 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
+        StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
         StudentTriggerHelper.setStudentName((List<Student__c>) newList);
     }
 
@@ -15,6 +16,7 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
         StudentTriggerHelper.setStudentName((List<Student__c>) newList);
     }
 
