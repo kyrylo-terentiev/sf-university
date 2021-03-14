@@ -19,7 +19,7 @@ public class EmployeeTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-
+        EmployeeTriggerHelper.updateChildren((Map<Id, Employee__c>) newMap, (Map<Id, Employee__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
@@ -31,6 +31,6 @@ public class EmployeeTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-
+        EmployeeTriggerHelper.setEmployeeName((List<Employee__c>) newList);
     }
 }

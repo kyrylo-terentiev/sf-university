@@ -14,4 +14,9 @@ public class Utils {
         String lastNameAbbr = lastName.abbreviate(maxLastNameLength);
         return lastNameAbbr + ' ' + firstMiddleNameAbbr;
     }
+
+    public static Boolean validateStudentId(String studentId) {
+        String regex = '^([А-ЯA-Z]{2})([0-9]{8})';
+        return Pattern.compile(regex).matcher(studentId).matches();
+    }
 }

@@ -1,4 +1,4 @@
-public class StudentTriggerHandler implements ITriggerHandler {
+public class ProfessorTriggerHandler implements ITriggerHandler {
 
     public static Boolean triggerDisabled = false;
 
@@ -7,8 +7,8 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
-        StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
-        StudentTriggerHelper.setStudentName((List<Student__c>) newList);
+        ProfessorTriggerHelper.validateEmployee((List<Professor__c>) newList, false);
+        ProfessorTriggerHelper.setProfessorName((List<Professor__c>) newList);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
@@ -16,8 +16,8 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
-        StudentTriggerHelper.setStudentName((List<Student__c>) newList);
+        ProfessorTriggerHelper.validateEmployee((List<Professor__c>) newList, true);
+        ProfessorTriggerHelper.setProfessorName((List<Professor__c>) newList);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
@@ -33,7 +33,7 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
-        StudentTriggerHelper.setStudentName((List<Student__c>) newList);
+        ProfessorTriggerHelper.validateEmployee((List<Professor__c>) newList, null);
+        ProfessorTriggerHelper.setProfessorName((List<Professor__c>) newList);
     }
 }
