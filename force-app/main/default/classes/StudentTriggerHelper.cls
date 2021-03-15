@@ -2,11 +2,15 @@ public with sharing class StudentTriggerHelper {
     
     public static void setStudentName(List<Student__c> newList) {
         for (Student__c stud : newList) {
-            stud.Name = Utils.getPersonRecordName(
-                stud.LastName__c, 
-                stud.FirstName__c, 
-                stud.MiddleName__c
-            );
+            stud.Name = Utils.getPersonRecordName(stud.LastName__c, stud.FirstName__c, stud.MiddleName__c);
+        }
+    }
+
+    public static void validateStudentName(List<Student__c> newList) {
+        for (Student__c stud : newList) {
+            if (!Utils.validatePersonName(stud.LastName__c, stud.FirstName__c, stud.MiddleName__c)) {
+                stud.addError('Name fields should contain only alphabetic characters');
+            }
         }
     }
 

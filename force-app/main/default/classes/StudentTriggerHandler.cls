@@ -7,6 +7,7 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
+        StudentTriggerHelper.validateStudentName((List<Student__c>) newList);
         StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
         StudentTriggerHelper.setStudentName((List<Student__c>) newList);
     }
@@ -16,6 +17,7 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        StudentTriggerHelper.validateStudentName((List<Student__c>) newList);
         StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
         StudentTriggerHelper.setStudentName((List<Student__c>) newList);
     }
@@ -33,7 +35,19 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        StudentTriggerHelper.validateStudentId((List<Student__c>) newList);
-        StudentTriggerHelper.setStudentName((List<Student__c>) newList);
+        List<Student__c> studentList = [
+            SELECT Id
+                , Name
+                , FirstName__c
+                , LastName__c
+                , MiddleName__c
+                , StudentID__c
+            FROM Student__c 
+            WHERE Id IN :newMap.keySet()
+        ];
+        StudentTriggerHelper.validateStudentName(studentList);
+        StudentTriggerHelper.validateStudentId(studentList);
+        StudentTriggerHelper.setStudentName(studentList);
+        update studentList;
     }
 }

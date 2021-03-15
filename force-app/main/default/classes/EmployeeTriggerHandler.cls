@@ -7,6 +7,7 @@ public class EmployeeTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
+        EmployeeTriggerHelper.validateEmployeeName((List<Employee__c>) newList);
         EmployeeTriggerHelper.setEmployeeName((List<Employee__c>) newList);
     }
 
@@ -15,6 +16,7 @@ public class EmployeeTriggerHandler implements ITriggerHandler {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        EmployeeTriggerHelper.validateEmployeeName((List<Employee__c>) newList);
         EmployeeTriggerHelper.setEmployeeName((List<Employee__c>) newList);
     }
 
@@ -31,6 +33,17 @@ public class EmployeeTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        EmployeeTriggerHelper.setEmployeeName((List<Employee__c>) newList);
+        List<Employee__c> employeeList = [
+            SELECT Id
+                , Name
+                , FirstName__c
+                , LastName__c
+                , MiddleName__c
+            FROM Employee__c 
+            WHERE Id IN :newMap.keySet()
+        ];
+        EmployeeTriggerHelper.validateEmployeeName(employeeList);
+        EmployeeTriggerHelper.setEmployeeName(employeeList);
+        update employeeList;
     }
 }
