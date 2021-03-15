@@ -11,6 +11,11 @@ public with sharing class EmployeeTriggerHelper {
     public static void setEmployeeName(List<Employee__c> newList) {
         for (Employee__c empl : newList) {
             empl.Name = Utils.getPersonRecordName(empl.LastName__c, empl.FirstName__c, empl.MiddleName__c);
+            empl.LastName__c = empl.LastName__c.toLowerCase().capitalize();
+            empl.FirstName__c = empl.FirstName__c.toLowerCase().capitalize();
+            empl.MiddleName__c = !String.isEmpty(empl.MiddleName__c) 
+                                ? empl.MiddleName__c.toLowerCase().capitalize() 
+                                : null;
         }
     }
 
