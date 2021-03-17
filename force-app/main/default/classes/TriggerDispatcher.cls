@@ -4,11 +4,7 @@ public class TriggerDispatcher {
             return;
         }
 
-        Boolean isActive = [
-            SELECT isActive__c 
-            FROM TriggerSetting__mdt 
-            WHERE DeveloperName = :triggerName
-        ]?.isActive__c;
+        Boolean isActive = TriggerSetting__mdt.getInstance(triggerName)?.isActive__c;
         if (isActive == null) {
             isActive = false;
         }
