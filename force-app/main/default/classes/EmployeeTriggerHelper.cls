@@ -39,7 +39,6 @@ public with sharing class EmployeeTriggerHelper {
                 }
             }
         }
-        System.debug('professorsToUpdate: ' + professorsToUpdate);
         if (!professorsToUpdate.isEmpty()) {
             update professorsToUpdate;
         }

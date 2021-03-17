@@ -2,7 +2,7 @@ public class Utils {
     public static final Integer MAX_NAME_LENGTH = 80;
     
     public static Boolean validatePersonName(String lastName, String firstName, String middleName) {
-        String regex = '^([а-яА-Яa-zA-Z])[а-яА-Яa-zA-Z- ]*([а-яА-Яa-zA-Z])$';
+        String regex = '^([а-яґєіїА-ЯҐЄІЇa-zA-Z])[а-яґєіїА-ЯҐЄІЇa-zA-Z- ]*([а-яґєіїА-ЯҐЄІЇa-zA-Z])$';
         Boolean matches = Pattern.compile(regex).matcher(lastName.trim()).matches()
                         && Pattern.compile(regex).matcher(firstName.trim()).matches()
                         && (!String.isEmpty(middleName) 
@@ -26,7 +26,7 @@ public class Utils {
     }
 
     public static Boolean validateStudentId(String studentId) {
-        String regex = '^([А-ЯA-Z]{2})([0-9]{8})';
+        String regex = '^([А-ЯҐЄІЇA-Z]{2})([0-9]{8})';
         return Pattern.compile(regex).matcher(studentId.trim()).matches();
     }
 }
