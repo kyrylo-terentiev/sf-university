@@ -12,21 +12,21 @@ public class Utils {
     }
 
     public static String getPersonRecordName(String lastName, String firstName, String middleName) {
-        String firstMiddleNameAbbr = firstName.substring(0, 1).toUpperCase() + '.';
+        String firstMiddleNameAbbr = firstName.substring(0, 1).toUpperCase() + '. ';
         Boolean hasMiddleName = !String.isEmpty(middleName);
         Integer maxLastNameLength;
         if (hasMiddleName) {
-            maxLastNameLength = MAX_NAME_LENGTH - 5;
+            maxLastNameLength = MAX_NAME_LENGTH - 6;
             firstMiddleNameAbbr += middleName.substring(0, 1).toUpperCase() + '.';
         } else {
             maxLastNameLength = MAX_NAME_LENGTH - 3;
         }
         String lastNameAbbr = lastName.toLowerCase().capitalize().abbreviate(maxLastNameLength);
-        return lastNameAbbr + ' ' + firstMiddleNameAbbr;
+        return (lastNameAbbr + ' ' + firstMiddleNameAbbr).trim();
     }
 
     public static Boolean validateStudentId(String studentId) {
         String regex = '^([А-ЯA-Z]{2})([0-9]{8})';
-        return Pattern.compile(regex).matcher(studentId).matches();
+        return Pattern.compile(regex).matcher(studentId.trim()).matches();
     }
 }
