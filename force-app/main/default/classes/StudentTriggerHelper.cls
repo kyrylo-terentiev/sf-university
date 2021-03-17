@@ -3,7 +3,7 @@ public with sharing class StudentTriggerHelper {
     public static void validateStudentName(List<Student__c> newList) {
         for (Student__c stud : newList) {
             if (!Utils.validatePersonName(stud.LastName__c, stud.FirstName__c, stud.MiddleName__c)) {
-                stud.addError('Name fields should contain only alphabetic characters');
+                stud.addError(System.Label.InvalidName);
             }
         }
     }
@@ -22,7 +22,7 @@ public with sharing class StudentTriggerHelper {
     public static void validateStudentId(List<Student__c> newList) {
         for (Student__c stud : newList) {
             if (!Utils.validateStudentId(stud.StudentID__c)) {
-                stud.StudentID__c.addError('Must match the following pattern: AA00000000');
+                stud.StudentID__c.addError(System.Label.InvalidStudentID);
             }
         }
     }
