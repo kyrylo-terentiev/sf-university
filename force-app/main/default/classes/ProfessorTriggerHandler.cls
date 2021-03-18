@@ -41,5 +41,6 @@ public class ProfessorTriggerHandler implements ITriggerHandler {
         ];
         ProfessorTriggerHelper.validateAccount(professorList, null);
         ProfessorTriggerHelper.setProfessorName(professorList);
+        update professorList;
     }
 }

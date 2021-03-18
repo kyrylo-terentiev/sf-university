@@ -36,24 +36,21 @@ public class TestObjectFactory {
         return professorList;
     }
 
-    public static Student__c createStudent(String studentId) {
+    public static Student__c createStudent(Account acc, String studentId) {
         Student__c stud = new Student__c(
             Name = 'TestName',
-            FirstName__c = 'TestFirstName',
-            LastName__c = 'TestLastName',
-            MiddleName__c = 'TestMiddleName',
-            DateOfBirth__c = Date.newInstance(1999, 1, 1),
-            StudentID__c = studentId
+            StudentID__c = studentId,
+            Account__c = acc.Id
         );
         return stud;
     }
 
-    public static List<Student__c> createStudents(Integer studentNum, String studentIdTemplate) {
+    public static List<Student__c> createStudents(List<Account> accList, String studentIdTemplate) {
         List<Student__c> studentList = new List<Student__c>();
-        for (Integer i = 0; i < studentNum; i++) {
+        for (Integer i = 0; i < accList.size(); i++) {
             String ending = String.valueOf(i);
             String studentId = studentIdTemplate.substring(0, studentIdTemplate.length() - ending.length()) + ending;
-            studentList.add(createStudent(studentId));
+            studentList.add(createStudent(accList[i], studentId));
         }
         return studentList;
     }

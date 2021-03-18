@@ -1,21 +1,17 @@
 public with sharing class StudentTriggerHelper {
     
-    public static void validateStudentName(List<Student__c> newList) {
-        for (Student__c stud : newList) {
-            if (!Utils.validatePersonName(stud.LastName__c, stud.FirstName__c, stud.MiddleName__c)) {
-                stud.addError(System.Label.InvalidName);
-            }
-        }
-    }
-    
     public static void setStudentName(List<Student__c> newList) {
+        Map<Id, Student__c> accToStudMap = new Map<Id, Student__c>();
         for (Student__c stud : newList) {
-            stud.Name = Utils.getPersonRecordName(stud.LastName__c, stud.FirstName__c, stud.MiddleName__c);
-            stud.LastName__c = stud.LastName__c.toLowerCase().capitalize();
-            stud.FirstName__c = stud.FirstName__c.toLowerCase().capitalize();
-            stud.MiddleName__c = !String.isEmpty(stud.MiddleName__c) 
-                                ? stud.MiddleName__c.toLowerCase().capitalize() 
-                                : null;
+            accToStudMap.put(stud.Account__c, stud);
+        }
+        Map<Id, Account> accMap = new Map<Id, Account>([
+            SELECT Name
+            FROM Account
+            WHERE Id IN :accToStudMap.keySet()
+        ]);
+        for (Id accId : accToStudMap.keySet()) {
+            accToStudMap.get(accId).Name = accMap.get(accId).Name;
         }
     }
 
