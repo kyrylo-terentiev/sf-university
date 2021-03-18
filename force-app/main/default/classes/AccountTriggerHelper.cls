@@ -20,7 +20,7 @@ public with sharing class AccountTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, Account> newMap, Map<Id, Account> oldMap) {
-        List<Professor__c> professorsToUpdate = new List<Professor__c>();
+        List<sObject> childrenToUpdate = new List<sObject>();
         Map<Id, List<Professor__c>> accToProfessorsMap = new Map<Id, List<Professor__c>>();
         for (Professor__c prof : [  SELECT Name, Account__c 
                                     FROM Professor__c 
@@ -34,16 +34,35 @@ public with sharing class AccountTriggerHelper {
         for (Id accId : accToProfessorsMap.keySet()) {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
-            List<Professor__c> professorList = accToProfessorsMap.get(accId);
             if (newAcc.Name != oldAcc.Name) {
-                for (Professor__c prof : professorList) {
+                for (Professor__c prof : accToProfessorsMap.get(accId)) {
                     prof.Name = newAcc.Name;
-                    professorsToUpdate.add(prof);
+                    childrenToUpdate.add(prof);
                 }
             }
         }
-        if (!professorsToUpdate.isEmpty()) {
-            update professorsToUpdate;
+        Map<Id, List<Student__c>> accToStudentsMap = new Map<Id, List<Student__c>>();
+        for (Student__c stud : [  SELECT Name, Account__c 
+                                    FROM Student__c 
+                                    WHERE Account__c IN :newMap.keySet()]
+        ) {
+            if (accToStudentsMap.get(stud.Account__c) == null) {
+                accToStudentsMap.put(stud.Account__c, new List<Student__c>());
+            }
+            accToStudentsMap.get(stud.Account__c).add(stud);
+        }
+        for (Id accId : accToStudentsMap.keySet()) {
+            Account newAcc = newMap.get(accId);
+            Account oldAcc = oldMap.get(accId);
+            if (newAcc.Name != oldAcc.Name) {
+                for (Student__c stud : accToStudentsMap.get(accId)) {
+                    stud.Name = newAcc.Name;
+                    childrenToUpdate.add(stud);
+                }
+            }
+        }
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
         }
     }
 }
