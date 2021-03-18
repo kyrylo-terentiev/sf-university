@@ -1,43 +1,43 @@
 public with sharing class ProfessorTriggerHelper {
     
     public static void setProfessorName(List<Professor__c> newList) {
-        Map<Id, Professor__c> employeeToProfessorMap = new Map<Id, Professor__c>();
+        Map<Id, Professor__c> accToProfMap = new Map<Id, Professor__c>();
         for (Professor__c prof : newList) {
-            employeeToProfessorMap.put(prof.Employee__c, prof);
+            accToProfMap.put(prof.Account__c, prof);
         }
-        Map<Id, Employee__c> employeeMap = new Map<Id, Employee__c>([
+        Map<Id, Account> accMap = new Map<Id, Account>([
             SELECT Name
-            FROM Employee__c
-            WHERE Id IN :employeeToProfessorMap.keySet()
+            FROM Account
+            WHERE Id IN :accToProfMap.keySet()
         ]);
-        for (Id employeeId : employeeToProfessorMap.keySet()) {
-            employeeToProfessorMap.get(employeeId).Name = employeeMap.get(employeeId).Name;
+        for (Id accId : accToProfMap.keySet()) {
+            accToProfMap.get(accId).Name = accMap.get(accId).Name;
         }
     }
 
-    public static void validateEmployee(List<Professor__c> newList, Boolean isUpdate) {
-        Map<Id, Id> employeeToProfessorMap = new Map<Id, Id>();
+    public static void validateAccount(List<Professor__c> newList, Boolean isUpdate) {
+        Map<Id, Id> accToProfMap = new Map<Id, Id>();
         for (Professor__c prof : newList) {
-            employeeToProfessorMap.put(prof.Employee__c, null);
+            accToProfMap.put(prof.Account__c, null);
         }
-        Map<Id, Employee__c> employeeMap = new Map<Id, Employee__c>([
+        Map<Id, Account> accMap = new Map<Id, Account>([
             SELECT Id, 
             (SELECT Id FROM Professors__r)
-            FROM Employee__c
-            WHERE Id IN :employeeToProfessorMap.keySet()
+            FROM Account
+            WHERE Id IN :accToProfMap.keySet()
         ]);
-        for (Id employeeId : employeeToProfessorMap.keySet()) {
-            Employee__c empl = employeeMap.get(employeeId);
-            Boolean isProfessor = empl != null && empl.Professors__r != null && !empl.Professors__r.isEmpty();
+        for (Id accId : accToProfMap.keySet()) {
+            Account acc = accMap.get(accId);
+            Boolean isProfessor = acc != null && acc.Professors__r != null && !acc.Professors__r.isEmpty();
             if (isProfessor) {
-                employeeToProfessorMap.put(employeeId, empl.Professors__r[0].Id);
+                accToProfMap.put(accId, acc.Professors__r[0].Id);
             }
         }
         for (Professor__c prof : newList) {
-            Id existingProfId = employeeToProfessorMap.get(prof.Employee__c);
+            Id existingProfId = accToProfMap.get(prof.Account__c);
             if (existingProfId != null) {
                 if (!isUpdate || existingProfId != prof.Id) {
-                    prof.addError('Professor record already exists for this employee');
+                    prof.addError(System.Label.AccountAlreadyHasProfessor);
                 }
             }
         }

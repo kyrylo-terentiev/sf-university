@@ -1,4 +1,4 @@
-public class ProfessorTriggerHandler implements ITriggerHandler {
+public class AccountTriggerHandler implements ITriggerHandler {
 
     public static Boolean triggerDisabled = false;
 
@@ -7,8 +7,8 @@ public class ProfessorTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
-        ProfessorTriggerHelper.validateAccount((List<Professor__c>) newList, false);
-        ProfessorTriggerHelper.setProfessorName((List<Professor__c>) newList);
+        AccountTriggerHelper.validateAccountName((List<Account>) newList);
+        AccountTriggerHelper.setAccountName((List<Account>) newList);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
@@ -16,12 +16,12 @@ public class ProfessorTriggerHandler implements ITriggerHandler {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        ProfessorTriggerHelper.validateAccount((List<Professor__c>) newList, true);
-        ProfessorTriggerHelper.setProfessorName((List<Professor__c>) newList);
+        AccountTriggerHelper.validateAccountName((List<Account>) newList);
+        AccountTriggerHelper.setAccountName((List<Account>) newList);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-
+        AccountTriggerHelper.updateChildren((Map<Id, Account>) newMap, (Map<Id, Account>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
@@ -33,13 +33,17 @@ public class ProfessorTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        List<Professor__c> professorList = [
+        List<Account> accList = [
             SELECT Id
-                , Account__c
-            FROM Professor__c 
+                , Name
+                , FirstName__c
+                , LastName__c
+                , MiddleName__c
+            FROM Account 
             WHERE Id IN :newMap.keySet()
         ];
-        ProfessorTriggerHelper.validateAccount(professorList, null);
-        ProfessorTriggerHelper.setProfessorName(professorList);
+        AccountTriggerHelper.validateAccountName(accList);
+        AccountTriggerHelper.setAccountName(accList);
+        update accList;
     }
 }

@@ -1,37 +1,37 @@
 @isTest
 public class TestObjectFactory {
 
-    public static Employee__c createEmployee() {
-        Employee__c empl = new Employee__c(
+    public static Account createAccount() {
+        Account acc = new Account(
             Name = 'TestName',
             FirstName__c = 'TestFirstName',
             LastName__c = 'TestLastName',
             MiddleName__c = 'TestMiddleName',
             DateOfBirth__c = Date.newInstance(1999, 1, 1)
         );
-        return empl;
+        return acc;
     }
 
-    public static List<Employee__c> createEmployees(Integer employeeNum) {
-        List<Employee__c> employeeList = new List<Employee__c>();
-        for (Integer i = 0; i < employeeNum; i++) {
-            employeeList.add(createEmployee());
+    public static List<Account> createAccounts(Integer accountNum) {
+        List<Account> accList = new List<Account>();
+        for (Integer i = 0; i < accountNum; i++) {
+            accList.add(createAccount());
         }
-        return employeeList;
+        return accList;
     }
 
-    public static Professor__c createProfessor(Employee__c employee) {
+    public static Professor__c createProfessor(Account acc) {
         Professor__c prof = new Professor__c(
-            Name = employee.Name,
-            Employee__c = employee.Id
+            Name = acc.Name,
+            Account__c = acc.Id
         );
         return prof;
     }
 
-    public static List<Professor__c> createProfessors(List<Employee__c> employeeList) {
+    public static List<Professor__c> createProfessors(List<Account> accList) {
         List<Professor__c> professorList = new List<Professor__c>();
-        for (Employee__c empl : employeeList) {
-            professorList.add(createProfessor(empl));
+        for (Account acc : accList) {
+            professorList.add(createProfessor(acc));
         }
         return professorList;
     }

@@ -1,4 +1,4 @@
-trigger EmployeeTrigger on Employee__c (
+trigger AccountTrigger on Account (
     before insert,
     after insert,
     before update,
@@ -7,5 +7,5 @@ trigger EmployeeTrigger on Employee__c (
     after delete,
     after undelete
 ) {
-    // TriggerDispatcher.run(new EmployeeTriggerHandler(), 'EmployeeTrigger');
+    TriggerDispatcher.run(new AccountTriggerHandler(), 'AccountTrigger');
 }
