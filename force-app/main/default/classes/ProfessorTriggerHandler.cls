@@ -39,7 +39,7 @@ public class ProfessorTriggerHandler implements ITriggerHandler {
             FROM Professor__c 
             WHERE Id IN :newMap.keySet()
         ];
-        ProfessorTriggerHelper.validateAccount(professorList, null);
+        ProfessorTriggerHelper.validateAccount(professorList, false);
         ProfessorTriggerHelper.setProfessorName(professorList);
         update professorList;
     }
