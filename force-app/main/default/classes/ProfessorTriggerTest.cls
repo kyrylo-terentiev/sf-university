@@ -16,7 +16,7 @@ private class ProfessorTriggerTest {
         insert prof;
         Professor__c profAfter = [SELECT Name, Account__c FROM Professor__c WHERE Id = :prof.Id];
         System.assertEquals(acc.Id, profAfter.Account__c, 'Professor should have master account');
-        System.assertEquals(acc.Name, profAfter.Name, 'Professor name should equal to master Account name');
+        System.assertEquals(acc.Name, profAfter.Name, 'Professor name should equal to master account name');
     }
 
     @isTest 
