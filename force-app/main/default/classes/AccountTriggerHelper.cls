@@ -43,11 +43,12 @@ public with sharing class AccountTriggerHelper {
         for (Id accId : accToProfessorsMap.keySet()) {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
-            Boolean isAccChanged = newAcc.Name != oldAcc.Name || newAcc.IsActive__c != oldAcc.IsActive__c;
-            if (isAccChanged) {
+            Boolean isAccNameChanged = newAcc.Name != oldAcc.Name;
+            Boolean isAccInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
+            if (isAccNameChanged || isAccInactivated) {
                 for (Professor__c prof : accToProfessorsMap.get(accId)) {
-                    prof.Name = newAcc.Name;
-                    prof.IsActive__c = newAcc.IsActive__c;
+                    if (isAccNameChanged) prof.Name = newAcc.Name;
+                    if (isAccInactivated) prof.IsActive__c = newAcc.IsActive__c;
                     professorsToUpdateList.add(prof);
                 }
             }
@@ -71,11 +72,12 @@ public with sharing class AccountTriggerHelper {
         for (Id accId : accToStudentsMap.keySet()) {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
-            Boolean isAccChanged = newAcc.Name != oldAcc.Name || newAcc.IsActive__c != oldAcc.IsActive__c;
-            if (isAccChanged) {
+            Boolean isAccNameChanged = newAcc.Name != oldAcc.Name;
+            Boolean isAccInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
+            if (isAccNameChanged || isAccInactivated) {
                 for (Student__c stud : accToStudentsMap.get(accId)) {
-                    stud.Name = newAcc.Name;
-                    stud.IsActive__c = newAcc.IsActive__c;
+                    if (isAccNameChanged) stud.Name = newAcc.Name;
+                    if (isAccInactivated) stud.IsActive__c = newAcc.IsActive__c;
                     studentsToUpdateList.add(stud);
                 }
             }
