@@ -54,4 +54,18 @@ public class TestObjectFactory {
         }
         return studentList;
     }
+
+    public static List<Account> getTestAccounts() {
+        return [
+            SELECT Id
+                , Name
+                , FirstName__c
+                , LastName__c
+                , MiddleName__c
+                , DateOfBirth__c
+                , FullName__c
+                , User__c
+            FROM Account
+        ];
+    }
 }
