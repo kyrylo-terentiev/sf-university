@@ -49,19 +49,6 @@ private class AccountTriggerTest {
     }
 
     @isTest
-    static void testUndelete() {
-        Account acc = TestObjectFactory.getTestAccounts()[0];
-        delete acc;
-        Boolean isThrown = false;
-        try {
-            undelete acc;
-        } catch (Exception e) {
-            isThrown = true;
-        }
-        System.assert(!isThrown, 'Exception not expected');
-    }
-
-    @isTest
     static void testUpdateChildren() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Professor__c prof = TestObjectFactory.createProfessor(acc);

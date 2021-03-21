@@ -53,20 +53,4 @@ private class StudentTriggerTest {
         }
         System.assert(!isThrown, 'Exception not expected');
     }
-
-    @isTest 
-    static void testUndeleteSuccess() {
-        Account acc = TestObjectFactory.getTestAccounts()[0];
-        String validStudentId = 'AA00000000';
-        Student__c stud = TestObjectFactory.createStudent(acc, validStudentId);
-        insert stud;
-        delete stud;
-        Boolean isThrown = false;
-        try {
-            undelete stud;
-        } catch (Exception e) {
-            isThrown = true;
-        }
-        System.assert(!isThrown, 'Exception not expected');
-    }
 }

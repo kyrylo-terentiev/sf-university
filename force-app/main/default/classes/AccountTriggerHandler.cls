@@ -33,17 +33,5 @@ public class AccountTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        List<Account> accList = [
-            SELECT Id
-                , Name
-                , FirstName__c
-                , LastName__c
-                , MiddleName__c
-            FROM Account 
-            WHERE Id IN :newMap.keySet()
-        ];
-        AccountTriggerHelper.validateAccountName(accList);
-        AccountTriggerHelper.setAccountName(accList);
-        update accList;
     }
 }

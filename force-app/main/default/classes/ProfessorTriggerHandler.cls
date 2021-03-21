@@ -33,14 +33,5 @@ public class ProfessorTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        List<Professor__c> professorList = [
-            SELECT Id
-                , Account__c
-            FROM Professor__c 
-            WHERE Id IN :newMap.keySet()
-        ];
-        ProfessorTriggerHelper.validateAccount(professorList, false);
-        ProfessorTriggerHelper.setProfessorName(professorList);
-        update professorList;
     }
 }

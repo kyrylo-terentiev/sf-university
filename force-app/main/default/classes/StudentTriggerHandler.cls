@@ -33,15 +33,5 @@ public class StudentTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
-        List<Student__c> studentList = [
-            SELECT Id
-                , Account__c
-                , StudentID__c
-            FROM Student__c 
-            WHERE Id IN :newMap.keySet()
-        ];
-        StudentTriggerHelper.validateStudentId(studentList);
-        StudentTriggerHelper.setStudentName(studentList);
-        update studentList;
     }
 }
