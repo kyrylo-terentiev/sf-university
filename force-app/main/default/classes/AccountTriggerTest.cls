@@ -66,7 +66,7 @@ private class AccountTriggerTest {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Professor__c prof = TestObjectFactory.createProfessor(acc);
         insert prof;
-        Student__c stud = TestObjectFactory.createStudent(acc, 'AA00000000');
+        Student__c stud = TestObjectFactory.createStudent(acc);
         insert stud;
         acc.FirstName__c = 'NewTestFirstName';
         Test.startTest();
@@ -84,7 +84,7 @@ private class AccountTriggerTest {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Professor__c prof = TestObjectFactory.createProfessor(acc);
         insert prof;
-        Student__c stud = TestObjectFactory.createStudent(acc, 'AA00000000');
+        Student__c stud = TestObjectFactory.createStudent(acc);
         insert stud;
         acc.IsActive__c = false;
         Test.startTest();

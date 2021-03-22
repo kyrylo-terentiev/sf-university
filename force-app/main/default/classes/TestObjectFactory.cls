@@ -40,10 +40,10 @@ public class TestObjectFactory {
         return professorList;
     }
 
-    public static Student__c createStudent(Account acc, String studentId) {
+    public static Student__c createStudent(Account acc) {
         Student__c stud = new Student__c(
             Name = 'TestName',
-            StudentID__c = studentId,
+            StudentID__c = 'AA00000000',
             Account__c = acc.Id,
             Degree__c = 'Bachelor',
             FormOfStudy__c = 'Full-Time',
@@ -52,12 +52,15 @@ public class TestObjectFactory {
         return stud;
     }
 
-    public static List<Student__c> createStudents(List<Account> accList, String studentIdTemplate) {
+    public static List<Student__c> createStudents(List<Account> accList) {
+        String studentIdTemplate = 'AA00000000';
         List<Student__c> studentList = new List<Student__c>();
         for (Integer i = 0; i < accList.size(); i++) {
             String ending = String.valueOf(i);
             String studentId = studentIdTemplate.substring(0, studentIdTemplate.length() - ending.length()) + ending;
-            studentList.add(createStudent(accList[i], studentId));
+            Student__c stud = createStudent(accList[i]);
+            stud.StudentID__c = studentId;
+            studentList.add(stud);
         }
         return studentList;
     }

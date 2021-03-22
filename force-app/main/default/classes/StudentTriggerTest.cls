@@ -10,8 +10,7 @@ private class StudentTriggerTest {
     @isTest 
     static void testInsertSuccess() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        String validStudentId = 'AA00000000';
-        Student__c studBefore = TestObjectFactory.createStudent(acc, validStudentId);
+        Student__c studBefore = TestObjectFactory.createStudent(acc);
         Boolean isThrown = false;
         try {
             insert studBefore;
@@ -28,7 +27,8 @@ private class StudentTriggerTest {
     static void testInsertFailure() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         String invalidStudentId = 'AA********';
-        Student__c stud = TestObjectFactory.createStudent(acc, invalidStudentId);
+        Student__c stud = TestObjectFactory.createStudent(acc);
+        stud.StudentID__c = invalidStudentId;
         Boolean isThrown = false;
         try {
             insert stud;
@@ -41,8 +41,7 @@ private class StudentTriggerTest {
     @isTest 
     static void testUpdateSuccess() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        String validStudentId = 'AA00000000';
-        Student__c stud = TestObjectFactory.createStudent(acc, validStudentId);
+        Student__c stud = TestObjectFactory.createStudent(acc);
         insert stud;
         stud.FormOfStudy__c = 'Part-Time';
         Boolean isThrown = false;
@@ -57,8 +56,7 @@ private class StudentTriggerTest {
     @isTest 
     static void testUpdateChildren() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        String validStudentId = 'AA00000000';
-        Student__c studBefore = TestObjectFactory.createStudent(acc, validStudentId);
+        Student__c studBefore = TestObjectFactory.createStudent(acc);
         insert studBefore;
         StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup(studBefore);
         insert groupBefore;
@@ -86,8 +84,7 @@ private class StudentTriggerTest {
     @isTest 
     static void testUndeleteSuccess() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        String validStudentId = 'AA00000000';
-        Student__c stud = TestObjectFactory.createStudent(acc, validStudentId);
+        Student__c stud = TestObjectFactory.createStudent(acc);
         insert stud;
         delete stud;
         Boolean isThrown = false;

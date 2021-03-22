@@ -10,7 +10,7 @@ private class StudentGroupTriggerTest {
     @isTest 
     static void testInsertSuccess() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        Student__c head = TestObjectFactory.createStudent(acc, 'AA00000000');
+        Student__c head = TestObjectFactory.createStudent(acc);
         insert head;
         StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(head);
         Boolean isThrown = false;
@@ -25,7 +25,7 @@ private class StudentGroupTriggerTest {
     @isTest 
     static void testUpdateChildren() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        Student__c stud = TestObjectFactory.createStudent(acc, 'AA00000000');
+        Student__c stud = TestObjectFactory.createStudent(acc);
         insert stud;
         StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup(stud);
         insert groupBefore;
@@ -53,7 +53,7 @@ private class StudentGroupTriggerTest {
     @isTest 
     static void testUndeleteSuccess() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        Student__c head = TestObjectFactory.createStudent(acc, 'AA00000000');
+        Student__c head = TestObjectFactory.createStudent(acc);
         insert head;
         StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(head);
         insert studGroup;
