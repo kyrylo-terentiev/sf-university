@@ -3,7 +3,7 @@ public with sharing class AccountTriggerHelper {
     public static void validateAccountName(List<Account> newList) {
         for (Account acc : newList) {
             if (!Utils.validatePersonName(acc.LastName__c, acc.FirstName__c, acc.MiddleName__c)) {
-                acc.addError(System.Label.InvalidName);
+                acc.addError(System.Label.InvalidPersonName);
             }
         }
     }
