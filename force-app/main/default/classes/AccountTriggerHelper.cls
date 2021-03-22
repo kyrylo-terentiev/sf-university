@@ -44,7 +44,7 @@ public with sharing class AccountTriggerHelper {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
             Boolean isNameChanged = newAcc.Name != oldAcc.Name;
-            Boolean isInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
+            Boolean isInactivated = !newAcc.IsActive__c && oldAcc.IsActive__c;
             if (isNameChanged || isInactivated) {
                 for (Professor__c prof : accToProfessorsMap.get(accId)) {
                     if (isNameChanged) prof.Name = newAcc.Name;
@@ -73,7 +73,7 @@ public with sharing class AccountTriggerHelper {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
             Boolean isNameChanged = newAcc.Name != oldAcc.Name;
-            Boolean isInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
+            Boolean isInactivated = !newAcc.IsActive__c && oldAcc.IsActive__c;
             if (isNameChanged || isInactivated) {
                 for (Student__c stud : accToStudentsMap.get(accId)) {
                     if (isNameChanged) stud.Name = newAcc.Name;
