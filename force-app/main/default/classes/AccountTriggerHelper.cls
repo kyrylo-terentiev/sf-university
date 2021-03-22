@@ -13,9 +13,7 @@ public with sharing class AccountTriggerHelper {
             acc.Name = Utils.getPersonRecordName(acc.LastName__c, acc.FirstName__c, acc.MiddleName__c);
             acc.LastName__c = acc.LastName__c.toLowerCase().capitalize();
             acc.FirstName__c = acc.FirstName__c.toLowerCase().capitalize();
-            acc.MiddleName__c = !String.isEmpty(acc.MiddleName__c) 
-                                ? acc.MiddleName__c.toLowerCase().capitalize() 
-                                : null;
+            acc.MiddleName__c = !String.isEmpty(acc.MiddleName__c) ? acc.MiddleName__c.toLowerCase().capitalize() : null;
         }
     }
 
