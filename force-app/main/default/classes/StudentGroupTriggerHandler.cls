@@ -16,6 +16,7 @@ public class StudentGroupTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        StudentGroupTriggerHelper.updateChildren((Map<Id, StudentGroup__c>) newMap, (Map<Id, StudentGroup__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
