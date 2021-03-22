@@ -9,6 +9,7 @@ public class TriggerDispatcher {
             isActive = false;
         }
         if (isActive) {
+            System.debug(triggerName + '::' + Trigger.operationType);
             switch on Trigger.operationType {
                 when BEFORE_INSERT {
                     handler.beforeInsert(Trigger.new);
