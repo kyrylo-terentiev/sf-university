@@ -29,7 +29,7 @@ public with sharing class AccountTriggerHelper {
     }
 
     private static List<Professor__c> getUpdatedProfessors(Map<Id, Account> newMap, Map<Id, Account> oldMap) {
-        List<Professor__c> professorsToUpdateList = new List<Professor__c>();
+        List<Professor__c> professorsToUpdate = new List<Professor__c>();
         Map<Id, List<Professor__c>> accToProfessorsMap = new Map<Id, List<Professor__c>>();
         for (Professor__c prof : [SELECT Name, Account__c, IsActive__c 
                                   FROM Professor__c 
@@ -43,22 +43,22 @@ public with sharing class AccountTriggerHelper {
         for (Id accId : accToProfessorsMap.keySet()) {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
-            Boolean isAccNameChanged = newAcc.Name != oldAcc.Name;
-            Boolean isAccInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
-            if (isAccNameChanged || isAccInactivated) {
+            Boolean isNameChanged = newAcc.Name != oldAcc.Name;
+            Boolean isInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
+            if (isNameChanged || isInactivated) {
                 for (Professor__c prof : accToProfessorsMap.get(accId)) {
-                    if (isAccNameChanged) prof.Name = newAcc.Name;
-                    if (isAccInactivated) prof.IsActive__c = newAcc.IsActive__c;
-                    professorsToUpdateList.add(prof);
+                    if (isNameChanged) prof.Name = newAcc.Name;
+                    if (isInactivated) prof.IsActive__c = newAcc.IsActive__c;
+                    professorsToUpdate.add(prof);
                 }
             }
         }
 
-        return professorsToUpdateList;
+        return professorsToUpdate;
     }
 
     private static List<Student__c> getUpdatedStudents(Map<Id, Account> newMap, Map<Id, Account> oldMap) {
-        List<Student__c> studentsToUpdateList = new List<Student__c>();
+        List<Student__c> studentsToUpdate = new List<Student__c>();
         Map<Id, List<Student__c>> accToStudentsMap = new Map<Id, List<Student__c>>();
         for (Student__c stud : [SELECT Name, Account__c, IsActive__c 
                                 FROM Student__c 
@@ -72,17 +72,17 @@ public with sharing class AccountTriggerHelper {
         for (Id accId : accToStudentsMap.keySet()) {
             Account newAcc = newMap.get(accId);
             Account oldAcc = oldMap.get(accId);
-            Boolean isAccNameChanged = newAcc.Name != oldAcc.Name;
-            Boolean isAccInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
-            if (isAccNameChanged || isAccInactivated) {
+            Boolean isNameChanged = newAcc.Name != oldAcc.Name;
+            Boolean isInactivated = newAcc.IsActive__c && newAcc.IsActive__c != oldAcc.IsActive__c;
+            if (isNameChanged || isInactivated) {
                 for (Student__c stud : accToStudentsMap.get(accId)) {
-                    if (isAccNameChanged) stud.Name = newAcc.Name;
-                    if (isAccInactivated) stud.IsActive__c = newAcc.IsActive__c;
-                    studentsToUpdateList.add(stud);
+                    if (isNameChanged) stud.Name = newAcc.Name;
+                    if (isInactivated) stud.IsActive__c = newAcc.IsActive__c;
+                    studentsToUpdate.add(stud);
                 }
             }
         }
 
-        return studentsToUpdateList;
+        return studentsToUpdate;
     }
 }
