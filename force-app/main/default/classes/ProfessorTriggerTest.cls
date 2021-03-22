@@ -48,4 +48,19 @@ private class ProfessorTriggerTest {
         }
         System.assert(!isThrown, 'Exception not expected');
     }
+
+    @isTest
+    static void testUndeleteSuccess() {
+        Account acc = TestObjectFactory.getTestAccounts()[0];
+        Professor__c prof = TestObjectFactory.createProfessor(acc);
+        insert prof;
+        delete prof;
+        Boolean isThrown = false;
+        try {
+            undelete prof;
+        } catch (Exception e) {
+            isThrown = true;
+        }
+        System.assert(!isThrown, 'Exception not expected');
+    }
 }
