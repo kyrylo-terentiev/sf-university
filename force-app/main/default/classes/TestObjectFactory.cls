@@ -59,6 +59,43 @@ public class TestObjectFactory {
         return studentList;
     }
 
+    public static StudentGroup__c createStudentGroup(Student__c head) {
+        StudentGroup__c studGroup = new StudentGroup__c(
+            Name = 'TestStudentGroup',
+            HeadOfGroup__c = head.Id
+        );
+        return studGroup;
+    }
+
+    public static List<StudentGroupMember__c> createStudentGroupMembers(StudentGroup__c studGroup, List<Student__c> studList) {
+        List<StudentGroupMember__c> memberList = new List<StudentGroupMember__c>();
+        for (Student__c stud : studList) {
+            StudentGroupMember__c member = new StudentGroupMember__c(
+                Group__c = studGroup.Id,
+                Student__c = stud.Id
+            );
+            memberList.add(member);
+        }
+        return memberList;
+    }
+
+    public static Faculty__c createFaculty(Professor__c dean) {
+        Faculty__c fac = new Faculty__c(
+            Name = 'TestFaculty',
+            Dean__c = dean.Id
+        );
+        return fac;
+    }
+
+    public static Department__c createDepartment(Faculty__c fac, Professor__c head) {
+        Department__c dep = new Department__c(
+            Name = 'TestDepartment',
+            Faculty__c = fac.Id,
+            HeadOfDepartment__c = head.Id
+        );
+        return dep;
+    }
+
     public static List<Account> getTestAccounts() {
         return [
             SELECT Id
