@@ -77,7 +77,7 @@ private class StudentTriggerTest {
         }
         System.assert(!isThrown, 'Exception not expected');
         Student__c studAfter = [SELECT IsActive__c FROM Student__c WHERE Id = :studBefore.Id];
-        List<StudentGroupMember__c> membersAfter = [SELECT  IsActive__c FROM StudentGroupMember__c WHERE Id IN :memberIdSet];
+        List<StudentGroupMember__c> membersAfter = [SELECT IsActive__c FROM StudentGroupMember__c WHERE Id IN :memberIdSet];
         for (StudentGroupMember__c member : membersAfter) {
             System.assertEquals(studAfter.IsActive__c, member.IsActive__c, 'Group Member should be deactivated with the Student');
         }
