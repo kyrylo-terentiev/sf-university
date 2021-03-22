@@ -5,9 +5,7 @@ public class Utils {
         String regex = '^([а-яґєіїА-ЯҐЄІЇa-zA-Z])[а-яґєіїА-ЯҐЄІЇa-zA-Z- ]*([а-яґєіїА-ЯҐЄІЇa-zA-Z])$';
         Boolean matches = Pattern.compile(regex).matcher(lastName.trim()).matches()
                         && Pattern.compile(regex).matcher(firstName.trim()).matches()
-                        && (!String.isEmpty(middleName) 
-                        ? Pattern.compile(regex).matcher(middleName.trim()).matches() 
-                        : true);
+                        && (!String.isEmpty(middleName) ? Pattern.compile(regex).matcher(middleName.trim()).matches() : true);
         return matches;
     }
 
@@ -15,12 +13,8 @@ public class Utils {
         String firstMiddleNameAbbr = firstName.substring(0, 1).toUpperCase() + '. ';
         Boolean hasMiddleName = !String.isEmpty(middleName);
         Integer maxLastNameLength;
-        if (hasMiddleName) {
-            maxLastNameLength = MAX_NAME_LENGTH - 6;
-            firstMiddleNameAbbr += middleName.substring(0, 1).toUpperCase() + '.';
-        } else {
-            maxLastNameLength = MAX_NAME_LENGTH - 3;
-        }
+        maxLastNameLength = hasMiddleName ? MAX_NAME_LENGTH - 6 : MAX_NAME_LENGTH - 3;
+        firstMiddleNameAbbr += hasMiddleName ? middleName.substring(0, 1).toUpperCase() + '.' : '';
         String lastNameAbbr = lastName.toLowerCase().capitalize().abbreviate(maxLastNameLength);
         return (lastNameAbbr + ' ' + firstMiddleNameAbbr).trim();
     }

@@ -1,13 +1,9 @@
 public class TriggerDispatcher {
     public static void run(ITriggerHandler handler, String triggerName) {
-        if (handler.isDisabled()) {
-            return;
-        }
+        if (handler.isDisabled()) return;
 
         Boolean isActive = TriggerSetting__mdt.getInstance(triggerName)?.isActive__c;
-        if (isActive == null) {
-            isActive = false;
-        }
+        isActive = isActive != null ? isActive : false;
         if (isActive) {
             System.debug(triggerName + '::' + Trigger.operationType);
             switch on Trigger.operationType {
