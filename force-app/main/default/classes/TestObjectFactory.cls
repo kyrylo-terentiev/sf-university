@@ -23,7 +23,9 @@ public class TestObjectFactory {
     public static Professor__c createProfessor(Account acc) {
         Professor__c prof = new Professor__c(
             Name = acc.Name,
-            Account__c = acc.Id
+            Account__c = acc.Id,
+            Degree__c = 'Bachelor',
+            Position__c = 'Professor'
         );
         return prof;
     }
@@ -40,7 +42,9 @@ public class TestObjectFactory {
         Student__c stud = new Student__c(
             Name = 'TestName',
             StudentID__c = studentId,
-            Account__c = acc.Id
+            Account__c = acc.Id,
+            Degree__c = 'Bachelor',
+            FormOfStudy__c = 'Full-Time'
         );
         return stud;
     }
