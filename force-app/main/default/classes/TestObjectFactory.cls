@@ -7,7 +7,8 @@ public class TestObjectFactory {
             FirstName__c = 'TestFirstName',
             LastName__c = 'TestLastName',
             MiddleName__c = 'TestMiddleName',
-            DateOfBirth__c = Date.newInstance(1999, 1, 1)
+            DateOfBirth__c = Date.newInstance(1999, 1, 1),
+            IsActive__c = true
         );
         return acc;
     }
@@ -25,7 +26,8 @@ public class TestObjectFactory {
             Name = acc.Name,
             Account__c = acc.Id,
             Degree__c = 'Bachelor',
-            Position__c = 'Professor'
+            Position__c = 'Professor',
+            IsActive__c = true
         );
         return prof;
     }
@@ -44,7 +46,8 @@ public class TestObjectFactory {
             StudentID__c = studentId,
             Account__c = acc.Id,
             Degree__c = 'Bachelor',
-            FormOfStudy__c = 'Full-Time'
+            FormOfStudy__c = 'Full-Time',
+            IsActive__c = true
         );
         return stud;
     }
@@ -62,7 +65,8 @@ public class TestObjectFactory {
     public static StudentGroup__c createStudentGroup(Student__c head) {
         StudentGroup__c studGroup = new StudentGroup__c(
             Name = 'TestStudentGroup',
-            HeadOfGroup__c = head.Id
+            HeadOfGroup__c = head.Id,
+            IsActive__c = true
         );
         return studGroup;
     }
@@ -72,7 +76,8 @@ public class TestObjectFactory {
         for (Student__c stud : studList) {
             StudentGroupMember__c member = new StudentGroupMember__c(
                 Group__c = studGroup.Id,
-                Student__c = stud.Id
+                Student__c = stud.Id,
+                IsActive__c = true
             );
             memberList.add(member);
         }
