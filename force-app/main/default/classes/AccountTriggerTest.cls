@@ -62,11 +62,6 @@ private class AccountTriggerTest {
     }
 
     @isTest
-    static void testDelete() {
-
-    }
-
-    @isTest
     static void testUpdateChildren() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Professor__c prof = TestObjectFactory.createProfessor(acc);
