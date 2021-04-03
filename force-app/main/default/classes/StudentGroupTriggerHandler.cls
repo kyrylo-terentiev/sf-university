@@ -7,12 +7,16 @@ public class StudentGroupTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
+        StudentGroupTriggerHelper.validateHeadOfGroup((List<StudentGroup__c>) newList);
+        StudentGroupTriggerHelper.validateGroupCourator((List<StudentGroup__c>) newList);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        StudentGroupTriggerHelper.validateHeadOfGroup((List<StudentGroup__c>) newList);
+        StudentGroupTriggerHelper.validateGroupCourator((List<StudentGroup__c>) newList);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {

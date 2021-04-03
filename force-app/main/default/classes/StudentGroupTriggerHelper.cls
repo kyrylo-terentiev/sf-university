@@ -1,5 +1,37 @@
 public with sharing class StudentGroupTriggerHelper {
     
+    public static void validateHeadOfGroup(List<StudentGroup__c> newList) {
+        Map<Id, Id> groupToHeadMap = new Map<Id, Id>();
+        Map<Id, StudentGroup__c> groupMap = new Map<Id, StudentGroup__c>();
+        for (StudentGroup__c studGroup : newList) {
+            if (studGroup.Id != null) {
+                groupMap.put(studGroup.Id, studGroup);
+                groupToHeadMap.put(studGroup.Id, studGroup.HeadOfGroup__c);
+            } else {
+                studGroup.HeadOfGroup__c.addError(System.Label.InactiveHeadOfGroup);
+            }
+        }
+        Map<Id, StudentGroupMember__c> studToMemberMap = new Map<Id, StudentGroupMember__c>();
+        for (StudentGroupMember__c groupMember : [SELECT Group__c, Student__c, IsActive__c
+                                                  FROM StudentGroupMember__c
+                                                  WHERE Group__c IN: groupToHeadMap.keySet()])
+        {
+            studToMemberMap.put(groupMember.Student__c, groupMember);
+        }
+        for (Id groupId : groupMap.keySet()) {
+            if (groupToHeadMap.get(groupId) != null) {
+                StudentGroupMember__c headOfGroup = studToMemberMap.get(groupToHeadMap.get(groupId));
+                if (headOfGroup != null && !headOfGroup.IsActive__c) {
+                    groupMap.get(groupId).HeadOfGroup__c.addError(System.Label.InactiveHeadOfGroup);
+                }
+            }
+        }
+    }
+
+    public static void validateGroupCourator(List<StudentGroup__c> newList) {
+
+    }
+
     public static void updateChildren(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
         List<sObject> childrenToUpdate = new List<sObject>();
         childrenToUpdate.addAll(getUpdatedGroupMembers(newMap, oldMap));
