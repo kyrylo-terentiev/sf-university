@@ -82,4 +82,41 @@ public with sharing class DepartmentProfessorTriggerHelper {
             }
         }
     }
+
+    public static void updateChildren(Map<Id, DepartmentProfessor__c> newMap, Map<Id, DepartmentProfessor__c> oldMap) {
+        List<sObject> childrenToUpdate = new List<sObject>();
+        childrenToUpdate.addAll(getUpdatedDepartmentCourseProfessors(newMap, oldMap));
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
+        }
+    }
+
+    public static List<DepartmentCourseProfessor__c> getUpdatedDepartmentCourseProfessors(Map<Id, DepartmentProfessor__c> newMap, Map<Id, DepartmentProfessor__c> oldMap) {
+        List<DepartmentCourseProfessor__c> depCourseProfsToUpdate = new List<DepartmentCourseProfessor__c>();
+        Map<Id, List<DepartmentCourseProfessor__c>> depProfToDepCourseProfsMap = new Map<Id, List<DepartmentCourseProfessor__c>>();
+        for (DepartmentCourseProfessor__c depCourseProf : [SELECT DepartmentProfessor__c, IsActive__c 
+                                                  FROM DepartmentCourseProfessor__c 
+                                                  WHERE DepartmentProfessor__c IN :newMap.keySet()])
+        {
+            if (depProfToDepCourseProfsMap.get(depCourseProf.DepartmentProfessor__c) == null) {
+                depProfToDepCourseProfsMap.put(depCourseProf.DepartmentProfessor__c, new List<DepartmentCourseProfessor__c>());
+            }
+            depProfToDepCourseProfsMap.get(depCourseProf.DepartmentProfessor__c).add(depCourseProf);
+        }
+        for (Id depProfId : depProfToDepCourseProfsMap.keySet()) {
+            DepartmentProfessor__c newDepProf = newMap.get(depProfId);
+            DepartmentProfessor__c oldDepProf = oldMap.get(depProfId);
+            Boolean isInactivated = !newDepProf.IsActive__c && oldDepProf.IsActive__c;
+            if (isInactivated) {
+                for (DepartmentCourseProfessor__c depCourseProf : depProfToDepCourseProfsMap.get(depProfId)) {
+                    if (depCourseProf.IsActive__c) {
+                        depCourseProf.IsActive__c = false;
+                        depCourseProfsToUpdate.add(depCourseProf);
+                    }
+                }
+            }
+        }
+
+        return depCourseProfsToUpdate;
+    }
 }

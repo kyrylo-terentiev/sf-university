@@ -24,6 +24,7 @@ public class DepartmentProfessorTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        DepartmentProfessorTriggerHelper.updateChildren((Map<Id, DepartmentProfessor__c>) newMap, (Map<Id, DepartmentProfessor__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
