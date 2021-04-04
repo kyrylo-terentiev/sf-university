@@ -42,4 +42,41 @@ public with sharing class ProfessorTriggerHelper {
             }
         }
     }
+
+    public static void updateChildren(Map<Id, Professor__c> newMap, Map<Id, Professor__c> oldMap) {
+        List<sObject> childrenToUpdate = new List<sObject>();
+        childrenToUpdate.addAll(getUpdatedDepartmentProfessors(newMap, oldMap));
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
+        }
+    }
+
+    public static List<DepartmentProfessor__c> getUpdatedDepartmentProfessors(Map<Id, Professor__c> newMap, Map<Id, Professor__c> oldMap) {
+        List<DepartmentProfessor__c> depProfsToUpdate = new List<DepartmentProfessor__c>();
+        Map<Id, List<DepartmentProfessor__c>> profToDepProfsMap = new Map<Id, List<DepartmentProfessor__c>>();
+        for (DepartmentProfessor__c depProf : [SELECT Professor__c, IsActive__c 
+                                                  FROM DepartmentProfessor__c 
+                                                  WHERE Professor__c IN :newMap.keySet()])
+        {
+            if (profToDepProfsMap.get(depProf.Professor__c) == null) {
+                profToDepProfsMap.put(depProf.Professor__c, new List<DepartmentProfessor__c>());
+            }
+            profToDepProfsMap.get(depProf.Professor__c).add(depProf);
+        }
+        for (Id profId : profToDepProfsMap.keySet()) {
+            Professor__c newProf = newMap.get(profId);
+            Professor__c oldProf = oldMap.get(profId);
+            Boolean isNameChanged = newProf.Name != oldProf.Name;
+            Boolean isInactivated = !newProf.IsActive__c && oldProf.IsActive__c;
+            if (isNameChanged || isInactivated) {
+                for (DepartmentProfessor__c depProf : profToDepProfsMap.get(profId)) {
+                    if (isNameChanged) depProf.Name = newProf.Name;
+                    if (isInactivated) depProf.IsActive__c = newProf.IsActive__c;
+                    depProfsToUpdate.add(depProf);
+                }
+            }
+        }
+
+        return depProfsToUpdate;
+    }
 }
