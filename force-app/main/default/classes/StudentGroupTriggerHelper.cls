@@ -35,6 +35,7 @@ public with sharing class StudentGroupTriggerHelper {
     public static void updateChildren(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
         List<sObject> childrenToUpdate = new List<sObject>();
         childrenToUpdate.addAll(getUpdatedGroupMembers(newMap, oldMap));
+        childrenToUpdate.addAll(getUpdatedDepartmentCourseGroups(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;
         }
@@ -67,5 +68,34 @@ public with sharing class StudentGroupTriggerHelper {
         }
 
         return groupMembersToUpdate;
+    }
+
+    public static List<DepartmentCourseGroup__c> getUpdatedDepartmentCourseGroups(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
+        List<DepartmentCourseGroup__c> depCourseGroupsToUpdate = new List<DepartmentCourseGroup__c>();
+        Map<Id, List<DepartmentCourseGroup__c>> groupToDepCourseGroupsMap = new Map<Id, List<DepartmentCourseGroup__c>>();
+        for (DepartmentCourseGroup__c depCourseGroup : [SELECT StudentGroup__c, IsActive__c 
+                                                  FROM DepartmentCourseGroup__c 
+                                                  WHERE StudentGroup__c IN :newMap.keySet()])
+        {
+            if (groupToDepCourseGroupsMap.get(depCourseGroup.StudentGroup__c) == null) {
+                groupToDepCourseGroupsMap.put(depCourseGroup.StudentGroup__c, new List<DepartmentCourseGroup__c>());
+            }
+            groupToDepCourseGroupsMap.get(depCourseGroup.StudentGroup__c).add(depCourseGroup);
+        }
+        for (Id groupId : groupToDepCourseGroupsMap.keySet()) {
+            StudentGroup__c newGroup = newMap.get(groupId);
+            StudentGroup__c oldGroup = oldMap.get(groupId);
+            Boolean isNameChanged = newGroup.Name != oldGroup.Name;
+            Boolean isInactivated = !newGroup.IsActive__c && oldGroup.IsActive__c;
+            if (isNameChanged || isInactivated) {
+                for (DepartmentCourseGroup__c depCourseGroup : groupToDepCourseGroupsMap.get(groupId)) {
+                    if (isNameChanged) depCourseGroup.Name = newGroup.Name;
+                    if (isInactivated) depCourseGroup.IsActive__c = newGroup.IsActive__c;
+                    depCourseGroupsToUpdate.add(depCourseGroup);
+                }
+            }
+        }
+
+        return depCourseGroupsToUpdate;
     }
 }
