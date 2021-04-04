@@ -48,7 +48,7 @@ public with sharing class DepartmentProfessorTriggerHelper {
         for (DepartmentProfessor__c depProf : newList) {
             Boolean isActiveProf = profMap.get(depProf.Professor__c).IsActive__c;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depProf.Id);
-            Boolean isInactivation = isUpdate && !depProf.IsActive__c && oldMap.get(depProf.Id).IsActive__c;
+            Boolean isInactivation = isUpdate && !depProf.IsActive__c;
             if (!isActiveProf && !isInactivation) {
                 depProf.addError(System.Label.InactiveProfessor);
             }
