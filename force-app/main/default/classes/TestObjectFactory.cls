@@ -65,10 +65,9 @@ public class TestObjectFactory {
         return studentList;
     }
 
-    public static StudentGroup__c createStudentGroup(Student__c head) {
+    public static StudentGroup__c createStudentGroup() {
         StudentGroup__c studGroup = new StudentGroup__c(
             Name = 'TestStudentGroup',
-            HeadOfGroup__c = head.Id,
             IsActive__c = true
         );
         return studGroup;

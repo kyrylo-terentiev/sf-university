@@ -12,7 +12,7 @@ private class StudentGroupTriggerTest {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Student__c head = TestObjectFactory.createStudent(acc);
         insert head;
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(head);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         Boolean isThrown = false;
         try {
             insert studGroup;
@@ -27,7 +27,7 @@ private class StudentGroupTriggerTest {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Student__c stud = TestObjectFactory.createStudent(acc);
         insert stud;
-        StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup();
         insert groupBefore;
         List<StudentGroupMember__c> membersBefore = TestObjectFactory.createStudentGroupMembers(groupBefore, new List<Student__c>{stud});
         insert membersBefore;
@@ -55,7 +55,7 @@ private class StudentGroupTriggerTest {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Student__c head = TestObjectFactory.createStudent(acc);
         insert head;
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(head);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         insert studGroup;
         delete studGroup;
         Boolean isThrown = false;

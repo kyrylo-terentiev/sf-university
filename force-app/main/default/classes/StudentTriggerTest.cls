@@ -58,7 +58,7 @@ private class StudentTriggerTest {
         Account acc = TestObjectFactory.getTestAccounts()[0];
         Student__c studBefore = TestObjectFactory.createStudent(acc);
         insert studBefore;
-        StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup(studBefore);
+        StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup();
         insert groupBefore;
         List<StudentGroupMember__c> membersBefore = TestObjectFactory.createStudentGroupMembers(groupBefore, new List<Student__c>{studBefore});
         insert membersBefore;
@@ -94,5 +94,25 @@ private class StudentTriggerTest {
             isThrown = true;
         }
         System.assert(!isThrown, 'Exception not expected');
+    }
+
+    @isTest
+    static void testInactivateChildren() {
+        Account acc = TestObjectFactory.getTestAccounts()[0];
+        Student__c stud = TestObjectFactory.createStudent(acc);
+        insert stud;
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
+        insert studGroup;
+        List<StudentGroupMember__c> groupMembers = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
+        insert groupMembers;
+        studGroup.IsActive__c = false;
+        Test.startTest();
+        update studGroup;
+        Test.stopTest();
+        StudentGroup__c studGroupAfter = [SELECT IsActive__c FROM StudentGroup__c WHERE Id = :studGroup.Id];
+        List<StudentGroupMember__c> groupMembersAfter = [SELECT IsActive__c FROM StudentGroupMember__c WHERE Group__c = :studGroup.Id];
+        for (StudentGroupMember__c memberAfter : groupMembersAfter) {
+            System.assertEquals(memberAfter.IsActive__c, studGroupAfter.IsActive__c, 'Group Members should be deactivated with the Group');
+        }
     }
 }
