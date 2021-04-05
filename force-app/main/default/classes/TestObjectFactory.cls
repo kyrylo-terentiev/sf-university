@@ -94,6 +94,15 @@ public class TestObjectFactory {
         return fac;
     }
 
+    public static Course__c createCourse(Faculty__c fac) {
+        Course__c course = new Course__c(
+            Name = 'TestCourse',
+            Faculty__c = fac.Id,
+            IsActive__c = true
+        );
+        return course;
+    }
+
     public static Department__c createDepartment(Faculty__c fac, Professor__c head) {
         Department__c dep = new Department__c(
             Name = 'TestDepartment',
@@ -101,6 +110,25 @@ public class TestObjectFactory {
             HeadOfDepartment__c = head.Id
         );
         return dep;
+    }
+
+    public static DepartmentCourse__c createDepartmentCourse(Department__c dep, Course__c course) {
+        DepartmentCourse__c depCourse = new DepartmentCourse__c(
+            Name = 'TestDepartmentCourse',
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            IsActive__c = true
+        );
+        return depCourse;
+    }
+
+    public static DepartmentCourseGroup__c createDepartmentCourseGroup(DepartmentCourse__c depCourse, StudentGroup__c studGroup) {
+        DepartmentCourseGroup__c depCourseGroup = new DepartmentCourseGroup__c(
+            DepartmentCourse__c = depCourse.Id,
+            StudentGroup__c = studGroup.Id,
+            IsActive__c = true
+        );
+        return depCourseGroup;
     }
 
     public static DepartmentProfessor__c createDepartmentProfessor(Department__c dep, Professor__c prof) {
