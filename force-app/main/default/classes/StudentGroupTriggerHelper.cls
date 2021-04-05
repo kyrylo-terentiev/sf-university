@@ -21,7 +21,7 @@ public with sharing class StudentGroupTriggerHelper {
         for (Id groupId : groupMap.keySet()) {
             if (groupToHeadMap.get(groupId) != null) {
                 StudentGroupMember__c headOfGroup = studToMemberMap.get(groupToHeadMap.get(groupId));
-                if (headOfGroup != null && !headOfGroup.IsActive__c) {
+                if ((headOfGroup != null && !headOfGroup.IsActive__c) || (headOfGroup == null && groupMap.get(groupId).HeadOfGroup__c != null)) {
                     groupMap.get(groupId).HeadOfGroup__c.addError(System.Label.InactiveHeadOfGroup);
                 }
             }
