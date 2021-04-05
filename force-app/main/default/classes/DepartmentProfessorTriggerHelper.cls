@@ -95,8 +95,8 @@ public with sharing class DepartmentProfessorTriggerHelper {
         List<DepartmentCourseProfessor__c> depCourseProfsToUpdate = new List<DepartmentCourseProfessor__c>();
         Map<Id, List<DepartmentCourseProfessor__c>> depProfToDepCourseProfsMap = new Map<Id, List<DepartmentCourseProfessor__c>>();
         for (DepartmentCourseProfessor__c depCourseProf : [SELECT DepartmentProfessor__c, IsActive__c 
-                                                  FROM DepartmentCourseProfessor__c 
-                                                  WHERE DepartmentProfessor__c IN :newMap.keySet()])
+                                                           FROM DepartmentCourseProfessor__c 
+                                                           WHERE DepartmentProfessor__c IN :newMap.keySet()])
         {
             if (depProfToDepCourseProfsMap.get(depCourseProf.DepartmentProfessor__c) == null) {
                 depProfToDepCourseProfsMap.put(depCourseProf.DepartmentProfessor__c, new List<DepartmentCourseProfessor__c>());
