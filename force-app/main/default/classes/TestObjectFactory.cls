@@ -104,6 +104,15 @@ public class TestObjectFactory {
         return dep;
     }
 
+    public static DepartmentProfessor__c createDepartmentProfessor(Department__c dep, Professor__c prof) {
+        DepartmentProfessor__c depProf = new DepartmentProfessor__c(
+            Name = 'TestDepartmentProfessor',
+            Department__c = dep.Id,
+            Professor__c = prof.Id
+        );
+        return depProf;
+    }
+
     public static List<Account> getTestAccounts() {
         return [
             SELECT Id
