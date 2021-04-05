@@ -7,7 +7,7 @@ public with sharing class StudentGroupTriggerHelper {
             if (studGroup.Id != null) {
                 groupMap.put(studGroup.Id, studGroup);
                 groupToHeadMap.put(studGroup.Id, studGroup.HeadOfGroup__c);
-            } else {
+            } else if (studGroup.HeadOfGroup__c != null) {
                 studGroup.HeadOfGroup__c.addError(System.Label.InactiveHeadOfGroup);
             }
         }
