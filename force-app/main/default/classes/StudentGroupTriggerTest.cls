@@ -8,14 +8,27 @@ private class StudentGroupTriggerTest {
     }
 
     @isTest 
-    static void testInsertSuccess() {
+    static void testInsertUpdateSuccess() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        Student__c stud = TestObjectFactory.createStudent(acc);
-        insert stud;
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
+        Student__c head = TestObjectFactory.createStudent(acc);
+        insert head;
+        Professor__c courator = TestObjectFactory.createProfessor(acc);
+        insert courator;
+        Faculty__c fac = TestObjectFactory.createFaculty(courator);
+        insert fac;
+        Department__c dep = TestObjectFactory.createDepartment(fac, courator);
+        insert dep;
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(dep);
+        insert studGroup;
+        List<StudentGroupMember__c> groupMembers = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{head});
+        insert groupMembers;
+        studGroup.HeadOfGroup__c = head.Id;
+        DepartmentProfessor__c depProf = TestObjectFactory.createDepartmentProfessor(dep, courator);
+        insert depProf; 
+        studGroup.GroupCourator__c = courator.Id;
         Boolean isThrown = false;
         try {
-            insert studGroup;
+            update studGroup;
         } catch (Exception e) {
             isThrown = true;
         }
@@ -66,6 +79,30 @@ private class StudentGroupTriggerTest {
         groupMembers[0].IsActive__c = false;
         insert groupMembers[0];
         studGroup.HeadOfGroup__c = head.Id;
+        Boolean isThrown = false;
+        try {
+            update studGroup;
+        } catch (Exception e) {
+            isThrown = true;
+        }
+        System.assert(isThrown, 'Exception expected');
+    }
+
+    @isTest 
+    static void testInsertInactiveCourator() {
+        Account acc = TestObjectFactory.getTestAccounts()[0];
+        Professor__c prof = TestObjectFactory.createProfessor(acc);
+        insert prof;
+        Faculty__c fac = TestObjectFactory.createFaculty(prof);
+        insert fac;
+        Department__c dep = TestObjectFactory.createDepartment(fac, prof);
+        insert dep;
+        DepartmentProfessor__c depProf = TestObjectFactory.createDepartmentProfessor(dep, prof);
+        depProf.IsActive__c = false;
+        insert depProf; 
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
+        insert studGroup;
+        studGroup.GroupCourator__c = prof.Id;
         Boolean isThrown = false;
         try {
             update studGroup;

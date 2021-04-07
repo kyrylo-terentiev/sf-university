@@ -73,6 +73,12 @@ public class TestObjectFactory {
         return studGroup;
     }
 
+    public static StudentGroup__c createStudentGroup(Department__c dep) {
+        StudentGroup__c studGroup = createStudentGroup();
+        studGroup.Department__c = dep.Id;
+        return studGroup;
+    }
+
     public static List<StudentGroupMember__c> createStudentGroupMembers(StudentGroup__c studGroup, List<Student__c> studList) {
         List<StudentGroupMember__c> memberList = new List<StudentGroupMember__c>();
         for (Student__c stud : studList) {
