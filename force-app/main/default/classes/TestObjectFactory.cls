@@ -89,7 +89,8 @@ public class TestObjectFactory {
     public static Faculty__c createFaculty(Professor__c dean) {
         Faculty__c fac = new Faculty__c(
             Name = 'TestFaculty',
-            Dean__c = dean.Id
+            Dean__c = dean.Id,
+            IsActive__c = true
         );
         return fac;
     }
@@ -107,7 +108,8 @@ public class TestObjectFactory {
         Department__c dep = new Department__c(
             Name = 'TestDepartment',
             Faculty__c = fac.Id,
-            HeadOfDepartment__c = head.Id
+            HeadOfDepartment__c = head.Id,
+            IsActive__c = true
         );
         return dep;
     }
@@ -140,6 +142,16 @@ public class TestObjectFactory {
         return depProf;
     }
 
+    public static DepartmentCourseProfessor__c createDepartmentCourseProfessor(DepartmentCourse__c depCourse, DepartmentProfessor__c depProf) {
+        DepartmentCourseProfessor__c depCourseProf = new DepartmentCourseProfessor__c(
+            Department__c = depCourse.Department__c,
+            DepartmentCourse__c = depCourse.Id,
+            DepartmentProfessor__c = depProf.Id,
+            IsActive__c = true
+        );
+        return depCourseProf;
+    }
+
     public static List<Account> getTestAccounts() {
         return [
             SELECT Id
@@ -150,6 +162,7 @@ public class TestObjectFactory {
                 , DateOfBirth__c
                 , FullName__c
                 , User__c
+                , IsActive__c
             FROM Account
         ];
     }
