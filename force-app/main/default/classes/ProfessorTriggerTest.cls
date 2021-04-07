@@ -63,4 +63,46 @@ private class ProfessorTriggerTest {
         }
         System.assert(!isThrown, 'Exception not expected');
     }
+
+    @isTest
+    static void testUpdateChildrenNames() {
+        Account acc = TestObjectFactory.getTestAccounts()[0];
+        Professor__c prof = TestObjectFactory.createProfessor(acc);
+        insert prof;
+        Faculty__c fac = TestObjectFactory.createFaculty(prof);
+        insert fac;
+        Department__c dep = TestObjectFactory.createDepartment(fac, prof);
+        insert dep;
+        DepartmentProfessor__c depProf = TestObjectFactory.createDepartmentProfessor(dep, prof);
+        insert depProf;
+        acc.FirstName__c = 'NewTestFirstName';
+        Test.startTest();
+        update acc;
+        Test.stopTest();
+        Account accAfter = [SELECT Name FROM Account WHERE Id = :acc.Id];
+        Professor__c profAfter = [SELECT Name FROM Professor__c WHERE Id = :prof.Id];
+        DepartmentProfessor__c depProfAfter = [SELECT Name FROM DepartmentProfessor__c WHERE Id = :depProf.Id];
+        System.assertEquals(accAfter.Name, profAfter.Name, 'Updated Professor name should equal to Account name');
+        System.assertEquals(profAfter.Name, depProfAfter.Name, 'Updated Department Professor name should equal to Professor name');
+    }
+
+    @isTest
+    static void testInactivateChildren() {
+        Account acc = TestObjectFactory.getTestAccounts()[0];
+        Professor__c prof = TestObjectFactory.createProfessor(acc);
+        insert prof;
+        Faculty__c fac = TestObjectFactory.createFaculty(prof);
+        insert fac;
+        Department__c dep = TestObjectFactory.createDepartment(fac, prof);
+        insert dep;
+        DepartmentProfessor__c depProf = TestObjectFactory.createDepartmentProfessor(dep, prof);
+        insert depProf;
+        prof.IsActive__c = false;
+        Test.startTest();
+        update prof;
+        Test.stopTest();
+        Professor__c profAfter = [SELECT IsActive__c FROM Professor__c WHERE Id = :prof.Id];
+        DepartmentProfessor__c depProfAfter = [SELECT IsActive__c FROM DepartmentProfessor__c WHERE Id = :depProf.Id];
+        System.assertEquals(profAfter.IsActive__c, depProfAfter.IsActive__c, 'Department Professor should be deactivated with the Professor');
+    }
 }

@@ -67,4 +67,41 @@ public with sharing class StudentGroupMemberTriggerHelper {
             }
         }
     }
+
+    public static void updateChildren(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
+        List<sObject> childrenToUpdate = new List<sObject>();
+        childrenToUpdate.addAll(getUpdatedGroups(newMap, oldMap));
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
+        }
+    }
+
+    public static List<StudentGroup__c> getUpdatedGroups(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
+        Map<Id, StudentGroupMember__c> studToGroupMemberMap = new Map<Id, StudentGroupMember__c>();
+        for (StudentGroupMember__c groupMember : newMap.values()) {
+            studToGroupMemberMap.put(groupMember.Student__c, groupMember);
+        }
+        List<StudentGroup__c> groupsToUpdate = new List<StudentGroup__c>();
+        Map<Id, List<StudentGroup__c>> studToGroupsMap = new Map<Id, List<StudentGroup__c>>();
+        for (StudentGroup__c studGroup : [SELECT HeadOfGroup__c, IsActive__c 
+                                          FROM StudentGroup__c 
+                                          WHERE HeadOfGroup__c IN :studToGroupMemberMap.keySet()])
+        {
+            if (studToGroupsMap.get(studGroup.HeadOfGroup__c) == null) {
+                studToGroupsMap.put(studGroup.HeadOfGroup__c, new List<StudentGroup__c>());
+            }
+            studToGroupsMap.get(studGroup.HeadOfGroup__c).add(studGroup);
+        }
+        for (Id studId : studToGroupsMap.keySet()) {
+            StudentGroupMember__c newMember = studToGroupMemberMap.get(studId);
+            if (!newMember.IsActive__c) {
+                for (StudentGroup__c studGroup : studToGroupsMap.get(studId)) {
+                    studGroup.HeadOfGroup__c = null;
+                    groupsToUpdate.add(studGroup);
+                }
+            }
+        }
+
+        return groupsToUpdate;
+    }
 }

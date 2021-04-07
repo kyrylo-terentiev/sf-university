@@ -1,4 +1,4 @@
-public class StudentGroupTriggerHandler implements ITriggerHandler {
+public class CourseTriggerHandler implements ITriggerHandler {
 
     public static Boolean triggerDisabled = false;
 
@@ -7,26 +7,24 @@ public class StudentGroupTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
-        StudentGroupTriggerHelper.validateHeadOfGroup((List<StudentGroup__c>) newList);
-        StudentGroupTriggerHelper.validateGroupCourator((List<StudentGroup__c>) newList);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        StudentGroupTriggerHelper.validateHeadOfGroup((List<StudentGroup__c>) newList);
-        StudentGroupTriggerHelper.validateGroupCourator((List<StudentGroup__c>) newList);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        StudentGroupTriggerHelper.updateChildren((Map<Id, StudentGroup__c>) newMap, (Map<Id, StudentGroup__c>) oldMap);
+        CourseTriggerHelper.updateChildren((Map<Id, Course__c>) newMap, (Map<Id, Course__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+
     }
 
     public void afterDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {

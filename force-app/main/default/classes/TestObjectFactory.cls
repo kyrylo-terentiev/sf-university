@@ -65,10 +65,9 @@ public class TestObjectFactory {
         return studentList;
     }
 
-    public static StudentGroup__c createStudentGroup(Student__c head) {
+    public static StudentGroup__c createStudentGroup() {
         StudentGroup__c studGroup = new StudentGroup__c(
             Name = 'TestStudentGroup',
-            HeadOfGroup__c = head.Id,
             IsActive__c = true
         );
         return studGroup;
@@ -90,18 +89,67 @@ public class TestObjectFactory {
     public static Faculty__c createFaculty(Professor__c dean) {
         Faculty__c fac = new Faculty__c(
             Name = 'TestFaculty',
-            Dean__c = dean.Id
+            Dean__c = dean.Id,
+            IsActive__c = true
         );
         return fac;
+    }
+
+    public static Course__c createCourse(Faculty__c fac) {
+        Course__c course = new Course__c(
+            Name = 'TestCourse',
+            Faculty__c = fac.Id,
+            IsActive__c = true
+        );
+        return course;
     }
 
     public static Department__c createDepartment(Faculty__c fac, Professor__c head) {
         Department__c dep = new Department__c(
             Name = 'TestDepartment',
             Faculty__c = fac.Id,
-            HeadOfDepartment__c = head.Id
+            HeadOfDepartment__c = head.Id,
+            IsActive__c = true
         );
         return dep;
+    }
+
+    public static DepartmentCourse__c createDepartmentCourse(Department__c dep, Course__c course) {
+        DepartmentCourse__c depCourse = new DepartmentCourse__c(
+            Name = 'TestDepartmentCourse',
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            IsActive__c = true
+        );
+        return depCourse;
+    }
+
+    public static DepartmentCourseGroup__c createDepartmentCourseGroup(DepartmentCourse__c depCourse, StudentGroup__c studGroup) {
+        DepartmentCourseGroup__c depCourseGroup = new DepartmentCourseGroup__c(
+            DepartmentCourse__c = depCourse.Id,
+            StudentGroup__c = studGroup.Id,
+            IsActive__c = true
+        );
+        return depCourseGroup;
+    }
+
+    public static DepartmentProfessor__c createDepartmentProfessor(Department__c dep, Professor__c prof) {
+        DepartmentProfessor__c depProf = new DepartmentProfessor__c(
+            Name = 'TestDepartmentProfessor',
+            Department__c = dep.Id,
+            Professor__c = prof.Id
+        );
+        return depProf;
+    }
+
+    public static DepartmentCourseProfessor__c createDepartmentCourseProfessor(DepartmentCourse__c depCourse, DepartmentProfessor__c depProf) {
+        DepartmentCourseProfessor__c depCourseProf = new DepartmentCourseProfessor__c(
+            Department__c = depCourse.Department__c,
+            DepartmentCourse__c = depCourse.Id,
+            DepartmentProfessor__c = depProf.Id,
+            IsActive__c = true
+        );
+        return depCourseProf;
     }
 
     public static List<Account> getTestAccounts() {
@@ -114,6 +162,7 @@ public class TestObjectFactory {
                 , DateOfBirth__c
                 , FullName__c
                 , User__c
+                , IsActive__c
             FROM Account
         ];
     }

@@ -11,7 +11,7 @@ private class StudentGroupMemberTriggerTest {
     @isTest 
     static void testInsertSuccess() {
         Student__c stud = getTestStudent();
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         insert studGroup;
         List<StudentGroupMember__c> members = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
         Boolean isThrown = false;
@@ -28,7 +28,7 @@ private class StudentGroupMemberTriggerTest {
         Student__c stud = getTestStudent();
         stud.IsActive__c = false;
         update stud;
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         insert studGroup;
         List<StudentGroupMember__c> members = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
         Boolean isThrown = false;
@@ -43,7 +43,7 @@ private class StudentGroupMemberTriggerTest {
     @isTest 
     static void testInsertInactiveStudentFailure() {
         Student__c stud = getTestStudent();
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         studGroup.IsActive__c = false;
         insert studGroup;
         List<StudentGroupMember__c> members = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
@@ -59,7 +59,7 @@ private class StudentGroupMemberTriggerTest {
     @isTest 
     static void testInsertDuplicateFailure() {
         Student__c stud = getTestStudent();
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         insert studGroup;
         List<StudentGroupMember__c> members = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
         insert members;
@@ -76,7 +76,7 @@ private class StudentGroupMemberTriggerTest {
     @isTest 
     static void testUpdateInactivate() {
         Student__c stud = getTestStudent();
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         insert studGroup;
         List<StudentGroupMember__c> members = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
         insert members;
@@ -95,7 +95,7 @@ private class StudentGroupMemberTriggerTest {
     @isTest 
     static void testUndeleteSuccess() {
         Student__c stud = getTestStudent();
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(stud);
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
         insert studGroup;
         List<StudentGroupMember__c> members = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
         insert members;

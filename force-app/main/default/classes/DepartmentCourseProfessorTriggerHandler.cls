@@ -1,4 +1,4 @@
-public class StudentGroupTriggerHandler implements ITriggerHandler {
+public class DepartmentCourseProfessorTriggerHandler implements ITriggerHandler {
 
     public static Boolean triggerDisabled = false;
 
@@ -7,20 +7,19 @@ public class StudentGroupTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
-        StudentGroupTriggerHelper.validateHeadOfGroup((List<StudentGroup__c>) newList);
-        StudentGroupTriggerHelper.validateGroupCourator((List<StudentGroup__c>) newList);
+        DepartmentCourseProfessorTriggerHelper.validateDepartmentCourse((List<DepartmentCourseProfessor__c>) newList, null);
+        DepartmentCourseProfessorTriggerHelper.validateDepartmentProfessor((List<DepartmentCourseProfessor__c>) newList, null);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        StudentGroupTriggerHelper.validateHeadOfGroup((List<StudentGroup__c>) newList);
-        StudentGroupTriggerHelper.validateGroupCourator((List<StudentGroup__c>) newList);
+        DepartmentCourseProfessorTriggerHelper.validateDepartmentCourse((List<DepartmentCourseProfessor__c>) newList, (Map<Id, DepartmentCourseProfessor__c>) oldMap);
+        DepartmentCourseProfessorTriggerHelper.validateDepartmentProfessor((List<DepartmentCourseProfessor__c>) newList, (Map<Id, DepartmentCourseProfessor__c>) oldMap);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        StudentGroupTriggerHelper.updateChildren((Map<Id, StudentGroup__c>) newMap, (Map<Id, StudentGroup__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
