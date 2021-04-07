@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Dean</fullName>
+        <default>false</default>
+        <label>Декан</label>
+    </customValue>
+    <customValue>
+        <fullName>Head of Department</fullName>
+        <default>false</default>
+        <label>Завідувач кафедрою</label>
+    </customValue>
+    <customValue>
+        <fullName>Docent</fullName>
+        <default>false</default>
+        <label>Доцент</label>
+    </customValue>
+    <customValue>
+        <fullName>Professor</fullName>
+        <default>false</default>
+        <label>Професор</label>
+    </customValue>
+    <customValue>
+        <fullName>Senior Lecturer</fullName>
+        <default>false</default>
+        <label>Старший викладач</label>
+    </customValue>
+    <customValue>
+        <fullName>Lecturer</fullName>
+        <default>false</default>
+        <label>Викладач</label>
+    </customValue>
+    <customValue>
+        <fullName>Associate</fullName>
+        <default>false</default>
+        <label>Асистент</label>
+    </customValue>
+    <masterLabel>Professor Positions</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

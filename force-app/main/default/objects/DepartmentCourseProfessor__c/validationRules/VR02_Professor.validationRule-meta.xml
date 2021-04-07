@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR02_Professor</fullName>
+    <active>false</active>
+    <errorConditionFormula>Professor__c !=  DepartmentProfessor__r.Professor__c  &amp;&amp;  Professor__c != NULL</errorConditionFormula>
+    <errorDisplayField>Professor__c</errorDisplayField>
+    <errorMessage>Professor should equal to the one specified in Department Professor</errorMessage>
+</ValidationRule>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>AccountAlreadyHasProfessor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>AccountAlreadyHasProfessor</shortDescription>
+        <value>This account already has a professor</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentProfessor</fullName>
+        <categories>validation,department,professor,department professor,duplicate</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentProfessor</shortDescription>
+        <value>The professor is already working in this department</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateStudentGroupMember</fullName>
+        <categories>validation,student group,student group member,student,duplicate</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateStudentGroupMember</shortDescription>
+        <value>The student is already a member of this group</value>
+    </labels>
+    <labels>
+        <fullName>InactiveCourse</fullName>
+        <categories>validation,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveCourse</shortDescription>
+        <value>Cannot add/update department courses for inactive course</value>
+    </labels>
+    <labels>
+        <fullName>InactiveDepartment</fullName>
+        <categories>validation,department,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveDepartment</shortDescription>
+        <value>Cannot add/update professors/courses for inactive department</value>
+    </labels>
+    <labels>
+        <fullName>InactiveDepartmentCourse</fullName>
+        <categories>validation,course,department course,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveDepartmentCourse</shortDescription>
+        <value>Cannot add/update department course professors for inactive department course</value>
+    </labels>
+    <labels>
+        <fullName>InactiveDepartmentProfessor</fullName>
+        <categories>validation,professor,department professor,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveDepartmentProfessor</shortDescription>
+        <value>Cannot add/update department course professors for inactive department professor</value>
+    </labels>
+    <labels>
+        <fullName>InactiveHeadOfGroup</fullName>
+        <categories>validation,student,student group,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveHeadOfGroup</shortDescription>
+        <value>The Head of Group should be an active member of the Group</value>
+    </labels>
+    <labels>
+        <fullName>InactiveProfessor</fullName>
+        <categories>validation,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveProfessor</shortDescription>
+        <value>Cannot add/update departments/courses for inactive professor</value>
+    </labels>
+    <labels>
+        <fullName>InactiveStudent</fullName>
+        <categories>validation,student,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveStudent</shortDescription>
+        <value>Cannot create/update a group member for inactive student</value>
+    </labels>
+    <labels>
+        <fullName>InactiveStudentGroup</fullName>
+        <categories>validation,student group,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveStudentGroup</shortDescription>
+        <value>Cannot create/update members of an inactive student group</value>
+    </labels>
+    <labels>
+        <fullName>InvalidPersonName</fullName>
+        <categories>validation,name,account</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidAccountName</shortDescription>
+        <value>Person name fields should contain only alphabetic characters, hyphens and spaces</value>
+    </labels>
+    <labels>
+        <fullName>InvalidStudentID</fullName>
+        <categories>validation,student</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Invalid Student ID</shortDescription>
+        <value>Must match the following pattern: AA00000000</value>
+    </labels>
+</CustomLabels>

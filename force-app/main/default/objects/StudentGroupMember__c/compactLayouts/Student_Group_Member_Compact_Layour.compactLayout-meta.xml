@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Student_Group_Member_Compact_Layour</fullName>
+    <fields>Group__c</fields>
+    <fields>Student__c</fields>
+    <label>Student Group Member Compact Layour</label>
+</CompactLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Full-Time</fullName>
+        <default>true</default>
+        <label>Очна</label>
+    </customValue>
+    <customValue>
+        <fullName>Part-Time</fullName>
+        <default>false</default>
+        <label>Заочна</label>
+    </customValue>
+    <customValue>
+        <fullName>External</fullName>
+        <default>false</default>
+        <label>Екстернат</label>
+    </customValue>
+    <masterLabel>Form of Study</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
