@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StudentID__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Student ID series and number</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Must match the following pattern: AA00000000</inlineHelpText>
+    <label>Student ID</label>
+    <length>40</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

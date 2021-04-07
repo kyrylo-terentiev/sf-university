@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Faculty</fullName>
+    <active>true</active>
+    <errorConditionFormula>!Faculty__r.IsActive__c</errorConditionFormula>
+    <errorDisplayField>Faculty__c</errorDisplayField>
+    <errorMessage>Can&apos;t create a Department of inactive Faculty</errorMessage>
+</ValidationRule>

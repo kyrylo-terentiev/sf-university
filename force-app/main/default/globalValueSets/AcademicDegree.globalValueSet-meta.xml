@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Bachelor</fullName>
+        <default>false</default>
+        <label>Бакалавр</label>
+    </customValue>
+    <customValue>
+        <fullName>Master</fullName>
+        <default>false</default>
+        <label>Магістр</label>
+    </customValue>
+    <customValue>
+        <fullName>Philosophy Doctor</fullName>
+        <default>false</default>
+        <label>Кандидат наук</label>
+    </customValue>
+    <customValue>
+        <fullName>Science Doctor</fullName>
+        <default>false</default>
+        <label>Доктор наук</label>
+    </customValue>
+    <customValue>
+        <fullName>Specialist</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Specialist</label>
+    </customValue>
+    <masterLabel>Academic Degree</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

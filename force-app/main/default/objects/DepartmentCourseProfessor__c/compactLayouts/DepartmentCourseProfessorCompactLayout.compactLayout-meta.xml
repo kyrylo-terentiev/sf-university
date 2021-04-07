@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DepartmentCourseProfessorCompactLayout</fullName>
+    <fields>DepartmentCourse__c</fields>
+    <fields>DepartmentProfessor__c</fields>
+    <label>Department Course Professor Compact Layout</label>
+</CompactLayout>
