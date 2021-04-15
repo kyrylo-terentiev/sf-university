@@ -7,7 +7,8 @@ public class LessonTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeInsert(List<sObject> newList) {
-        LessonTriggerHelper.setDepartmentCourseGroup((List<Lesson__c>) newList);
+        LessonTriggerHelper.setStartDateTime((List<Lesson__c>) newList);
+        LessonTriggerHelper.setEndDateTime((List<Lesson__c>) newList);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
@@ -15,6 +16,8 @@ public class LessonTriggerHandler implements ITriggerHandler {
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        LessonTriggerHelper.setStartDateTime((List<Lesson__c>) newList);
+        LessonTriggerHelper.setEndDateTime((List<Lesson__c>) newList);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
