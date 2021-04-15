@@ -7,5 +7,5 @@ trigger DepartmentCourseGroupLessonTrigger on DepartmentCourseGroupLesson__c (
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.run(new DepartmentCourseGroupLessonTriggerHandlr(), 'LessonTrigger');
+    TriggerDispatcher.run(new DepartmentCourseGroupLessonTriggerHandlr(), 'DepartmentCourseGroupLessonTrigger');
 }
