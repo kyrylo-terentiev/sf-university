@@ -120,4 +120,12 @@
         <value>No active connections between the selected Student Group and Course found!
 Ensure there is an active Department Course Group linking this Group and Course.</value>
     </labels>
+    <labels>
+        <fullName>DuplicateLesson</fullName>
+        <categories>validation,duplicate,lesson,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateLesson</shortDescription>
+        <value>This Professor has already a Lesson at this time.</value>
+    </labels>
 </CustomLabels>
