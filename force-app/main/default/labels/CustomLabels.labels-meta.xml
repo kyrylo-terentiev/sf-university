@@ -134,7 +134,23 @@ Ensure there is an active Department Course Group linking this Group and Course.
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>LessonDepartmentCourseProfessorNotFound</shortDescription>
-        <value>No active connections between the selected Department Course and Department Professor found!
-Ensure there is an active Department Course Professor linking this Course and Professor.</value>
+        <value>No connection between the selected Department Course and Department Professor found!
+Ensure there is a Department Course Professor linking this Course and Professor.</value>
+    </labels>
+    <labels>
+        <fullName>InactiveDepartmentCourseProfessor</fullName>
+        <categories>validation,lesson,professor,course,department professor,department course,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveDepartmentCourseProfessor</shortDescription>
+        <value>Cannot add/update lessons for inactive department course professor</value>
+    </labels>
+    <labels>
+        <fullName>InactiveLesson</fullName>
+        <categories>validation,lesson,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveLesson</shortDescription>
+        <value>Cannot add/update groups for inactive lessons</value>
     </labels>
 </CustomLabels>
