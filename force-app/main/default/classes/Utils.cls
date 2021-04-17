@@ -23,4 +23,11 @@ public class Utils {
         String regex = '^([А-ЯҐЄІЇA-Z]{2})([0-9]{8})';
         return Pattern.compile(regex).matcher(studentId.trim()).matches();
     }
+
+    public static Datetime getDatetime(Date dateValue, String timeString) {
+        String[] timeParts = timeString.split(':');
+        Integer h = Integer.valueOf(timeParts[0]);
+        Integer m = Integer.valueOf(timeParts[1]);
+        return Datetime.newInstance(dateValue, Time.newInstance(h, m, 0, 0));
+    }
 }

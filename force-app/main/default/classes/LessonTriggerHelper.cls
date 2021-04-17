@@ -4,12 +4,8 @@ public with sharing class LessonTriggerHelper {
         Integer h;
         Integer m;
         for (Lesson__c lsn : newList) {
-            h = Integer.valueOf(lsn.StartTimePicklist__c.split(':')[0]);
-            m = Integer.valueOf(lsn.StartTimePicklist__c.split(':')[1]);
-            lsn.StartDateTime__c = Datetime.newInstance(lsn.Date__c, Time.newInstance(h, m, 0, 0));
-            h = Integer.valueOf(lsn.EndTimePicklist__c.split(':')[0]);
-            m = Integer.valueOf(lsn.EndTimePicklist__c.split(':')[1]);
-            lsn.EndDateTime__c = Datetime.newInstance(lsn.Date__c, Time.newInstance(h, m, 0, 0));
+            lsn.StartDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.StartTimePicklist__c);
+            lsn.EndDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.EndTimePicklist__c);
         }
     }
 
