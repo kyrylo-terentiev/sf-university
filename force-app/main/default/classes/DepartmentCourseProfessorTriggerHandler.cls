@@ -20,6 +20,7 @@ public class DepartmentCourseProfessorTriggerHandler implements ITriggerHandler 
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        DepartmentCourseProfessorTriggerHelper.updateChildren((Map<Id, DepartmentCourseProfessor__c>) newMap, (Map<Id, DepartmentCourseProfessor__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {

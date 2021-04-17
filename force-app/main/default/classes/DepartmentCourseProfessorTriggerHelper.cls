@@ -39,4 +39,41 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
             }
         }
     }
+
+    public static void updateChildren(Map<Id, DepartmentCourseProfessor__c> newMap, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+        List<sObject> childrenToUpdate = new List<sObject>();
+        childrenToUpdate.addAll(getUpdatedLessons(newMap, oldMap));
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
+        }
+    }
+
+    private static List<Lesson__c> getUpdatedLessons(Map<Id, DepartmentCourseProfessor__c> newMap, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+        List<Lesson__c> lessonsToUpdate = new List<Lesson__c>();
+        Map<Id, List<Lesson__c>> depCourseProfToLessonsMap = new Map<Id, List<Lesson__c>>();
+        for (Lesson__c lsn : [SELECT DepartmentCourseProfessor__c, IsActive__c 
+                              FROM Lesson__c 
+                              WHERE DepartmentCourseProfessor__c IN :newMap.keySet()])
+        {
+            if (depCourseProfToLessonsMap.get(lsn.DepartmentCourseProfessor__c) == null) {
+                depCourseProfToLessonsMap.put(lsn.DepartmentCourseProfessor__c, new List<Lesson__c>());
+            }
+            depCourseProfToLessonsMap.get(lsn.DepartmentCourseProfessor__c).add(lsn);
+        }
+        for (Id depCourseProfId : depCourseProfToLessonsMap.keySet()) {
+            DepartmentCourseProfessor__c newDepCourseProf = newMap.get(depCourseProfId);
+            DepartmentCourseProfessor__c oldDepCourseProf = oldMap.get(depCourseProfId);
+            Boolean isInactivated = !newDepCourseProf.IsActive__c && oldDepCourseProf.IsActive__c;
+            if (isInactivated) {
+                for (Lesson__c lsn : depCourseProfToLessonsMap.get(depCourseProfId)) {
+                    if (lsn.IsActive__c) {
+                        lsn.IsActive__c = false;
+                        lessonsToUpdate.add(lsn);
+                    }
+                }
+            }
+        }
+
+        return lessonsToUpdate;
+    }
 }
