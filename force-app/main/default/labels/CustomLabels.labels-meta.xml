@@ -128,4 +128,13 @@ Ensure there is an active Department Course Group linking this Group and Course.
         <shortDescription>DuplicateLesson</shortDescription>
         <value>This Professor has already a Lesson at this time.</value>
     </labels>
+    <labels>
+        <fullName>LessonDepartmentCourseProfessorNotFound</fullName>
+        <categories>validation,lesson,course,professor,department course professor,department course,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseProfessorNotFound</shortDescription>
+        <value>No active connections between the selected Department Course and Department Professor found!
+Ensure there is an active Department Course Professor linking this Course and Professor.</value>
+    </labels>
 </CustomLabels>

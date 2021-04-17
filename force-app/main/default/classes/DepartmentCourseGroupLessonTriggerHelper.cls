@@ -41,6 +41,5 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
                 }
             }
         }
-
     }
 }

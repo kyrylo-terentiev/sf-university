@@ -1,8 +1,6 @@
 public with sharing class LessonTriggerHelper {
 
     public static void setDateTime(List<Lesson__c> newList) {
-        Integer h;
-        Integer m;
         for (Lesson__c lsn : newList) {
             lsn.StartDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.StartTimePicklist__c);
             lsn.EndDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.EndTimePicklist__c);
@@ -12,7 +10,6 @@ public with sharing class LessonTriggerHelper {
     public static void validate(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
         validateDepartmentCourse(newList, oldMap);
         validateDepartmentProfessor(newList, oldMap);
-        validateDepartmentCourseProfessor(newList, oldMap);
         validateDuplicate(newList);
     }
 
@@ -56,8 +53,48 @@ public with sharing class LessonTriggerHelper {
         }
     }
 
-    private static void validateDepartmentCourseProfessor(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
-        
+    public static void setDepartmentCourseProfessor(List<Lesson__c> newList) {
+        Map<String, List<Lesson__c>> courseAndProfToLessonsMap = new Map<String, List<Lesson__c>>();
+        Set<Id> courseIdSet = new Set<Id>();
+        Set<Id> profIdSet = new Set<Id>();
+        for (Lesson__c lsn : newList) {
+            courseIdSet.add(lsn.DepartmentCourse__c);
+            profIdSet.add(lsn.DepartmentProfessor__c);
+            String courseAndProfId = String.valueOf(lsn.DepartmentCourse__c) + String.valueOf(lsn.DepartmentProfessor__c);
+            if (courseAndProfToLessonsMap.get(courseAndProfId) == null) {
+                courseAndProfToLessonsMap.put(courseAndProfId, new List<Lesson__c>());
+            }
+            courseAndProfToLessonsMap.get(courseAndProfId).add(lsn);
+        }
+        List<DepartmentCourseProfessor__c> depCourseProfList = [
+            SELECT Id
+                , DepartmentCourse__c
+                , DepartmentCourse__r.IsActive__c
+                , DepartmentProfessor__c
+                , DepartmentProfessor__r.IsActive__c
+            FROM DepartmentCourseProfessor__c
+            WHERE IsActive__c = TRUE AND
+            (DepartmentProfessor__c IN :profIdSet AND DepartmentProfessor__r.IsActive__c = TRUE) AND
+            (DepartmentCourse__c IN :courseIdSet AND DepartmentCourse__r.IsActive__c = TRUE)
+        ];
+        Map<String, Id> courseAndProfToDepCourseProfMap = new Map<String, Id>();
+        for (DepartmentCourseProfessor__c depCourseProf : depCourseProfList) {
+            String courseAndProfId = String.valueOf(depCourseProf.DepartmentCourse__c) + String.valueOf(depCourseProf.DepartmentProfessor__c);
+            courseAndProfToDepCourseProfMap.put(courseAndProfId, depCourseProf.Id);
+        }
+        for (String courseAndProfId : courseAndProfToLessonsMap.keySet()) {
+            List<Lesson__c> lessons = courseAndProfToLessonsMap.get(courseAndProfId);
+            Id depCourseProfId = courseAndProfToDepCourseProfMap.get(courseAndProfId);
+            if (depCourseProfId != null) {
+                for (Lesson__c lsn : lessons) {
+                    lsn.DepartmentCourseProfessor__c = depCourseProfId;
+                }
+            } else {
+                for (Lesson__c lsn : lessons) {
+                    lsn.addError(System.Label.LessonDepartmentCourseProfessorNotFound);
+                }
+            }
+        }
     }
 
 
@@ -91,10 +128,6 @@ public with sharing class LessonTriggerHelper {
                 }
             }
         }
-    }
-
-    public static void setDepartmentCourseProfessor(List<Lesson__c> newList) {
-
     }
 
     public static void updateChildren(Map<Id, Lesson__c> newMap, Map<Id, Lesson__c> oldMap) {
