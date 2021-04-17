@@ -26,7 +26,6 @@ public with sharing class LessonTriggerHelper {
             }
             courseAndProfToLessonsMap.get(courseAndProfId).add(lsn);
         }
-        
         List<DepartmentCourseProfessor__c> depCourseProfList = [
             SELECT Id
                 , DepartmentCourse__c

@@ -3,6 +3,7 @@
     <fullName>GroupCourator__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
+    <inlineHelpText>Active Professor of Group&apos;s Department</inlineHelpText>
     <label>Group Courator</label>
     <referenceTo>Professor__c</referenceTo>
     <relationshipLabel>Courating Groups</relationshipLabel>

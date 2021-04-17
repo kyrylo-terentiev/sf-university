@@ -3,6 +3,16 @@
     <fullName>StudentGroup__c</fullName>
     <externalId>false</externalId>
     <label>Student Group</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Only active groups can be added to a course</errorMessage>
+        <filterItems>
+            <field>StudentGroup__c.IsActive__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>StudentGroup__c</referenceTo>
     <relationshipLabel>Courses</relationshipLabel>
     <relationshipName>DepartmentCourseGroups</relationshipName>

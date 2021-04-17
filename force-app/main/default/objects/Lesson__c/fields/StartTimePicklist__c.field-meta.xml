@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StartTimePicklist__c</fullName>
+    <externalId>false</externalId>
+    <label>Start Time</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>OrderNumber__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>LessonScheduleStart</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>I</controllingFieldValue>
+            <valueName>08:00</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>II</controllingFieldValue>
+            <valueName>09:50</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>III</controllingFieldValue>
+            <valueName>11:40</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>IV</controllingFieldValue>
+            <valueName>13:30</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>V</controllingFieldValue>
+            <valueName>15:20</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

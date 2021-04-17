@@ -3,6 +3,7 @@
     <fullName>HeadOfGroup__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
+    <inlineHelpText>Active Group Member - set after Group creation</inlineHelpText>
     <label>Head of Group</label>
     <referenceTo>Student__c</referenceTo>
     <relationshipLabel>Heading Groups</relationshipLabel>

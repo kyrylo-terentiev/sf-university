@@ -16,6 +16,14 @@
         <value>The professor is already working in this department</value>
     </labels>
     <labels>
+        <fullName>DuplicateLesson</fullName>
+        <categories>validation,duplicate,lesson,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateLesson</shortDescription>
+        <value>This Professor has already a Lesson at this time.</value>
+    </labels>
+    <labels>
         <fullName>DuplicateStudentGroupMember</fullName>
         <categories>validation,student group,student group member,student,duplicate</categories>
         <language>en_US</language>
@@ -48,6 +56,14 @@
         <value>Cannot add/update professors/lessons/group for inactive department course</value>
     </labels>
     <labels>
+        <fullName>InactiveDepartmentCourseProfessor</fullName>
+        <categories>validation,lesson,professor,course,department professor,department course,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveDepartmentCourseProfessor</shortDescription>
+        <value>Cannot add/update lessons for inactive department course professor</value>
+    </labels>
+    <labels>
         <fullName>InactiveDepartmentProfessor</fullName>
         <categories>validation,professor,department professor,department course professor</categories>
         <language>en_US</language>
@@ -70,6 +86,14 @@
         <protected>true</protected>
         <shortDescription>InactiveHeadOfGroup</shortDescription>
         <value>The Head of Group should be an active member of the Group</value>
+    </labels>
+    <labels>
+        <fullName>InactiveLesson</fullName>
+        <categories>validation,lesson,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveLesson</shortDescription>
+        <value>Cannot add/update groups for inactive lessons</value>
     </labels>
     <labels>
         <fullName>InactiveProfessor</fullName>
@@ -121,14 +145,6 @@
 Ensure there is an active Department Course Group linking this Group and Course.</value>
     </labels>
     <labels>
-        <fullName>DuplicateLesson</fullName>
-        <categories>validation,duplicate,lesson,department professor</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>DuplicateLesson</shortDescription>
-        <value>This Professor has already a Lesson at this time.</value>
-    </labels>
-    <labels>
         <fullName>LessonDepartmentCourseProfessorNotFound</fullName>
         <categories>validation,lesson,course,professor,department course professor,department course,department professor</categories>
         <language>en_US</language>
@@ -136,21 +152,5 @@ Ensure there is an active Department Course Group linking this Group and Course.
         <shortDescription>LessonDepartmentCourseProfessorNotFound</shortDescription>
         <value>No connection between the selected Department Course and Department Professor found!
 Ensure there is a Department Course Professor linking this Course and Professor.</value>
-    </labels>
-    <labels>
-        <fullName>InactiveDepartmentCourseProfessor</fullName>
-        <categories>validation,lesson,professor,course,department professor,department course,department course professor</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>InactiveDepartmentCourseProfessor</shortDescription>
-        <value>Cannot add/update lessons for inactive department course professor</value>
-    </labels>
-    <labels>
-        <fullName>InactiveLesson</fullName>
-        <categories>validation,lesson,department course group lesson</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>InactiveLesson</shortDescription>
-        <value>Cannot add/update groups for inactive lessons</value>
     </labels>
 </CustomLabels>

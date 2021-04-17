@@ -13,7 +13,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>DepartmentProfessor__c</field>
+                <field>Department__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -21,7 +21,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>Department__c</field>
+                <field>DepartmentProfessor__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -60,6 +60,10 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Lesson__c.DepartmentCourseProfessor__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>
