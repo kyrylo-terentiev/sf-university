@@ -15,7 +15,7 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseProf.Id);
             Boolean isInactivation = isUpdate && !depCourseProf.IsActive__c;
             if (!isActiveDepProf && !isInactivation) {
-                depCourseProf.addError(System.Label.InactiveDepartmentProfessor);
+                depCourseProf.DepartmentProfessor__c.addError(System.Label.InactiveDepartmentProfessor);
             }
         }
     }
@@ -35,7 +35,7 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseProf.Id);
             Boolean isInactivation = isUpdate && !depCourseProf.IsActive__c;
             if (!isActiveDepCourse && !isInactivation) {
-                depCourseProf.addError(System.Label.InactiveDepartmentCourse);
+                depCourseProf.DepartmentCourse__c.addError(System.Label.InactiveDepartmentCourse);
             }
         }
     }

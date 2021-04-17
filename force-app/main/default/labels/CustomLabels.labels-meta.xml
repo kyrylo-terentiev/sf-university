@@ -45,7 +45,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveDepartmentCourse</shortDescription>
-        <value>Cannot add/update department course professors for inactive department course</value>
+        <value>Cannot add/update professors or lessons for inactive department course</value>
     </labels>
     <labels>
         <fullName>InactiveDepartmentProfessor</fullName>
@@ -53,7 +53,15 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveDepartmentProfessor</shortDescription>
-        <value>Cannot add/update department course professors for inactive department professor</value>
+        <value>Cannot add/update courses or lessons for inactive department professor</value>
+    </labels>
+    <labels>
+        <fullName>InactiveGroupCourator</fullName>
+        <categories>validation,student group,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveGroupCourator</shortDescription>
+        <value>The Group Courator should be an active Department Professor</value>
     </labels>
     <labels>
         <fullName>InactiveHeadOfGroup</fullName>
@@ -102,5 +110,22 @@
         <protected>true</protected>
         <shortDescription>Invalid Student ID</shortDescription>
         <value>Must match the following pattern: AA00000000</value>
+    </labels>
+    <labels>
+        <fullName>LessonDepartmentCourseGroupNotFound</fullName>
+        <categories>validation,lesson,course,group,department course,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseGroupNotFound</shortDescription>
+        <value>No active connections between the selected Student Group and Course found!
+Ensure there is an active Department Course Group linking this Group and Course.</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateLesson</fullName>
+        <categories>validation,duplicate,lesson,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateLesson</shortDescription>
+        <value>This Professor has already a Lesson at this time.</value>
     </labels>
 </CustomLabels>

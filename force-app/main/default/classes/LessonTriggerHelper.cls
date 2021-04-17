@@ -1,0 +1,107 @@
+public with sharing class LessonTriggerHelper {
+
+    public static void setDateTime(List<Lesson__c> newList) {
+        Integer h;
+        Integer m;
+        for (Lesson__c lsn : newList) {
+            h = Integer.valueOf(lsn.StartTimePicklist__c.split(':')[0]);
+            m = Integer.valueOf(lsn.StartTimePicklist__c.split(':')[1]);
+            lsn.StartDateTime__c = Datetime.newInstance(lsn.Date__c, Time.newInstance(h, m, 0, 0));
+            h = Integer.valueOf(lsn.EndTimePicklist__c.split(':')[0]);
+            m = Integer.valueOf(lsn.EndTimePicklist__c.split(':')[1]);
+            lsn.EndDateTime__c = Datetime.newInstance(lsn.Date__c, Time.newInstance(h, m, 0, 0));
+        }
+    }
+
+    public static void validate(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        validateDepartmentCourse(newList, oldMap);
+        validateDepartmentProfessor(newList, oldMap);
+        validateDepartmentCourseProfessor(newList, oldMap);
+        validateDuplicate(newList);
+    }
+
+    private static void validateDepartmentCourse(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        Set<Id> depCourseIdSet = new Set<Id>();
+        for (Lesson__c lsn : newList) {
+            depCourseIdSet.add(lsn.DepartmentCourse__c);
+        }
+        Map<Id, DepartmentCourse__c> depCourseMap = new Map<Id, DepartmentCourse__c>([
+            SELECT IsActive__c
+            FROM DepartmentCourse__c
+            WHERE Id IN :depCourseIdSet
+        ]);
+        for (Lesson__c lsn : newList) {
+            Boolean isActiveDepCourse = depCourseMap.get(lsn.DepartmentCourse__c).IsActive__c;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
+            Boolean isInactivation = isUpdate && !lsn.IsActive__c;
+            if (!isActiveDepCourse && !isInactivation) {
+                lsn.DepartmentCourse__c.addError(System.Label.InactiveDepartmentCourse);
+            }
+        }
+    }
+
+    private static void validateDepartmentProfessor(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        Set<Id> depProfIdSet = new Set<Id>();
+        for (Lesson__c lsn : newList) {
+            depProfIdSet.add(lsn.DepartmentProfessor__c);
+        }
+        Map<Id, DepartmentProfessor__c> depProfMap = new Map<Id, DepartmentProfessor__c>([
+            SELECT IsActive__c
+            FROM DepartmentProfessor__c
+            WHERE Id IN :depProfIdSet
+        ]);
+        for (Lesson__c lsn : newList) {
+            Boolean isActiveDepProf = depProfMap.get(lsn.DepartmentProfessor__c).IsActive__c;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
+            Boolean isInactivation = isUpdate && !lsn.IsActive__c;
+            if (!isActiveDepProf && !isInactivation) {
+                lsn.DepartmentProfessor__c.addError(System.Label.InactiveDepartmentProfessor);
+            }
+        }
+    }
+
+    private static void validateDepartmentCourseProfessor(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        
+    }
+
+
+    private static void validateDuplicate(List<Lesson__c> newList) {
+        Set<Id> depProfIdSet = new Set<Id>();
+        Set<Date> dateSet = new Set<Date>();
+        Set<String> orderNumberSet = new Set<String>();
+        for (Lesson__c lsn : newList) {
+            depProfIdSet.add(lsn.DepartmentProfessor__c);
+            dateSet.add(lsn.Date__c);
+            orderNumberSet.add(lsn.OrderNumber__c);
+        }
+        List<Lesson__c> existingLessons = [
+            SELECT Id
+                , DepartmentProfessor__c
+                , Date__c 
+                , OrderNumber__c
+            FROM Lesson__c
+            WHERE DepartmentProfessor__c IN :depProfIdSet AND
+                Date__c IN :dateSet AND
+                OrderNumber__c IN :orderNumberSet
+        ];
+        for (Lesson__c newLsn : newList) {
+            for (Lesson__c oldLsn : existingLessons) {
+                Boolean isSameRecord = newLsn.Id == oldLsn.Id;
+                Boolean isSameDepProf = newLsn.DepartmentProfessor__c == oldLsn.DepartmentProfessor__c;
+                Boolean isSameDate = newLsn.Date__c == oldLsn.Date__c;
+                Boolean isSameOrderNumber = newLsn.OrderNumber__c == oldLsn.OrderNumber__c;
+                if (!isSameRecord && isSameDepProf && isSameDate && isSameOrderNumber) {
+                    newLsn.addError(System.Label.DuplicateLesson);
+                }
+            }
+        }
+    }
+
+    public static void setDepartmentCourseProfessor(List<Lesson__c> newList) {
+
+    }
+
+    public static void updateChildren(Map<Id, Lesson__c> newMap, Map<Id, Lesson__c> oldMap) {
+
+    }
+}
