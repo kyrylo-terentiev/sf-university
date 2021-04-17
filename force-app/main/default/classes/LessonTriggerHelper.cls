@@ -8,49 +8,9 @@ public with sharing class LessonTriggerHelper {
     }
 
     public static void validate(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
-        validateDepartmentCourse(newList, oldMap);
-        validateDepartmentProfessor(newList, oldMap);
+        setDepartmentCourseProfessor(newList);
+        validateDepartmentCourseProfessor(newList, oldMap);
         validateDuplicate(newList);
-    }
-
-    private static void validateDepartmentCourse(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
-        Set<Id> depCourseIdSet = new Set<Id>();
-        for (Lesson__c lsn : newList) {
-            depCourseIdSet.add(lsn.DepartmentCourse__c);
-        }
-        Map<Id, DepartmentCourse__c> depCourseMap = new Map<Id, DepartmentCourse__c>([
-            SELECT IsActive__c
-            FROM DepartmentCourse__c
-            WHERE Id IN :depCourseIdSet
-        ]);
-        for (Lesson__c lsn : newList) {
-            Boolean isActiveDepCourse = depCourseMap.get(lsn.DepartmentCourse__c).IsActive__c;
-            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
-            Boolean isInactivation = isUpdate && !lsn.IsActive__c;
-            if (!isActiveDepCourse && !isInactivation) {
-                lsn.DepartmentCourse__c.addError(System.Label.InactiveDepartmentCourse);
-            }
-        }
-    }
-
-    private static void validateDepartmentProfessor(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
-        Set<Id> depProfIdSet = new Set<Id>();
-        for (Lesson__c lsn : newList) {
-            depProfIdSet.add(lsn.DepartmentProfessor__c);
-        }
-        Map<Id, DepartmentProfessor__c> depProfMap = new Map<Id, DepartmentProfessor__c>([
-            SELECT IsActive__c
-            FROM DepartmentProfessor__c
-            WHERE Id IN :depProfIdSet
-        ]);
-        for (Lesson__c lsn : newList) {
-            Boolean isActiveDepProf = depProfMap.get(lsn.DepartmentProfessor__c).IsActive__c;
-            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
-            Boolean isInactivation = isUpdate && !lsn.IsActive__c;
-            if (!isActiveDepProf && !isInactivation) {
-                lsn.DepartmentProfessor__c.addError(System.Label.InactiveDepartmentProfessor);
-            }
-        }
     }
 
     public static void setDepartmentCourseProfessor(List<Lesson__c> newList) {
@@ -66,16 +26,15 @@ public with sharing class LessonTriggerHelper {
             }
             courseAndProfToLessonsMap.get(courseAndProfId).add(lsn);
         }
+        
         List<DepartmentCourseProfessor__c> depCourseProfList = [
             SELECT Id
                 , DepartmentCourse__c
-                , DepartmentCourse__r.IsActive__c
                 , DepartmentProfessor__c
-                , DepartmentProfessor__r.IsActive__c
             FROM DepartmentCourseProfessor__c
-            WHERE IsActive__c = TRUE AND
-            (DepartmentProfessor__c IN :profIdSet AND DepartmentProfessor__r.IsActive__c = TRUE) AND
-            (DepartmentCourse__c IN :courseIdSet AND DepartmentCourse__r.IsActive__c = TRUE)
+            WHERE
+                DepartmentProfessor__c IN :profIdSet AND
+                DepartmentCourse__c IN :courseIdSet
         ];
         Map<String, Id> courseAndProfToDepCourseProfMap = new Map<String, Id>();
         for (DepartmentCourseProfessor__c depCourseProf : depCourseProfList) {
@@ -85,14 +44,35 @@ public with sharing class LessonTriggerHelper {
         for (String courseAndProfId : courseAndProfToLessonsMap.keySet()) {
             List<Lesson__c> lessons = courseAndProfToLessonsMap.get(courseAndProfId);
             Id depCourseProfId = courseAndProfToDepCourseProfMap.get(courseAndProfId);
-            if (depCourseProfId != null) {
-                for (Lesson__c lsn : lessons) {
+            for (Lesson__c lsn : lessons) {
+                if (depCourseProfId == null) {
+                    lsn.addError(System.Label.LessonDepartmentCourseProfessorNotFound);
+                } else {
                     lsn.DepartmentCourseProfessor__c = depCourseProfId;
                 }
-            } else {
-                for (Lesson__c lsn : lessons) {
-                    lsn.addError(System.Label.LessonDepartmentCourseProfessorNotFound);
-                }
+            }
+        }
+    }
+
+    private static void validateDepartmentCourseProfessor(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        Set<Id> depCourseProfIdSet = new Set<Id>();
+        for (Lesson__c lsn : newList) {
+            depCourseProfIdSet.add(lsn.DepartmentCourseProfessor__c);
+        }
+        Map<Id, DepartmentCourseProfessor__c> depCourseProfMap = new Map<Id, DepartmentCourseProfessor__c>([
+            SELECT IsActive__c
+            FROM DepartmentCourseProfessor__c
+            WHERE Id IN :depCourseProfIdSet
+        ]);
+        for (Lesson__c lsn : newList) {
+            Boolean isActiveDepCourseProf = depCourseProfMap.get(lsn.DepartmentCourseProfessor__c)?.IsActive__c != null
+                                            ? depCourseProfMap.get(lsn.DepartmentCourseProfessor__c).IsActive__c
+                                            : false;
+            
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
+            Boolean isInactivation = isUpdate && !lsn.IsActive__c;
+            if (!isActiveDepCourseProf && !isInactivation) {
+                lsn.DepartmentCourseProfessor__c.addError(System.Label.InactiveDepartmentCourseProfessor);
             }
         }
     }
