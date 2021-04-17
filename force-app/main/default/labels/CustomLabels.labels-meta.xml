@@ -45,7 +45,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveDepartmentCourse</shortDescription>
-        <value>Cannot add/update professors or lessons for inactive department course</value>
+        <value>Cannot add/update professors/lessons/group for inactive department course</value>
     </labels>
     <labels>
         <fullName>InactiveDepartmentProfessor</fullName>
@@ -93,7 +93,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveStudentGroup</shortDescription>
-        <value>Cannot create/update members of an inactive student group</value>
+        <value>Cannot create/update members/courses of an inactive student group</value>
     </labels>
     <labels>
         <fullName>InvalidPersonName</fullName>
