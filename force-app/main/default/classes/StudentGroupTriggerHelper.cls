@@ -111,12 +111,12 @@ public with sharing class StudentGroupTriggerHelper {
         for (Id groupId : groupToDepCourseGroupsMap.keySet()) {
             StudentGroup__c newGroup = newMap.get(groupId);
             StudentGroup__c oldGroup = oldMap.get(groupId);
-            Boolean isNameChanged = newGroup.Name != oldGroup.Name;
             Boolean isInactivated = !newGroup.IsActive__c && oldGroup.IsActive__c;
-            if (isNameChanged || isInactivated) {
+            if (isInactivated) {
                 for (DepartmentCourseGroup__c depCourseGroup : groupToDepCourseGroupsMap.get(groupId)) {
-                    if (isNameChanged) depCourseGroup.Name = newGroup.Name;
-                    if (isInactivated) depCourseGroup.IsActive__c = newGroup.IsActive__c;
+                    if (depCourseGroup.IsActive__c) {
+                        depCourseGroup.IsActive__c = false;
+                    }
                     depCourseGroupsToUpdate.add(depCourseGroup);
                 }
             }
