@@ -20,14 +20,32 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
         }
     }
 
-    public static void setDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+    public static void setCourse(List<DepartmentCourseGroupLesson__c> newList) {
+        Set<Id> lessonIdSet = new Set<Id>();
+        for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
+            lessonIdSet.add(depCourseGroupLsn.Lesson__c);
+        }
+        Map<Id, Id> lessonToCourseMap = new Map<Id, Id>();
+        for (Lesson__c lsn : [SELECT Course__c
+                              FROM Lesson__c
+                              WHERE Id IN :lessonIdSet])
+        {
+            lessonToCourseMap.put(lsn.Id, lsn.Course__c);
+        }
+        for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
+            depCourseGroupLsn.Course__c = lessonToCourseMap.get(depCourseGroupLsn.Lesson__c);
+        }
+    }
+
+
+    public static void setDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList) {
         Map<String, List<DepartmentCourseGroupLesson__c>> groupAndCourseToLessonsMap = new Map<String, List<DepartmentCourseGroupLesson__c>>();
         Set<Id> groupIdSet = new Set<Id>();
         Set<Id> courseIdSet = new Set<Id>();
         for (DepartmentCourseGroupLesson__c lsn : newList) {
             groupIdSet.add(lsn.StudentGroup__c);
-            courseIdSet.add(lsn.Lesson__r.Course__c);
-            String groupAndCourseId = String.valueOf(lsn.StudentGroup__c) + String.valueOf(lsn.Lesson__r.Course__c);
+            courseIdSet.add(lsn.Course__c);
+            String groupAndCourseId = String.valueOf(lsn.StudentGroup__c) + String.valueOf(lsn.Course__c);
             if (groupAndCourseToLessonsMap.get(groupAndCourseId) == null) {
                 groupAndCourseToLessonsMap.put(groupAndCourseId, new List<DepartmentCourseGroupLesson__c>());
             }
@@ -39,9 +57,9 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
                 , DepartmentCourse__c
                 , DepartmentCourse__r.Course__c
             FROM DepartmentCourseGroup__c
-            WHERE IsActive__c = TRUE AND
-                (StudentGroup__c IN :groupIdSet AND StudentGroup__r.IsActive__c = TRUE) AND
-                (DepartmentCourse__r.Course__c IN :courseIdSet AND DepartmentCourse__r.IsActive__c = TRUE)
+            WHERE
+                StudentGroup__c IN :groupIdSet AND
+                DepartmentCourse__r.Course__c IN :courseIdSet
         ];
         Map<String, Id> groupAndCourseToDepCourseGroupMap = new Map<String, Id>();
         for (DepartmentCourseGroup__c depCourseGroup : depCourseGroupList) {
@@ -51,14 +69,35 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
         for (String groupAndCourseId : groupAndCourseToLessonsMap.keySet()) {
             List<DepartmentCourseGroupLesson__c> lessons = groupAndCourseToLessonsMap.get(groupAndCourseId);
             Id depCourseGroupId = groupAndCourseToDepCourseGroupMap.get(groupAndCourseId);
-            if (depCourseGroupId != null) {
-                for (DepartmentCourseGroupLesson__c lsn : lessons) {
+            for (DepartmentCourseGroupLesson__c lsn : lessons) {
+                if (depCourseGroupId == null) {
+                    lsn.addError(System.Label.LessonDepartmentCourseGroupNotFound);
+                } else {
                     lsn.DepartmentCourseGroup__c = depCourseGroupId;
                 }
-            } else {
-                for (DepartmentCourseGroupLesson__c lsn : lessons) {
-                    lsn.addError(System.Label.LessonDepartmentCourseGroupNotFound);
-                }
+            }
+        }
+    }
+
+    public static void validateDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        Set<Id> depCourseGroupIdSet = new Set<Id>();
+        for (DepartmentCourseGroupLesson__c lsn : newList) {
+            depCourseGroupIdSet.add(lsn.DepartmentCourseGroup__c);
+        }
+        Map<Id, DepartmentCourseGroup__c> depCourseGroupMap = new Map<Id, DepartmentCourseGroup__c>([
+            SELECT IsActive__c
+            FROM DepartmentCourseGroup__c
+            WHERE Id IN :depCourseGroupIdSet
+        ]);
+        for (DepartmentCourseGroupLesson__c lsn : newList) {
+            Boolean isActiveDepCourseGroup = depCourseGroupMap.get(lsn.DepartmentCourseGroup__c)?.IsActive__c != null
+                                            ? depCourseGroupMap.get(lsn.DepartmentCourseGroup__c).IsActive__c
+                                            : false;
+            
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
+            Boolean isInactivation = isUpdate && !lsn.IsActive__c;
+            if (!isActiveDepCourseGroup && !isInactivation) {
+                lsn.addError(System.Label.LessonDepartmentCourseGroupNotFound);
             }
         }
     }
