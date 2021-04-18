@@ -1,31 +1,14 @@
 public with sharing class DepartmentCourseGroupTriggerHelper {
 
     public static void validate(List<DepartmentCourseGroup__c> newList, Map<Id, DepartmentCourseGroup__c> oldMap) {
-        validateDepartmentCourse(newList, oldMap);
         validateGroup(newList, oldMap);
+        setDepartment(newList);
+        setDepartmentCourse(newList);
+        validateDepartmentCourse(newList, oldMap);
+        validateDepartmentCourseGroup(newList, oldMap);
     }
 
-    public static void validateDepartmentCourse(List<DepartmentCourseGroup__c> newList, Map<Id, DepartmentCourseGroup__c> oldMap) {
-        Set<Id> depCourseIdSet = new Set<Id>();
-        for (DepartmentCourseGroup__c depCourseGroup : newList) {
-            depCourseIdSet.add(depCourseGroup.DepartmentCourse__c);
-        }
-        Map<Id, DepartmentCourse__c> depCourseMap = new Map<Id, DepartmentCourse__c>([
-            SELECT IsActive__c
-            FROM DepartmentCourse__c
-            WHERE Id IN :depCourseIdSet
-        ]);
-        for (DepartmentCourseGroup__c depCourseGroup : newList) {
-            Boolean isActiveDepCourse = depCourseMap.get(depCourseGroup.DepartmentCourse__c).IsActive__c;
-            Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseGroup.Id);
-            Boolean isInactivation = isUpdate && !depCourseGroup.IsActive__c;
-            if (!isActiveDepCourse && !isInactivation) {
-                depCourseGroup.DepartmentCourse__c.addError(System.Label.InactiveDepartmentCourse);
-            }
-        }
-    }
-
-    public static void validateGroup(List<DepartmentCourseGroup__c> newList, Map<Id, DepartmentCourseGroup__c> oldMap) {
+    private static void validateGroup(List<DepartmentCourseGroup__c> newList, Map<Id, DepartmentCourseGroup__c> oldMap) {
         Set<Id> groupIdSet = new Set<Id>();
         for (DepartmentCourseGroup__c depCourseGroup : newList) {
             groupIdSet.add(depCourseGroup.StudentGroup__c);
@@ -36,11 +19,122 @@ public with sharing class DepartmentCourseGroupTriggerHelper {
             WHERE Id IN :groupIdSet
         ]);
         for (DepartmentCourseGroup__c depCourseGroup : newList) {
-            Boolean isActiveGroup = groupMap.get(depCourseGroup.StudentGroup__c).IsActive__c;
+            Boolean isActiveGroup = groupMap.get(depCourseGroup.StudentGroup__c)?.IsActive__c != null
+                                    ? groupMap.get(depCourseGroup.StudentGroup__c).IsActive__c
+                                    : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseGroup.Id);
             Boolean isInactivation = isUpdate && !depCourseGroup.IsActive__c && oldMap.get(depCourseGroup.Id).IsActive__c;
             if (!isActiveGroup && !isInactivation) {
                 depCourseGroup.StudentGroup__c.addError(System.Label.InactiveStudentGroup);
+            }
+        }
+    }
+
+    private static void setDepartment(List<DepartmentCourseGroup__c> newList) {
+        Set<Id> groupIdSet = new Set<Id>();
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            groupIdSet.add(depCourseGroup.StudentGroup__c);
+        }
+        Map<Id, Id> groupToDeptMap = new Map<Id, Id>();
+        for (StudentGroup__c studGroup : [SELECT Department__c
+                              FROM StudentGroup__c
+                              WHERE Id IN :groupIdSet])
+        {
+            groupToDeptMap.put(studGroup.Id, studGroup.Department__c);
+        }
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            depCourseGroup.Department__c = groupToDeptMap.get(depCourseGroup.StudentGroup__c);
+        }
+    }
+
+    private static void setDepartmentCourse(List<DepartmentCourseGroup__c> newList) {
+        Map<String, List<DepartmentCourseGroup__c>> deptAndCourseToDepCourseGroupsMap = new Map<String, List<DepartmentCourseGroup__c>>();
+        Set<Id> deptIdSet = new Set<Id>();
+        Set<Id> courseIdSet = new Set<Id>();
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            deptIdSet.add(depCourseGroup.Department__c);
+            courseIdSet.add(depCourseGroup.Course__c);
+            String deptAndCourseId = String.valueOf(depCourseGroup.Department__c) + String.valueOf(depCourseGroup.Course__c);
+            if (deptAndCourseToDepCourseGroupsMap.get(deptAndCourseId) == null) {
+                deptAndCourseToDepCourseGroupsMap.put(deptAndCourseId, new List<DepartmentCourseGroup__c>());
+            }
+            deptAndCourseToDepCourseGroupsMap.get(deptAndCourseId).add(depCourseGroup);
+        }
+        System.debug(deptAndCourseToDepCourseGroupsMap);
+        List<DepartmentCourse__c> depCourseList = [
+            SELECT Id
+                , Department__c
+                , Course__c
+            FROM DepartmentCourse__c
+            WHERE 
+                Department__c IN :deptIdSet AND
+                Course__c IN :courseIdSet
+        ];
+        Map<String, Id> deptAndCourseToDepCourseMap = new Map<String, Id>();
+        for (DepartmentCourse__c depCourse : depCourseList) {
+            String deptAndCourseId = String.valueOf(depCourse.Department__c) + String.valueOf(depCourse.Course__c);
+            deptAndCourseToDepCourseMap.put(deptAndCourseId, depCourse.Id);
+        }
+        System.debug(deptAndCourseToDepCourseMap);
+        for (String deptAndCourseId : deptAndCourseToDepCourseGroupsMap.keySet()) {
+            List<DepartmentCourseGroup__c> depCourseGroups = deptAndCourseToDepCourseGroupsMap.get(deptAndCourseId);
+            Id depCourseId = deptAndCourseToDepCourseMap.get(deptAndCourseId);
+            for (DepartmentCourseGroup__c depCourseGroup : depCourseGroups) {
+                if (depCourseId == null) {
+                    depCourseGroup.addError(System.Label.DepartmentCourseGroupDepartmentCourseNotFound);
+                } else {
+                    depCourseGroup.DepartmentCourse__c = depCourseId;
+                }
+            }
+        }
+    }
+
+    private static void validateDepartmentCourse(List<DepartmentCourseGroup__c> newList, Map<Id, DepartmentCourseGroup__c> oldMap) {
+        Set<Id> depCourseIdSet = new Set<Id>();
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            depCourseIdSet.add(depCourseGroup.DepartmentCourse__c);
+        }
+        Map<Id, DepartmentCourse__c> depCourseMap = new Map<Id, DepartmentCourse__c>([
+            SELECT IsActive__c
+            FROM DepartmentCourse__c
+            WHERE Id IN :depCourseIdSet
+        ]);
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            Boolean isActiveDepCourse = depCourseMap.get(depCourseGroup.DepartmentCourse__c)?.IsActive__c != null
+                                        ? depCourseMap.get(depCourseGroup.DepartmentCourse__c).IsActive__c
+                                        : false;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseGroup.Id);
+            Boolean isInactivation = isUpdate && !depCourseGroup.IsActive__c;
+            if (!isActiveDepCourse && !isInactivation) {
+                depCourseGroup.DepartmentCourse__c.addError(System.Label.InactiveDepartmentCourse);
+            }
+        }
+    }
+
+    private static void validateDepartmentCourseGroup(List<DepartmentCourseGroup__c> newList, Map<Id, DepartmentCourseGroup__c> oldMap) {
+        Map<Id, Map<Id, DepartmentCourseGroup__c>> depCourseToGroupToDepCourseGroupMap = new Map<Id, Map<Id, DepartmentCourseGroup__c>>();
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            depCourseToGroupToDepCourseGroupMap.put(depCourseGroup.DepartmentCourse__c, new Map<Id, DepartmentCourseGroup__c>());
+            depCourseToGroupToDepCourseGroupMap.get(depCourseGroup.DepartmentCourse__c).put(depCourseGroup.StudentGroup__c, null);
+        }
+        for (DepartmentCourseGroup__c depCourseGroup : [SELECT DepartmentCourse__c, StudentGroup__c, IsActive__c 
+                                                        FROM DepartmentCourseGroup__c 
+                                                        WHERE DepartmentCourse__c IN :depCourseToGroupToDepCourseGroupMap.keySet()])
+        {
+            if (depCourseToGroupToDepCourseGroupMap.get(depCourseGroup.DepartmentCourse__c).containsKey(depCourseGroup.StudentGroup__c)) {
+                depCourseToGroupToDepCourseGroupMap.get(depCourseGroup.DepartmentCourse__c).put(depCourseGroup.StudentGroup__c, depCourseGroup);
+            }
+        }
+        for (DepartmentCourseGroup__c depCourseGroup : newList) {
+            DepartmentCourseGroup__c duplDepCourseGroup = depCourseToGroupToDepCourseGroupMap.get(depCourseGroup.DepartmentCourse__c).get(depCourseGroup.StudentGroup__c);
+            Boolean isDuplicate = duplDepCourseGroup != null;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseGroup.Id);
+            if (isUpdate && isDuplicate) {
+                isDuplicate = oldMap.get(depCourseGroup.Id).Id != duplDepCourseGroup.Id;
+            }
+            Boolean isInactivation = isUpdate && !depCourseGroup.IsActive__c && oldMap.get(depCourseGroup.Id).IsActive__c;
+            if (isDuplicate && !isInactivation) {
+                depCourseGroup.addError(System.Label.DuplicateDepartmentCourseGroup);
             }
         }
     }

@@ -11,7 +11,9 @@ public with sharing class StudentGroupMemberTriggerHelper {
             WHERE Id IN :groupIdSet
         ]);
         for (StudentGroupMember__c groupMember : newList) {
-            Boolean isActiveGroup = groupMap.get(groupMember.Group__c).IsActive__c;
+            Boolean isActiveGroup = groupMap.get(groupMember.Group__c)?.IsActive__c != null
+                                    ? groupMap.get(groupMember.Group__c).IsActive__c
+                                    : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(groupMember.Id);
             Boolean isInactivation = isUpdate && !groupMember.IsActive__c && oldMap.get(groupMember.Id).IsActive__c;
             if (!isActiveGroup && !isInactivation) {
@@ -31,7 +33,9 @@ public with sharing class StudentGroupMemberTriggerHelper {
             WHERE Id IN :studentIdSet
         ]);
         for (StudentGroupMember__c groupMember : newList) {
-            Boolean isActiveStudent = studentMap.get(groupMember.Student__c).IsActive__c;
+            Boolean isActiveStudent = studentMap.get(groupMember.Student__c)?.IsActive__c != null
+                                      ? studentMap.get(groupMember.Student__c).IsActive__c
+                                      : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(groupMember.Id);
             Boolean isInactivation = isUpdate && !groupMember.IsActive__c && oldMap.get(groupMember.Id).IsActive__c;
             if (!isActiveStudent && !isInactivation) {

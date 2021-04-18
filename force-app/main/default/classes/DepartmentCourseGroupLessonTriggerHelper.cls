@@ -19,7 +19,9 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
             WHERE Id IN :lessonIdSet
         ]);
         for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
-            Boolean isActiveLesson = lessonMap.get(depCourseGroupLsn.Lesson__c).IsActive__c;
+            Boolean isActiveLesson = lessonMap.get(depCourseGroupLsn.Lesson__c)?.IsActive__c != null
+                                     ? lessonMap.get(depCourseGroupLsn.Lesson__c).IsActive__c
+                                     : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseGroupLsn.Id);
             Boolean isInactivation = isUpdate && !depCourseGroupLsn.IsActive__c;
             if (!isActiveLesson && !isInactivation) {
@@ -101,7 +103,6 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
             Boolean isActiveDepCourseGroup = depCourseGroupMap.get(lsn.DepartmentCourseGroup__c)?.IsActive__c != null
                                             ? depCourseGroupMap.get(lsn.DepartmentCourseGroup__c).IsActive__c
                                             : false;
-            
             Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
             Boolean isInactivation = isUpdate && !lsn.IsActive__c;
             if (!isActiveDepCourseGroup && !isInactivation) {

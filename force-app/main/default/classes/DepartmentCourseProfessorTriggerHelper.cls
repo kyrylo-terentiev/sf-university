@@ -11,7 +11,9 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
             WHERE Id IN :depProfIdSet
         ]);
         for (DepartmentCourseProfessor__c depCourseProf : newList) {
-            Boolean isActiveDepProf = depProfMap.get(depCourseProf.DepartmentProfessor__c).IsActive__c;
+            Boolean isActiveDepProf = depProfMap.get(depCourseProf.DepartmentProfessor__c)?.IsActive__c != null
+                                      ? depProfMap.get(depCourseProf.DepartmentProfessor__c).IsActive__c
+                                      : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseProf.Id);
             Boolean isInactivation = isUpdate && !depCourseProf.IsActive__c;
             if (!isActiveDepProf && !isInactivation) {
@@ -31,7 +33,9 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
             WHERE Id IN :depCourseIdSet
         ]);
         for (DepartmentCourseProfessor__c depCourseProf : newList) {
-            Boolean isActiveDepCourse = depCourseMap.get(depCourseProf.DepartmentCourse__c).IsActive__c;
+            Boolean isActiveDepCourse = depCourseMap.get(depCourseProf.DepartmentCourse__c)?.IsActive__c != null
+                                        ? depCourseMap.get(depCourseProf.DepartmentCourse__c).IsActive__c
+                                        : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseProf.Id);
             Boolean isInactivation = isUpdate && !depCourseProf.IsActive__c;
             if (!isActiveDepCourse && !isInactivation) {

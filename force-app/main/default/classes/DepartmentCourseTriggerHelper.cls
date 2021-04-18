@@ -11,7 +11,9 @@ public with sharing class DepartmentCourseTriggerHelper {
             WHERE Id IN :depIdSet
         ]);
         for (DepartmentCourse__c depCourse : newList) {
-            Boolean isActiveDep = depMap.get(depCourse.Department__c).IsActive__c;
+            Boolean isActiveDep = depMap.get(depCourse.Department__c)?.IsActive__c != null
+                                  ? depMap.get(depCourse.Department__c).IsActive__c
+                                  : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourse.Id);
             Boolean isInactivation = isUpdate && !depCourse.IsActive__c;
             if (!isActiveDep && !isInactivation) {
@@ -31,7 +33,9 @@ public with sharing class DepartmentCourseTriggerHelper {
             WHERE Id IN :courseIdSet
         ]);
         for (DepartmentCourse__c depCourse : newList) {
-            Boolean isActiveCourse = courseMap.get(depCourse.Course__c).IsActive__c;
+            Boolean isActiveCourse = courseMap.get(depCourse.Course__c)?.IsActive__c != null
+                                     ? courseMap.get(depCourse.Course__c).IsActive__c 
+                                     : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourse.Id);
             Boolean isInactivation = isUpdate && !depCourse.IsActive__c;
             if (!isActiveCourse && !isInactivation) {

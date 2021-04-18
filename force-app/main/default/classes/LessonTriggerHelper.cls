@@ -8,6 +8,8 @@ public with sharing class LessonTriggerHelper {
     }
 
     public static void validate(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        setDepartmentCourse(newList);
+        setDepartmentProfessor(newList);
         setDepartmentCourseProfessor(newList);
         validateDepartmentCourseProfessor(newList, oldMap);
         validateDuplicate(newList);
@@ -67,7 +69,6 @@ public with sharing class LessonTriggerHelper {
             Boolean isActiveDepCourseProf = depCourseProfMap.get(lsn.DepartmentCourseProfessor__c)?.IsActive__c != null
                                             ? depCourseProfMap.get(lsn.DepartmentCourseProfessor__c).IsActive__c
                                             : false;
-            
             Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
             Boolean isInactivation = isUpdate && !lsn.IsActive__c;
             if (!isActiveDepCourseProf && !isInactivation) {
