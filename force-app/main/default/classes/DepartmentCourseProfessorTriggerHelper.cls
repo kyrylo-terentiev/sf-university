@@ -1,6 +1,54 @@
 public with sharing class DepartmentCourseProfessorTriggerHelper {
     
-    public static void validateDepartmentProfessor(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+    public static void validate(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+        setDepartmentCourse(newList, oldMap);
+        setDepartmentProfessor(newList, oldMap);
+        validateDepartmentCourse(newList, oldMap);
+        validateDepartmentProfessor(newList, oldMap);
+        validateDepartmentCourseProfessor(newList, oldMap);
+    }
+
+    private static void setDepartmentCourse(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+        Map<String, List<DepartmentCourseProfessor__c>> deptAndCourseToDepCourseProfsMap = new Map<String, List<DepartmentCourseProfessor__c>>();
+        Set<Id> deptIdSet = new Set<Id>();
+        Set<Id> courseIdSet = new Set<Id>();
+        for (DepartmentCourseProfessor__c depCourseProf : newList) {
+            deptIdSet.add(depCourseProf.Department__c);
+            courseIdSet.add(depCourseProf.Course__c);
+            String deptAndCourseId = String.valueOf(depCourseProf.Department__c) + String.valueOf(depCourseProf.Course__c);
+            if (deptAndCourseToDepCourseProfsMap.get(deptAndCourseId) == null) {
+                deptAndCourseToDepCourseProfsMap.put(deptAndCourseId, new List<DepartmentCourseProfessor__c>());
+            }
+            deptAndCourseToDepCourseProfsMap.get(deptAndCourseId).add(depCourseProf);
+        }
+        List<DepartmentCourse__c> depCourseList = [
+            SELECT Id
+                , Department__c
+                , Course__c
+            FROM DepartmentCourse__c
+            WHERE 
+                Department__c IN :deptIdSet AND
+                Course__c IN :courseIdSet
+        ];
+        Map<String, Id> deptAndCourseToDepCourseMap = new Map<String, Id>();
+        for (DepartmentCourse__c depCourse : depCourseList) {
+            String deptAndCourseId = String.valueOf(depCourse.Department__c) + String.valueOf(depCourse.Course__c);
+            deptAndCourseToDepCourseMap.put(deptAndCourseId, depCourse.Id);
+        }
+        for (String deptAndCourseId : deptAndCourseToDepCourseProfsMap.keySet()) {
+            List<DepartmentCourseProfessor__c> depCourseProfs = deptAndCourseToDepCourseProfsMap.get(deptAndCourseId);
+            Id depCourseId = deptAndCourseToDepCourseMap.get(deptAndCourseId);
+            for (DepartmentCourseProfessor__c depCourseProf : depCourseProfs) {
+                if (depCourseId == null) {
+                    depCourseProf.addError(System.Label.DepartmentCourseGroupDepartmentCourseNotFound);
+                } else {
+                    depCourseProf.DepartmentCourse__c = depCourseId;
+                }
+            }
+        }
+    }
+
+    private static void validateDepartmentProfessor(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
         Set<Id> depProfIdSet = new Set<Id>();
         for (DepartmentCourseProfessor__c depCourseProf : newList) {
             depProfIdSet.add(depCourseProf.DepartmentProfessor__c);
@@ -22,7 +70,7 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
         }
     }
 
-    public static void validateDepartmentCourse(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+    private static void validateDepartmentCourse(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
         Set<Id> depCourseIdSet = new Set<Id>();
         for (DepartmentCourseProfessor__c depCourseProf : newList) {
             depCourseIdSet.add(depCourseProf.DepartmentCourse__c);
