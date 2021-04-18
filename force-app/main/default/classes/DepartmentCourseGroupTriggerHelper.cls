@@ -60,7 +60,6 @@ public with sharing class DepartmentCourseGroupTriggerHelper {
             }
             deptAndCourseToDepCourseGroupsMap.get(deptAndCourseId).add(depCourseGroup);
         }
-        System.debug(deptAndCourseToDepCourseGroupsMap);
         List<DepartmentCourse__c> depCourseList = [
             SELECT Id
                 , Department__c
@@ -75,7 +74,6 @@ public with sharing class DepartmentCourseGroupTriggerHelper {
             String deptAndCourseId = String.valueOf(depCourse.Department__c) + String.valueOf(depCourse.Course__c);
             deptAndCourseToDepCourseMap.put(deptAndCourseId, depCourse.Id);
         }
-        System.debug(deptAndCourseToDepCourseMap);
         for (String deptAndCourseId : deptAndCourseToDepCourseGroupsMap.keySet()) {
             List<DepartmentCourseGroup__c> depCourseGroups = deptAndCourseToDepCourseGroupsMap.get(deptAndCourseId);
             Id depCourseId = deptAndCourseToDepCourseMap.get(deptAndCourseId);

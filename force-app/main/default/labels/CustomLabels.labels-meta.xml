@@ -170,6 +170,24 @@ Ensure there is an active Department Course Group linking this Group and Course.
 Ensure there is a Department Course Professor linking this Course and Professor.</value>
     </labels>
     <labels>
+        <fullName>LessonDepartmentProfessorNotFound</fullName>
+        <categories>validation,lesson,department,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentProfessorNotFound</shortDescription>
+        <value>No connection between the selected department and professor found!
+Ensure there is a Department Professor linking this department and professor.</value>
+    </labels>
+    <labels>
+        <fullName>LessonDepartmentCourseNotFound</fullName>
+        <categories>validation,lesson,department,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this department and course.</value>
+    </labels>
+    <labels>
         <fullName>DepartmentCourseGroupDepartmentCourseNotFound</fullName>
         <categories>validation,department course group,course,department course,student group</categories>
         <language>en_US</language>

@@ -15,7 +15,87 @@ public with sharing class LessonTriggerHelper {
         validateDuplicate(newList);
     }
 
-    public static void setDepartmentCourseProfessor(List<Lesson__c> newList) {
+    private static void setDepartmentCourse(List<Lesson__c> newList) {
+        Map<String, List<Lesson__c>> deptAndCourseToLessonsMap = new Map<String, List<Lesson__c>>();
+        Set<Id> deptIdSet = new Set<Id>();
+        Set<Id> courseIdSet = new Set<Id>();
+        for (Lesson__c lsn : newList) {
+            deptIdSet.add(lsn.Department__c);
+            courseIdSet.add(lsn.Course__c);
+            String deptAndCourseId = String.valueOf(lsn.Department__c) + String.valueOf(lsn.Course__c);
+            if (deptAndCourseToLessonsMap.get(deptAndCourseId) == null) {
+                deptAndCourseToLessonsMap.put(deptAndCourseId, new List<Lesson__c>());
+            }
+            deptAndCourseToLessonsMap.get(deptAndCourseId).add(lsn);
+        }
+        List<DepartmentCourse__c> depCourseList = [
+            SELECT Id
+                , Department__c
+                , Course__c
+            FROM DepartmentCourse__c
+            WHERE 
+                Department__c IN :deptIdSet AND
+                Course__c IN :courseIdSet
+        ];
+        Map<String, Id> deptAndCourseToDepCourseMap = new Map<String, Id>();
+        for (DepartmentCourse__c depCourse : depCourseList) {
+            String deptAndCourseId = String.valueOf(depCourse.Department__c) + String.valueOf(depCourse.Course__c);
+            deptAndCourseToDepCourseMap.put(deptAndCourseId, depCourse.Id);
+        }
+        for (String deptAndCourseId : deptAndCourseToLessonsMap.keySet()) {
+            List<Lesson__c> lessons = deptAndCourseToLessonsMap.get(deptAndCourseId);
+            Id depCourseId = deptAndCourseToDepCourseMap.get(deptAndCourseId);
+            for (Lesson__c lsn : lessons) {
+                if (depCourseId == null) {
+                    lsn.addError(System.Label.LessonDepartmentCourseNotFound);
+                } else {
+                    lsn.DepartmentCourse__c = depCourseId;
+                }
+            }
+        }
+    }
+
+    private static void setDepartmentProfessor(List<Lesson__c> newList) {
+        Map<String, List<Lesson__c>> deptAndProfToLessonsMap = new Map<String, List<Lesson__c>>();
+        Set<Id> deptIdSet = new Set<Id>();
+        Set<Id> profIdSet = new Set<Id>();
+        for (Lesson__c lsn : newList) {
+            deptIdSet.add(lsn.Department__c);
+            profIdSet.add(lsn.Professor__c);
+            String deptAndProfId = String.valueOf(lsn.Department__c) + String.valueOf(lsn.Professor__c);
+            if (deptAndProfToLessonsMap.get(deptAndProfId) == null) {
+                deptAndProfToLessonsMap.put(deptAndProfId, new List<Lesson__c>());
+            }
+            deptAndProfToLessonsMap.get(deptAndProfId).add(lsn);
+        }
+        List<DepartmentProfessor__c> depProfList = [
+            SELECT Id
+                , Department__c
+                , Professor__c
+            FROM DepartmentProfessor__c
+            WHERE 
+                Department__c IN :deptIdSet AND
+                Professor__c IN :profIdSet
+        ];
+        Map<String, Id> deptAndProfToDepProfMap = new Map<String, Id>();
+        for (DepartmentProfessor__c depProf : depProfList) {
+            String deptAndProfId = String.valueOf(depProf.Department__c) + String.valueOf(depProf.Professor__c);
+            deptAndProfToDepProfMap.put(deptAndProfId, depProf.Id);
+        }
+        for (String deptAndProfId : deptAndProfToLessonsMap.keySet()) {
+            List<Lesson__c> lessons = deptAndProfToLessonsMap.get(deptAndProfId);
+            Id depProfId = deptAndProfToDepProfMap.get(deptAndProfId);
+            for (Lesson__c lsn : lessons) {
+                if (depProfId == null) {
+                    lsn.addError(System.Label.LessonDepartmentProfessorNotFound);
+                } else {
+                    lsn.DepartmentProfessor__c = depProfId;
+                }
+            }
+        }
+    }
+
+    private static void setDepartmentCourseProfessor(List<Lesson__c> newList) {
         Map<String, List<Lesson__c>> courseAndProfToLessonsMap = new Map<String, List<Lesson__c>>();
         Set<Id> courseIdSet = new Set<Id>();
         Set<Id> profIdSet = new Set<Id>();
@@ -111,6 +191,6 @@ public with sharing class LessonTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, Lesson__c> newMap, Map<Id, Lesson__c> oldMap) {
-
+        // update department course group lessons - deactivate (copy from department course group trigger)
     }
 }
