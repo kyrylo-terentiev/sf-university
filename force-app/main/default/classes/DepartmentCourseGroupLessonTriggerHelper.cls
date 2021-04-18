@@ -1,6 +1,14 @@
 public with sharing class DepartmentCourseGroupLessonTriggerHelper {
     
-    public static void validateLesson(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+    public static void validate(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        validateLesson(newList, oldMap);
+        setCourse(newList);
+        setDepartmentCourseGroup(newList);
+        validateDepartmentCourseGroup(newList, oldMap);
+        validateDepartmentCourseGroupLesson(newList, oldMap);
+    }
+    
+    private static void validateLesson(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
         Set<Id> lessonIdSet = new Set<Id>();
         for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
             lessonIdSet.add(depCourseGroupLsn.Lesson__c);
@@ -20,7 +28,7 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
         }
     }
 
-    public static void setCourse(List<DepartmentCourseGroupLesson__c> newList) {
+    private static void setCourse(List<DepartmentCourseGroupLesson__c> newList) {
         Set<Id> lessonIdSet = new Set<Id>();
         for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
             lessonIdSet.add(depCourseGroupLsn.Lesson__c);
@@ -38,7 +46,7 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
     }
 
 
-    public static void setDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList) {
+    private static void setDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList) {
         Map<String, List<DepartmentCourseGroupLesson__c>> groupAndCourseToLessonsMap = new Map<String, List<DepartmentCourseGroupLesson__c>>();
         Set<Id> groupIdSet = new Set<Id>();
         Set<Id> courseIdSet = new Set<Id>();
@@ -79,7 +87,7 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
         }
     }
 
-    public static void validateDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+    private static void validateDepartmentCourseGroup(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
         Set<Id> depCourseGroupIdSet = new Set<Id>();
         for (DepartmentCourseGroupLesson__c lsn : newList) {
             depCourseGroupIdSet.add(lsn.DepartmentCourseGroup__c);
@@ -98,6 +106,34 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
             Boolean isInactivation = isUpdate && !lsn.IsActive__c;
             if (!isActiveDepCourseGroup && !isInactivation) {
                 lsn.addError(System.Label.LessonDepartmentCourseGroupNotFound);
+            }
+        }
+    }
+
+    private static void validateDepartmentCourseGroupLesson(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        Map<Id, Map<Id, DepartmentCourseGroupLesson__c>> groupToLsnToGroupLsnMap = new Map<Id, Map<Id, DepartmentCourseGroupLesson__c>>();
+        for (DepartmentCourseGroupLesson__c groupLsn : newList) {
+            groupToLsnToGroupLsnMap.put(groupLsn.DepartmentCourseGroup__c, new Map<Id, DepartmentCourseGroupLesson__c>());
+            groupToLsnToGroupLsnMap.get(groupLsn.DepartmentCourseGroup__c).put(groupLsn.Lesson__c, null);
+        }
+        for (DepartmentCourseGroupLesson__c groupLsn : [SELECT DepartmentCourseGroup__c, Lesson__c, IsActive__c 
+                                                        FROM DepartmentCourseGroupLesson__c 
+                                                        WHERE DepartmentCourseGroup__c IN :groupToLsnToGroupLsnMap.keySet()])
+        {
+            if (groupToLsnToGroupLsnMap.get(groupLsn.DepartmentCourseGroup__c).containsKey(groupLsn.Lesson__c)) {
+                groupToLsnToGroupLsnMap.get(groupLsn.DepartmentCourseGroup__c).put(groupLsn.Lesson__c, groupLsn);
+            }
+        }
+        for (DepartmentCourseGroupLesson__c groupLsn : newList) {
+            DepartmentCourseGroupLesson__c duplGroupLsn = groupToLsnToGroupLsnMap.get(groupLsn.DepartmentCourseGroup__c).get(groupLsn.Lesson__c);
+            Boolean isDuplicate = duplGroupLsn != null;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(groupLsn.Id);
+            if (isUpdate && isDuplicate) {
+                isDuplicate = oldMap.get(groupLsn.Id).Id != duplGroupLsn.Id;
+            }
+            Boolean isInactivation = isUpdate && !groupLsn.IsActive__c && oldMap.get(groupLsn.Id).IsActive__c;
+            if (isDuplicate && !isInactivation) {
+                groupLsn.addError(System.Label.DuplicateDepartmentCourseGroupLesson);
             }
         }
     }

@@ -21,7 +21,15 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>DuplicateLesson</shortDescription>
-        <value>This Professor has already a Lesson at this time.</value>
+        <value>This rofessor has already a lesson at this time</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentCourseGroupLesson</fullName>
+        <categories>validation,duplicate,lesson,student group,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseGroupLesson</shortDescription>
+        <value>This group is already attending this lesson</value>
     </labels>
     <labels>
         <fullName>DuplicateStudentGroupMember</fullName>
