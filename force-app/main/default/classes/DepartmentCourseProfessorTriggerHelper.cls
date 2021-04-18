@@ -1,14 +1,14 @@
 public with sharing class DepartmentCourseProfessorTriggerHelper {
     
     public static void validate(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
-        setDepartmentCourse(newList, oldMap);
-        setDepartmentProfessor(newList, oldMap);
+        setDepartmentCourse(newList);
+        setDepartmentProfessor(newList);
         validateDepartmentCourse(newList, oldMap);
         validateDepartmentProfessor(newList, oldMap);
         validateDepartmentCourseProfessor(newList, oldMap);
     }
 
-    private static void setDepartmentCourse(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+    private static void setDepartmentCourse(List<DepartmentCourseProfessor__c> newList) {
         Map<String, List<DepartmentCourseProfessor__c>> deptAndCourseToDepCourseProfsMap = new Map<String, List<DepartmentCourseProfessor__c>>();
         Set<Id> deptIdSet = new Set<Id>();
         Set<Id> courseIdSet = new Set<Id>();
@@ -40,9 +40,49 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
             Id depCourseId = deptAndCourseToDepCourseMap.get(deptAndCourseId);
             for (DepartmentCourseProfessor__c depCourseProf : depCourseProfs) {
                 if (depCourseId == null) {
-                    depCourseProf.addError(System.Label.DepartmentCourseGroupDepartmentCourseNotFound);
+                    depCourseProf.addError(System.Label.DepartmentCourseProfessorDepartmentCourseNotFound);
                 } else {
                     depCourseProf.DepartmentCourse__c = depCourseId;
+                }
+            }
+        }
+    }
+
+    private static void setDepartmentProfessor(List<DepartmentCourseProfessor__c> newList) {
+        Map<String, List<DepartmentCourseProfessor__c>> deptAndProfToDepCourseProfsMap = new Map<String, List<DepartmentCourseProfessor__c>>();
+        Set<Id> deptIdSet = new Set<Id>();
+        Set<Id> profIdSet = new Set<Id>();
+        for (DepartmentCourseProfessor__c depCourseProf : newList) {
+            deptIdSet.add(depCourseProf.Department__c);
+            profIdSet.add(depCourseProf.Professor__c);
+            String deptAndProfId = String.valueOf(depCourseProf.Department__c) + String.valueOf(depCourseProf.Professor__c);
+            if (deptAndProfToDepCourseProfsMap.get(deptAndProfId) == null) {
+                deptAndProfToDepCourseProfsMap.put(deptAndProfId, new List<DepartmentCourseProfessor__c>());
+            }
+            deptAndProfToDepCourseProfsMap.get(deptAndProfId).add(depCourseProf);
+        }
+        List<DepartmentProfessor__c> depProfList = [
+            SELECT Id
+                , Department__c
+                , Professor__c
+            FROM DepartmentProfessor__c
+            WHERE 
+                Department__c IN :deptIdSet AND
+                Professor__c IN :profIdSet
+        ];
+        Map<String, Id> deptAndProfToDepProfMap = new Map<String, Id>();
+        for (DepartmentProfessor__c depProf : depProfList) {
+            String deptAndProfId = String.valueOf(depProf.Department__c) + String.valueOf(depProf.Professor__c);
+            deptAndProfToDepProfMap.put(deptAndProfId, depProf.Id);
+        }
+        for (String deptAndProfId : deptAndProfToDepCourseProfsMap.keySet()) {
+            List<DepartmentCourseProfessor__c> depCourseProfs = deptAndProfToDepCourseProfsMap.get(deptAndProfId);
+            Id depProfId = deptAndProfToDepProfMap.get(deptAndProfId);
+            for (DepartmentCourseProfessor__c depCourseProf : depCourseProfs) {
+                if (depProfId == null) {
+                    depCourseProf.addError(System.Label.DepartmentCourseProfessorDepartmentProfessorNotFound);
+                } else {
+                    depCourseProf.DepartmentProfessor__c = depProfId;
                 }
             }
         }
@@ -90,6 +130,10 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
                 depCourseProf.DepartmentCourse__c.addError(System.Label.InactiveDepartmentCourse);
             }
         }
+    }
+
+    private static void validateDepartmentCourseProfessor(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
+        // duplicate validation
     }
 
     public static void updateChildren(Map<Id, DepartmentCourseProfessor__c> newMap, Map<Id, DepartmentCourseProfessor__c> oldMap) {

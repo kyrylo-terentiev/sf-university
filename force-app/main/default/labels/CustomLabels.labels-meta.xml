@@ -196,4 +196,22 @@ Ensure there is a Department Course linking this department and course.</value>
         <value>No connection between the selected course and department found!
 Ensure there is a Department Course linking this Course and Department.</value>
     </labels>
+    <labels>
+        <fullName>DepartmentCourseProfessorDepartmentCourseNotFound</fullName>
+        <categories>validation,department course professor,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DepartmentCourseProfessorDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this Course and Department.</value>
+    </labels>
+    <labels>
+        <fullName>DepartmentCourseProfessorDepartmentProfessorNotFound</fullName>
+        <categories>validation,department course professor,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DepartmentCourseProfessorDepartmentProfessorNotFound</shortDescription>
+        <value>No connection between the selected department and professor found!
+Ensure there is a Department Professor linking this Course and Professor.</value>
+    </labels>
 </CustomLabels>
