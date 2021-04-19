@@ -133,7 +133,31 @@ public with sharing class DepartmentCourseProfessorTriggerHelper {
     }
 
     private static void validateDepartmentCourseProfessor(List<DepartmentCourseProfessor__c> newList, Map<Id, DepartmentCourseProfessor__c> oldMap) {
-        // duplicate validation
+        Map<Id, Map<Id, DepartmentCourseProfessor__c>> courseToProfToDepCourseProf = new Map<Id, Map<Id, DepartmentCourseProfessor__c>>();
+        for (DepartmentCourseProfessor__c depCourseProf : newList) {
+            courseToProfToDepCourseProf.put(depCourseProf.DepartmentCourse__c, new Map<Id, DepartmentCourseProfessor__c>());
+            courseToProfToDepCourseProf.get(depCourseProf.DepartmentCourse__c).put(depCourseProf.DepartmentProfessor__c, null);
+        }
+        for (DepartmentCourseProfessor__c depCourseProf : [SELECT DepartmentCourse__c, DepartmentProfessor__c, IsActive__c 
+                                                        FROM DepartmentCourseProfessor__c 
+                                                        WHERE DepartmentCourse__c IN :courseToProfToDepCourseProf.keySet()])
+        {
+            if (courseToProfToDepCourseProf.get(depCourseProf.DepartmentCourse__c).containsKey(depCourseProf.DepartmentProfessor__c)) {
+                courseToProfToDepCourseProf.get(depCourseProf.DepartmentCourse__c).put(depCourseProf.DepartmentProfessor__c, depCourseProf);
+            }
+        }
+        for (DepartmentCourseProfessor__c depCourseProf : newList) {
+            DepartmentCourseProfessor__c duplDepCourseProf = courseToProfToDepCourseProf.get(depCourseProf.DepartmentCourse__c).get(depCourseProf.DepartmentProfessor__c);
+            Boolean isDuplicate = duplDepCourseProf != null;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(depCourseProf.Id);
+            if (isUpdate && isDuplicate) {
+                isDuplicate = oldMap.get(depCourseProf.Id).Id != duplDepCourseProf.Id;
+            }
+            Boolean isInactivation = isUpdate && !depCourseProf.IsActive__c && oldMap.get(depCourseProf.Id).IsActive__c;
+            if (isDuplicate && !isInactivation) {
+                depCourseProf.addError(System.Label.DuplicateDepartmentCourseProfessor);
+            }
+        }
     }
 
     public static void updateChildren(Map<Id, DepartmentCourseProfessor__c> newMap, Map<Id, DepartmentCourseProfessor__c> oldMap) {

@@ -16,6 +16,14 @@
         <value>The professor is already working in this department</value>
     </labels>
     <labels>
+        <fullName>DuplicateDepartmentCourseProfessor</fullName>
+        <categories>validation,department,professor,department professor,course,department course,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseProfessor</shortDescription>
+        <value>The professor is already teaching this course on this department</value>
+    </labels>
+    <labels>
         <fullName>DuplicateLesson</fullName>
         <categories>validation,duplicate,lesson,department professor</categories>
         <language>en_US</language>
