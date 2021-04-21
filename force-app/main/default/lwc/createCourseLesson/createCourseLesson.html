@@ -1,0 +1,114 @@
+<template>
+    <lightning-record-edit-form 
+        object-api-name="Lesson__c"
+        onsuccess={handleSuccess}
+        onsubmit={handleSubmit}>
+        <lightning-messages>
+        </lightning-messages>
+        <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small" title="General">General</span>
+            </h3>
+            <div aria-hidden="false" class="slds-section__content">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Department__c">
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Course__c" value={courseId}>  
+                        </lightning-input-field>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Professor__c">
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Type__c">
+                        </lightning-input-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small" title="Schedule">Schedule</span>
+            </h3>
+            <div aria-hidden="false" class="slds-section__content">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Date__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="OrderNumber__c">
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="StartTimePicklist__c" disabled>
+                        </lightning-input-field>
+                        <lightning-input-field field-name="EndTimePicklist__c" disabled>
+                        </lightning-input-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small" title="Location">Location</span>
+            </h3>
+            <div aria-hidden="false" class="slds-section__content">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Room__c">
+                        </lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="Link__c">
+                        </lightning-input-field>
+                    </div>
+                </div>
+                <div class="slds-grid"> 
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field field-name="IsOnline__c">
+                        </lightning-input-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-section slds-is-open">
+            <h3 class="slds-section__title slds-theme_shade">
+                <span class="slds-truncate slds-p-horizontal_small" title="Location">Location</span>
+            </h3>
+            <div aria-hidden="false" class="slds-section__content">
+                <div class="slds-grid"> 
+                    <div class="slds-col slds-size_1-of-1">
+                        <lightning-input-field field-name="Topic__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="Description__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="IsActive__c">
+                        </lightning-input-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="slds-align_absolute-center">
+            <lightning-button
+                class="slds-m-top_small slds-m-right_small"
+                type="text"
+                variant="neutral"
+                name="cancel"
+                label="Cancel"
+                onclick={handleCancel}>
+            </lightning-button>
+            <lightning-button
+                class="slds-m-top_small"
+                type="submit"
+                variant="brand"
+                name="save"
+                label="Save">
+            </lightning-button>
+        </div> -->
+    </lightning-record-edit-form>
+</template>
