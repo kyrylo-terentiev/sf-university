@@ -1,3 +1,10 @@
-import { LightningElement } from 'lwc';
+import { api, track, LightningElement } from 'lwc';
 
-export default class createCourseLesson extends LightningElement {}
+export default class CreateCourseLesson extends LightningElement {
+    @api courseId;
+    @track lessonId;
+
+    handleSuccess(event) {
+        this.accountId = event.detail.id;
+    }
+}
