@@ -1,11 +1,7 @@
 <template>
-    <div class="modal-header slds-modal__header">
-        <h2><div class="slds-modal__title slds-hyphenate slds-text-heading--medium">New Lesson</div></h2>
-    </div>
     <lightning-record-edit-form 
         object-api-name="Lesson__c"
-        onsuccess={handleSuccess}
-        onsubmit={handleSubmit}>
+        onsuccess={handleSuccess}>
         <lightning-messages>
         </lightning-messages>
         <div class="slds-section slds-is-open">
@@ -97,27 +93,4 @@
             </div>
         </div>
     </lightning-record-edit-form>
-    <div class="modal-footer slds-modal__footer slds-align_absolute-center">
-        <lightning-button
-            class="slds-m-top_small slds-m-right_small"
-            variant="neutral"
-            data-name="cancel"
-            label="Cancel"
-            onclick={onCancel}>
-        </lightning-button>
-        <lightning-button
-            class="slds-m-top_small slds-m-right_small"
-            variant="neutral"
-            data-name="save"
-            label="Save"
-            onclick={onSave}>
-        </lightning-button>
-        <lightning-button
-            class="slds-m-top_small"
-            variant="brand"
-            data-name="saveAndAddGroups"
-            label="Save & Add Groups"
-            onclick={onSaveAndAddGroups}>
-        </lightning-button>
-    </div>
 </template>

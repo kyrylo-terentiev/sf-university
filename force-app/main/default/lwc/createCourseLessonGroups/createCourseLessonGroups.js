@@ -1,3 +1,11 @@
-import { LightningElement } from 'lwc';
+import { api, LightningElement } from 'lwc';
 
-export default class CreateCourseLessonGroups extends LightningElement {}
+export default class CreateCourseLessonGroups extends LightningElement {
+
+    @api lessonId;
+
+    @api
+    handleSave() {
+        console.log('save groups');
+    }
+}
