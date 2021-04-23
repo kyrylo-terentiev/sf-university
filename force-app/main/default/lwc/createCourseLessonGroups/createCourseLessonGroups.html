@@ -1,3 +1,11 @@
 <template>
-    {lessonId}
+    <lightning-dual-listbox name="groups"
+                            label="Select Student Groups"
+                            source-label="Available"
+                            selected-label="Selected"
+                            field-level-help="Select student groups, that attend the lesson"
+                            options={availableGroups}
+                            value={attendingGroups}
+                            onchange={handleGroupChange}>
+    </lightning-dual-listbox>
 </template>
