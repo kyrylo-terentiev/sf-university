@@ -1,20 +1,26 @@
-import { api, track, LightningElement } from 'lwc';
+import { api, LightningElement } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class CreateCourseLesson extends NavigationMixin(LightningElement) {
     @api courseId;
     lessonId;
+    saveAndAddGroups = false;
 
     handleSuccess(event) {
+        console.log('handleSuccess');
         this.lessonId = event.detail.id;
-        this[NavigationMixin.Navigate]({
-            type: 'standard__recordPage',
-            attributes: {
-                recordId: this.lessonId,
-                objectApiName: 'Lesson__c',
-                actionName: 'view',
-            },
-        });
+        if (this.saveAndAddGroups) {
+            console.log('open add groups modal');
+        } else {
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: {
+                    recordId: this.lessonId,
+                    objectApiName: 'Lesson__c',
+                    actionName: 'view',
+                },
+            });
+        }
     }
 
     handleSubmit(event) {
@@ -23,9 +29,17 @@ export default class CreateCourseLesson extends NavigationMixin(LightningElement
         this.template.querySelector('lightning-record-edit-form').submit(fields);
     }
 
-    handleCancel(event) {
+    onSave(event) {
+        this.template.querySelector('lightning-record-edit-form').submit();
+    }
+
+    onSaveAndAddGroups(event) {
+        this.saveAndAddGroups = true;
+        this.template.querySelector('lightning-record-edit-form').submit();
+    }
+
+    onCancel(event) {
         const closeEvent = new CustomEvent('close', { value: event.value });
         this.dispatchEvent(closeEvent);
     }
-
 }
