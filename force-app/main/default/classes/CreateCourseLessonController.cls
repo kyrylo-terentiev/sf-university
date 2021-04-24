@@ -24,4 +24,21 @@ public with sharing class CreateCourseLessonController {
         
         return groupNameMap;
     }
+
+    @AuraEnabled(cacheable=true)
+    public static Map<String, Id> getAttendingGroupsForLesson(Id lessonId) {
+        Map<String, Id> groupNameMap = new Map<String, Id>();
+        List<DepartmentCourseGroupLesson__c> depCourseGroupLessons = [
+            SELECT Id
+                , StudentGroup__c
+                , StudentGroup__r.Name
+            FROM DepartmentCourseGroupLesson__c
+            WHERE Lesson__c = :lessonId AND IsActive__c = TRUE 
+        ];
+        for (DepartmentCourseGroupLesson__c depCourseGroupLsn : depCourseGroupLessons) {
+            groupNameMap.put(depCourseGroupLsn.StudentGroup__r.Name, depCourseGroupLsn.StudentGroup__c);
+        }
+        
+        return groupNameMap;
+    }
 }

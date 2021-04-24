@@ -1,20 +1,24 @@
 <template>
-    <template if:true={error}>
-        <div class="slds-text-color_error">{error}</div>
-    </template>
-    <template if:true={isLoading}>
-        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-    </template>
-    <template if:false={error}>
-        <template if:false={isLoading}>
-            <lightning-dual-listbox name="groups"
-                                    label="Select Student Groups"
-                                    source-label="Available"
-                                    selected-label="Selected"
-                                    field-level-help="Select student groups, that attend the lesson"
-                                    options={availableGroups}
-                                    value={attendingGroups}
-                                    onchange={handleGroupChange}></lightning-dual-listbox>
-        </template>
-    </template>
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+            <template if:true={error}>
+                <div class="slds-text-color_error">{error}</div>
+            </template>
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <template if:false={error}>
+                <template if:false={isLoading}>
+                    <lightning-dual-listbox name="groups"
+                                            label="Select Student Groups"
+                                            source-label="Available"
+                                            selected-label="Selected"
+                                            field-level-help="Select student groups, that attend the lesson"
+                                            options={availableGroups}
+                                            value={attendingGroups}
+                                            onchange={handleGroupChange}></lightning-dual-listbox>
+                </template>
+            </template>
+        </div>
+    </div>
 </template>
