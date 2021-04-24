@@ -1,16 +1,35 @@
-import { api, track, LightningElement } from 'lwc';
+import { api, wire, track, LightningElement } from 'lwc';
+import getAvailableGroupsForLesson from '@salesforce/apex/CreateCourseLessonController.getAvailableGroupsForLesson';
 
 export default class CreateCourseLessonGroups extends LightningElement {
 
     @api lessonId;
 
-    @track availableGroups = [
-        { label: '3-1', value: '1' },
-        { label: 'НАИ-172у', value: '2' },
-        { label: 'АИ-176', value: '3' }
-    ];
+    @track error;
+    @track isLoading = true;
 
-    @track attendingGroups = [ ];
+    @track availableGroups = [];
+
+    @track attendingGroups = [];
+
+    @wire(getAvailableGroupsForLesson, { lessonId: '$lessonId' })
+    avalableGroupsMap({error, data}) {
+        if (error) {
+            this.isLoading = false;
+            this.error = 'Unknown error';
+            if (Array.isArray(error.body)) {
+                this.error = error.body.map(e => e.message).join(', ');
+            } else if (typeof error.body.message === 'string') {
+                this.error = error.body.message;
+            }
+            this.availableGroups = undefined;
+        } else if (data) {
+            this.isLoading = false;
+            this.availableGroups = Object.keys(data).map(key => ({ label: key, value: data[key] }));
+        }
+    }
+
+    
 
     handleGroupChange(event) {
         const selectedOptionsList = event.detail.value;
