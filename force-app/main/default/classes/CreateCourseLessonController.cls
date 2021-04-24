@@ -41,4 +41,18 @@ public with sharing class CreateCourseLessonController {
         
         return groupNameMap;
     }
+
+    @AuraEnabled
+    public static List<DepartmentCourseGroupLesson__c> addGroupsForLesson(Id lessonId, List<Id> groupIds) {
+        List<DepartmentCourseGroupLesson__c> groupLessons = new List<DepartmentCourseGroupLesson__c>();
+        for (Id groupId : groupIds) {
+            groupLessons.add(new DepartmentCourseGroupLesson__c(
+                Lesson__c = lessonId,
+                StudentGroup__c = groupId
+            ));
+        }
+        Database.insert(groupLessons, false);
+        
+        return groupLessons;
+    }
 }
