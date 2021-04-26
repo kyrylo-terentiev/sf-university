@@ -2,8 +2,12 @@ public with sharing class LessonTriggerHelper {
 
     public static void setDateTime(List<Lesson__c> newList) {
         for (Lesson__c lsn : newList) {
-            lsn.StartDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.StartTimePicklist__c);
-            lsn.EndDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.EndTimePicklist__c);
+            try {
+                lsn.StartDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.StartTimePicklist__c);
+                lsn.EndDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.EndTimePicklist__c);
+            } catch (Exception e) {
+                lsn.addError('Invalid lesson date or start/end time!');
+            }
         }
     }
 

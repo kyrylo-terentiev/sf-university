@@ -63,17 +63,12 @@ public class TestObjectFactory {
         return studentList;
     }
 
-    public static StudentGroup__c createStudentGroup() {
+    public static StudentGroup__c createStudentGroup(Department__c dep) {
         return new StudentGroup__c(
             Name = 'TestStudentGroup',
+            Department__c = dep.Id,
             IsActive__c = true
         );
-    }
-
-    public static StudentGroup__c createStudentGroup(Department__c dep) {
-        StudentGroup__c studGroup = createStudentGroup();
-        studGroup.Department__c = dep.Id;
-        return studGroup;
     }
 
     public static List<StudentGroupMember__c> createStudentGroupMembers(StudentGroup__c studGroup, List<Student__c> studList) {
@@ -122,9 +117,9 @@ public class TestObjectFactory {
         );
     }
 
-    public static DepartmentCourseGroup__c createDepartmentCourseGroup(DepartmentCourse__c depCourse, StudentGroup__c studGroup) {
+    public static DepartmentCourseGroup__c createDepartmentCourseGroup(Course__c course, StudentGroup__c studGroup) {
         return new DepartmentCourseGroup__c(
-            DepartmentCourse__c = depCourse.Id,
+            Course__c = course.Id,
             StudentGroup__c = studGroup.Id,
             IsActive__c = true
         );
@@ -138,11 +133,36 @@ public class TestObjectFactory {
         );
     }
 
-    public static DepartmentCourseProfessor__c createDepartmentCourseProfessor(DepartmentCourse__c depCourse, DepartmentProfessor__c depProf) {
+    public static DepartmentCourseProfessor__c createDepartmentCourseProfessor(Department__c dep, Course__c course, Professor__c prof) {
         return new DepartmentCourseProfessor__c(
-            Department__c = depCourse.Department__c,
-            DepartmentCourse__c = depCourse.Id,
-            DepartmentProfessor__c = depProf.Id,
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            Professor__c = prof.Id,
+            IsActive__c = true
+        );
+    }
+
+    public static Lesson__c createLesson(Department__c dep, Course__c course, Professor__c prof) {
+        return createLesson(dep, course, prof, Date.today(), 'Lecture', 'I', '08:00', '09:35');
+    }
+
+    public static DepartmentCourseGroupLesson__c createDepartmentCourseGroupLesson(Lesson__c lsn, StudentGroup__c studGroup) {
+        return new DepartmentCourseGroupLesson__c(
+            Lesson__c = lsn.Id,
+            StudentGroup__c = studGroup.Id
+        );
+    }
+
+    public static Lesson__c createLesson(Department__c dep, Course__c course, Professor__c prof, Date lessonDate, String type, String orderNumber, String startTime, String endTime) {
+        return new Lesson__c(
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            Professor__c = prof.Id,
+            Date__c = lessonDate,
+            OrderNumber__c = orderNumber,
+            StartTimePicklist__c = startTime,
+            EndTimePicklist__c = endTime,
+            Type__c = type,
             IsActive__c = true
         );
     }
