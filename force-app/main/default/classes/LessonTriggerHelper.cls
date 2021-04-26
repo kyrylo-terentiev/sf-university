@@ -161,7 +161,6 @@ public with sharing class LessonTriggerHelper {
         }
     }
 
-
     private static void validateDuplicate(List<Lesson__c> newList) {
         Set<Id> depProfIdSet = new Set<Id>();
         Set<Date> dateSet = new Set<Date>();
@@ -195,6 +194,39 @@ public with sharing class LessonTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, Lesson__c> newMap, Map<Id, Lesson__c> oldMap) {
-        // update department course group lessons - deactivate (copy from department course group trigger)
+        List<sObject> childrenToUpdate = new List<sObject>();
+        childrenToUpdate.addAll(getUpdatedGroupLessons(newMap, oldMap));
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
+        }
+    }
+
+    private static List<DepartmentCourseGroupLesson__c> getUpdatedGroupLessons(Map<Id, Lesson__c> newMap, Map<Id, Lesson__c> oldMap) {
+        List<DepartmentCourseGroupLesson__c> groupLessonsToUpdate = new List<DepartmentCourseGroupLesson__c>();
+        Map<Id, List<DepartmentCourseGroupLesson__c>> lessonToGroupLessonsMap = new Map<Id, List<DepartmentCourseGroupLesson__c>>();
+        for (DepartmentCourseGroupLesson__c groupLsn : [SELECT Lesson__c, IsActive__c 
+                                                   FROM DepartmentCourseGroupLesson__c 
+                                                   WHERE Lesson__c IN :newMap.keySet()])
+        {
+            if (lessonToGroupLessonsMap.get(groupLsn.Lesson__c) == null) {
+                lessonToGroupLessonsMap.put(groupLsn.Lesson__c, new List<DepartmentCourseGroupLesson__c>());
+            }
+            lessonToGroupLessonsMap.get(groupLsn.Lesson__c).add(groupLsn);
+        }
+        for (Id lsnId : lessonToGroupLessonsMap.keySet()) {
+            Lesson__c newLsn = newMap.get(lsnId);
+            Lesson__c oldLsn = oldMap.get(lsnId);
+            Boolean isInactivated = !newLsn.IsActive__c && oldLsn.IsActive__c;
+            if (isInactivated) {
+                for (DepartmentCourseGroupLesson__c groupLsn : lessonToGroupLessonsMap.get(lsnId)) {
+                    if (groupLsn.IsActive__c) {
+                        groupLsn.IsActive__c = false;
+                        groupLessonsToUpdate.add(groupLsn);
+                    }
+                }
+            }
+        }
+
+        return groupLessonsToUpdate;
     }
 }
