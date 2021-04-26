@@ -141,7 +141,7 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>GroupLessonCompactLayout</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
@@ -149,18 +149,26 @@
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>false</enableReports>
-    <enableSearch>false</enableSearch>
+    <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Department Course Group Lesson</label>
+    <label>Group Lesson</label>
     <nameField>
         <displayFormat>DCGL-{0000}</displayFormat>
         <label>Department Course Group Lesson Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Department Course Group Lessons</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <pluralLabel>Group Lessons</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>StudentGroup__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Course__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Lesson__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>StartDateTime__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>EndDateTime__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

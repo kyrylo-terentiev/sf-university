@@ -4,10 +4,19 @@
     <deleteConstraint>Restrict</deleteConstraint>
     <externalId>false</externalId>
     <label>Professor</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.IsActive__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
     <referenceTo>Professor__c</referenceTo>
     <relationshipLabel>Courses</relationshipLabel>
     <relationshipName>DepartmentCourseProfessors</relationshipName>
-    <required>false</required>
+    <required>true</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

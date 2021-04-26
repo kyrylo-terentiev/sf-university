@@ -10,7 +10,7 @@
             <operation>equals</operation>
             <value>True</value>
         </filterItems>
-        <isOptional>false</isOptional>
+        <isOptional>true</isOptional>
     </lookupFilter>
     <referenceTo>Lesson__c</referenceTo>
     <relationshipLabel>Groups</relationshipLabel>

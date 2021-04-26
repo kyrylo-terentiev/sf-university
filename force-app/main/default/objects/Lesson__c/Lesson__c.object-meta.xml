@@ -164,9 +164,11 @@
     <searchLayouts>
         <searchResultsAdditionalFields>Course__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Professor__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>StartDateTime__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>EndDateTime__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Room__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Department__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsOnline__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>

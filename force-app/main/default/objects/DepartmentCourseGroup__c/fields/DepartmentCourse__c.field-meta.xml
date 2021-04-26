@@ -6,18 +6,17 @@
     <label>Department Course</label>
     <lookupFilter>
         <active>true</active>
-        <errorMessage>Cannot add group to an inactive department course</errorMessage>
         <filterItems>
             <field>DepartmentCourse__c.IsActive__c</field>
             <operation>equals</operation>
             <value>True</value>
         </filterItems>
-        <isOptional>false</isOptional>
+        <isOptional>true</isOptional>
     </lookupFilter>
     <referenceTo>DepartmentCourse__c</referenceTo>
     <relationshipLabel>Groups</relationshipLabel>
     <relationshipName>DepartmentCourseGroups</relationshipName>
-    <required>true</required>
+    <required>false</required>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

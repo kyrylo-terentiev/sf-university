@@ -13,7 +13,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>DepartmentCourse__c</field>
+                <field>Course__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>

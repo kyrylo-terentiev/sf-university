@@ -6,18 +6,17 @@
     <label>Department Professor</label>
     <lookupFilter>
         <active>true</active>
-        <errorMessage>Only a professor of current department can be selected</errorMessage>
         <filterItems>
             <field>DepartmentProfessor__c.Department__c</field>
             <operation>equals</operation>
             <valueField>$Source.Department__c</valueField>
         </filterItems>
-        <isOptional>false</isOptional>
+        <isOptional>true</isOptional>
     </lookupFilter>
     <referenceTo>DepartmentProfessor__c</referenceTo>
     <relationshipLabel>Courses</relationshipLabel>
     <relationshipName>Department_Course_Professors</relationshipName>
-    <required>true</required>
+    <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

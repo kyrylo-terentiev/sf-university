@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Course__c</fullName>
-    <deleteConstraint>SetNull</deleteConstraint>
+    <deleteConstraint>Restrict</deleteConstraint>
     <externalId>false</externalId>
     <label>Course</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Lessons can be created only for active courses</errorMessage>
+        <filterItems>
+            <field>Course__c.IsActive__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Course__c</referenceTo>
     <relationshipLabel>Lessons</relationshipLabel>
     <relationshipName>Lessons</relationshipName>
-    <required>false</required>
+    <required>true</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>
 </CustomField>

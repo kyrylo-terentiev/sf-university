@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Lecture</fullName>
+        <default>true</default>
+        <label>Lecture</label>
+    </customValue>
+    <customValue>
+        <fullName>Laboratory</fullName>
+        <default>false</default>
+        <label>Laboratory</label>
+    </customValue>
+    <customValue>
+        <fullName>Practicum</fullName>
+        <default>false</default>
+        <label>Practicum</label>
+    </customValue>
+    <customValue>
+        <fullName>Seminar</fullName>
+        <default>false</default>
+        <label>Seminar</label>
+    </customValue>
+    <masterLabel>Lesson Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

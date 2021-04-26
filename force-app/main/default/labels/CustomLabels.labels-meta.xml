@@ -8,28 +8,39 @@
         <value>This account already has a professor</value>
     </labels>
     <labels>
-        <fullName>DuplicateDepartmentProfessor</fullName>
-        <categories>validation,department,professor,department professor,duplicate</categories>
+        <fullName>DepartmentCourseGroupDepartmentCourseNotFound</fullName>
+        <categories>validation,department course group,course,department course,student group</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>DuplicateDepartmentProfessor</shortDescription>
-        <value>The professor is already working in this department</value>
+        <shortDescription>DepartmentCourseGroupDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected course and department found!
+Ensure there is a Department Course linking this Course and Department.</value>
     </labels>
     <labels>
-        <fullName>DuplicateDepartmentCourseProfessor</fullName>
-        <categories>validation,department,professor,department professor,course,department course,department course professor</categories>
+        <fullName>DepartmentCourseProfessorDepartmentCourseNotFound</fullName>
+        <categories>validation,department course professor,course,department course</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>DuplicateDepartmentCourseProfessor</shortDescription>
-        <value>The professor is already teaching this course on this department</value>
+        <shortDescription>DepartmentCourseProfessorDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this Course and Department.</value>
     </labels>
     <labels>
-        <fullName>DuplicateLesson</fullName>
-        <categories>validation,duplicate,lesson,department professor</categories>
+        <fullName>DepartmentCourseProfessorDepartmentProfessorNotFound</fullName>
+        <categories>validation,department course professor,professor,department professor</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>DuplicateLesson</shortDescription>
-        <value>This rofessor has already a lesson at this time</value>
+        <shortDescription>DepartmentCourseProfessorDepartmentProfessorNotFound</shortDescription>
+        <value>No connection between the selected department and professor found!
+Ensure there is a Department Professor linking this Course and Professor.</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentCourseGroup</fullName>
+        <categories>validation,duplicate,student group,department course group,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseGroup</shortDescription>
+        <value>This group is already taking this class</value>
     </labels>
     <labels>
         <fullName>DuplicateDepartmentCourseGroupLesson</fullName>
@@ -40,12 +51,28 @@
         <value>This group is already attending this lesson</value>
     </labels>
     <labels>
-        <fullName>DuplicateDepartmentCourseGroup</fullName>
-        <categories>validation,duplicate,student group,department course group,department course</categories>
+        <fullName>DuplicateDepartmentCourseProfessor</fullName>
+        <categories>validation,department,professor,department professor,course,department course,department course professor</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>DuplicateDepartmentCourseGroup</shortDescription>
-        <value>This group is already taking this class</value>
+        <shortDescription>DuplicateDepartmentCourseProfessor</shortDescription>
+        <value>The professor is already teaching this course on this department</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentProfessor</fullName>
+        <categories>validation,department,professor,department professor,duplicate</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentProfessor</shortDescription>
+        <value>The professor is already working in this department</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateLesson</fullName>
+        <categories>validation,duplicate,lesson,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateLesson</shortDescription>
+        <value>This rofessor has already a lesson at this time</value>
     </labels>
     <labels>
         <fullName>DuplicateStudentGroupMember</fullName>
@@ -169,6 +196,15 @@
 Ensure there is an active Department Course Group linking this Group and Course.</value>
     </labels>
     <labels>
+        <fullName>LessonDepartmentCourseNotFound</fullName>
+        <categories>validation,lesson,department,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this department and course.</value>
+    </labels>
+    <labels>
         <fullName>LessonDepartmentCourseProfessorNotFound</fullName>
         <categories>validation,lesson,course,professor,department course professor,department course,department professor</categories>
         <language>en_US</language>
@@ -185,41 +221,5 @@ Ensure there is a Department Course Professor linking this Course and Professor.
         <shortDescription>LessonDepartmentProfessorNotFound</shortDescription>
         <value>No connection between the selected department and professor found!
 Ensure there is a Department Professor linking this department and professor.</value>
-    </labels>
-    <labels>
-        <fullName>LessonDepartmentCourseNotFound</fullName>
-        <categories>validation,lesson,department,course,department course</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>LessonDepartmentCourseNotFound</shortDescription>
-        <value>No connection between the selected department and course found!
-Ensure there is a Department Course linking this department and course.</value>
-    </labels>
-    <labels>
-        <fullName>DepartmentCourseGroupDepartmentCourseNotFound</fullName>
-        <categories>validation,department course group,course,department course,student group</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>DepartmentCourseGroupDepartmentCourseNotFound</shortDescription>
-        <value>No connection between the selected course and department found!
-Ensure there is a Department Course linking this Course and Department.</value>
-    </labels>
-    <labels>
-        <fullName>DepartmentCourseProfessorDepartmentCourseNotFound</fullName>
-        <categories>validation,department course professor,course,department course</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>DepartmentCourseProfessorDepartmentCourseNotFound</shortDescription>
-        <value>No connection between the selected department and course found!
-Ensure there is a Department Course linking this Course and Department.</value>
-    </labels>
-    <labels>
-        <fullName>DepartmentCourseProfessorDepartmentProfessorNotFound</fullName>
-        <categories>validation,department course professor,professor,department professor</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>DepartmentCourseProfessorDepartmentProfessorNotFound</shortDescription>
-        <value>No connection between the selected department and professor found!
-Ensure there is a Department Professor linking this Course and Professor.</value>
     </labels>
 </CustomLabels>

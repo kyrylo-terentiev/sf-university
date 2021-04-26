@@ -152,7 +152,11 @@
     </relatedLists>
     <relatedLists>
         <fields>Lesson__c</fields>
+        <fields>Course__c</fields>
+        <fields>Type__c</fields>
         <fields>IsActive__c</fields>
+        <fields>StartDateTime__c</fields>
+        <fields>EndDateTime__c</fields>
         <relatedList>DepartmentCourseGroupLesson__c.StudentGroup__c</relatedList>
     </relatedLists>
     <relatedLists>
