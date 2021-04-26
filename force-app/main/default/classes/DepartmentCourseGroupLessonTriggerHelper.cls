@@ -6,6 +6,7 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
         setDepartmentCourseGroup(newList);
         validateDepartmentCourseGroup(newList, oldMap);
         validateDepartmentCourseGroupLesson(newList, oldMap);
+        validateDuplicate(newList, oldMap);
     }
     
     private static void validateLesson(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
@@ -112,6 +113,10 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
     }
 
     private static void validateDepartmentCourseGroupLesson(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        // validate group time schedule, ensure this lesson does not overlap with another one
+    }
+
+    private static void validateDuplicate(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
         Map<Id, Map<Id, DepartmentCourseGroupLesson__c>> groupToLsnToGroupLsnMap = new Map<Id, Map<Id, DepartmentCourseGroupLesson__c>>();
         for (DepartmentCourseGroupLesson__c groupLsn : newList) {
             groupToLsnToGroupLsnMap.put(groupLsn.DepartmentCourseGroup__c, new Map<Id, DepartmentCourseGroupLesson__c>());
