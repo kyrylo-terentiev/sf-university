@@ -26,23 +26,6 @@ private class CourseTriggerTest {
     }
 
     @isTest
-    static void testUpdateChildrenNames() {
-        Faculty__c fac = getTestFaculty();
-        Department__c dep = getTestDepartment();
-        Course__c course = TestObjectFactory.createCourse(fac);
-        insert course;
-        DepartmentCourse__c depCourse = TestObjectFactory.createDepartmentCourse(dep, course);
-        insert depCourse;
-        course.Name = 'NewTestCourseName';
-        Test.startTest();
-        update course;
-        Test.stopTest();
-        Course__c courseAfter = [SELECT Name FROM Course__c WHERE Id = :course.Id];
-        DepartmentCourse__c depCourseAfter = [SELECT Name FROM DepartmentCourse__c WHERE Id = :depCourse.Id];
-        System.assertEquals(courseAfter.Name, depCourseAfter.Name, 'Updated Department Course name should equal to Course name');
-    }
-
-    @isTest
     static void testInactivateChildren() {
         Faculty__c fac = getTestFaculty();
         Department__c dep = getTestDepartment();
