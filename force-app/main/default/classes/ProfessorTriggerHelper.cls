@@ -66,12 +66,10 @@ public with sharing class ProfessorTriggerHelper {
         for (Id profId : profToDepProfsMap.keySet()) {
             Professor__c newProf = newMap.get(profId);
             Professor__c oldProf = oldMap.get(profId);
-            Boolean isNameChanged = newProf.Name != oldProf.Name;
             Boolean isInactivated = !newProf.IsActive__c && oldProf.IsActive__c;
-            if (isNameChanged || isInactivated) {
+            if (isInactivated) {
                 for (DepartmentProfessor__c depProf : profToDepProfsMap.get(profId)) {
-                    if (isNameChanged) depProf.Name = newProf.Name;
-                    if (isInactivated) depProf.IsActive__c = newProf.IsActive__c;
+                    depProf.IsActive__c = false;
                     depProfsToUpdate.add(depProf);
                 }
             }

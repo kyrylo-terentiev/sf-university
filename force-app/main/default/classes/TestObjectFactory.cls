@@ -92,8 +92,13 @@ public class TestObjectFactory {
     }
 
     public static Course__c createCourse(Faculty__c fac) {
+        return createCourse(fac, 'TC');
+    }
+
+    public static Course__c createCourse(Faculty__c fac, String shortName) {
         return new Course__c(
             Name = 'TestCourse',
+            CourseShortName__c = shortName,
             Faculty__c = fac.Id,
             IsActive__c = true
         );
@@ -110,7 +115,6 @@ public class TestObjectFactory {
 
     public static DepartmentCourse__c createDepartmentCourse(Department__c dep, Course__c course) {
         return new DepartmentCourse__c(
-            Name = 'TestDepartmentCourse',
             Department__c = dep.Id,
             Course__c = course.Id,
             IsActive__c = true
@@ -127,7 +131,6 @@ public class TestObjectFactory {
 
     public static DepartmentProfessor__c createDepartmentProfessor(Department__c dep, Professor__c prof) {
         return new DepartmentProfessor__c(
-            Name = 'TestDepartmentProfessor',
             Department__c = dep.Id,
             Professor__c = prof.Id
         );

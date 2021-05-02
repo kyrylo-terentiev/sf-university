@@ -23,12 +23,10 @@ public with sharing class CourseTriggerHelper {
         for (Id profId : courseToDepCoursesMap.keySet()) {
             Course__c newCourse = newMap.get(profId);
             Course__c oldCourse = oldMap.get(profId);
-            Boolean isNameChanged = newCourse.Name != oldCourse.Name;
             Boolean isInactivated = !newCourse.IsActive__c && oldCourse.IsActive__c;
-            if (isNameChanged || isInactivated) {
+            if (isInactivated) {
                 for (DepartmentCourse__c depCourse : courseToDepCoursesMap.get(profId)) {
-                    if (isNameChanged) depCourse.Name = newCourse.Name;
-                    if (isInactivated) depCourse.IsActive__c = newCourse.IsActive__c;
+                    depCourse.IsActive__c = false;
                     depCoursesToUpdate.add(depCourse);
                 }
             }

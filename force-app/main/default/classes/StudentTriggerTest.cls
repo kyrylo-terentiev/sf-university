@@ -56,9 +56,15 @@ private class StudentTriggerTest {
     @isTest 
     static void testUpdateChildren() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
+        Professor__c prof = TestObjectFactory.createProfessor(acc);
+        insert prof;
+        Faculty__c fac = TestObjectFactory.createFaculty(prof);
+        insert fac;
+        Department__c dep = TestObjectFactory.createDepartment(fac, prof);
+        insert dep;
         Student__c studBefore = TestObjectFactory.createStudent(acc);
         insert studBefore;
-        StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup();
+        StudentGroup__c groupBefore = TestObjectFactory.createStudentGroup(dep);
         insert groupBefore;
         List<StudentGroupMember__c> membersBefore = TestObjectFactory.createStudentGroupMembers(groupBefore, new List<Student__c>{studBefore});
         insert membersBefore;
@@ -99,12 +105,18 @@ private class StudentTriggerTest {
     @isTest
     static void testInactivateChildren() {
         Account acc = TestObjectFactory.getTestAccounts()[0];
-        Student__c stud = TestObjectFactory.createStudent(acc);
-        insert stud;
-        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup();
+        Professor__c prof = TestObjectFactory.createProfessor(acc);
+        insert prof;
+        Faculty__c fac = TestObjectFactory.createFaculty(prof);
+        insert fac;
+        Department__c dep = TestObjectFactory.createDepartment(fac, prof);
+        insert dep;
+        Student__c studBefore = TestObjectFactory.createStudent(acc);
+        insert studBefore;
+        StudentGroup__c studGroup = TestObjectFactory.createStudentGroup(dep);
         insert studGroup;
-        List<StudentGroupMember__c> groupMembers = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{stud});
-        insert groupMembers;
+        List<StudentGroupMember__c> membersBefore = TestObjectFactory.createStudentGroupMembers(studGroup, new List<Student__c>{studBefore});
+        insert membersBefore;
         studGroup.IsActive__c = false;
         Test.startTest();
         update studGroup;

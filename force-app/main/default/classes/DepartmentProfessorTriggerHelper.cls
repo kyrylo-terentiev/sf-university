@@ -1,20 +1,5 @@
 public with sharing class DepartmentProfessorTriggerHelper {
      
-    public static void setDepartmentProfessorName(List<DepartmentProfessor__c> newList) {
-        Map<Id, DepartmentProfessor__c> profToDepProfMap = new Map<Id, DepartmentProfessor__c>();
-        for (DepartmentProfessor__c depProf : newList) {
-            profToDepProfMap.put(depProf.Professor__c, depProf);
-        }
-        Map<Id, Professor__c> profMap = new Map<Id, Professor__c>([
-            SELECT Name
-            FROM Professor__c
-            WHERE Id IN :profToDepProfMap.keySet()
-        ]);
-        for (Id profId : profToDepProfMap.keySet()) {
-            profToDepProfMap.get(profId).Name = profMap.get(profId).Name;
-        }
-    }
-
     public static void validateDepartment(List<DepartmentProfessor__c> newList, Map<Id, DepartmentProfessor__c> oldMap) {
         Set<Id> depIdSet = new Set<Id>();
         for (DepartmentProfessor__c depProf : newList) {

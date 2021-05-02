@@ -81,9 +81,7 @@ private class ProfessorTriggerTest {
         Test.stopTest();
         Account accAfter = [SELECT Name FROM Account WHERE Id = :acc.Id];
         Professor__c profAfter = [SELECT Name FROM Professor__c WHERE Id = :prof.Id];
-        DepartmentProfessor__c depProfAfter = [SELECT Name FROM DepartmentProfessor__c WHERE Id = :depProf.Id];
         System.assertEquals(accAfter.Name, profAfter.Name, 'Updated Professor name should equal to Account name');
-        System.assertEquals(profAfter.Name, depProfAfter.Name, 'Updated Department Professor name should equal to Professor name');
     }
 
     @isTest

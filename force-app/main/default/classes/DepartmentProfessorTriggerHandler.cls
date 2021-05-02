@@ -10,7 +10,6 @@ public class DepartmentProfessorTriggerHandler implements ITriggerHandler {
         DepartmentProfessorTriggerHelper.validateProfessor((List<DepartmentProfessor__c>) newList, null);
         DepartmentProfessorTriggerHelper.validateDepartment((List<DepartmentProfessor__c>) newList, null);
         DepartmentProfessorTriggerHelper.validateDepartmentProfessor((List<DepartmentProfessor__c>) newList, null);
-        DepartmentProfessorTriggerHelper.setDepartmentProfessorName(newList);
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
@@ -20,7 +19,6 @@ public class DepartmentProfessorTriggerHandler implements ITriggerHandler {
         DepartmentProfessorTriggerHelper.validateProfessor((List<DepartmentProfessor__c>) newList, (Map<Id, DepartmentProfessor__c>) oldMap);
         DepartmentProfessorTriggerHelper.validateDepartment((List<DepartmentProfessor__c>) newList, (Map<Id, DepartmentProfessor__c>) oldMap);
         DepartmentProfessorTriggerHelper.validateDepartmentProfessor((List<DepartmentProfessor__c>) newList, (Map<Id, DepartmentProfessor__c>) oldMap);
-        DepartmentProfessorTriggerHelper.setDepartmentProfessorName(newList);
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
