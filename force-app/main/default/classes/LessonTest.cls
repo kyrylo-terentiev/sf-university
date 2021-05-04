@@ -141,6 +141,28 @@ private class LessonTest {
         System.assert(!isThrown, 'Exception not expected');
     }
 
+    @isTest
+    static void testDelete() {
+        Department__c dep = getTestDepartment();
+        Course__c course = getTestCourse();
+        Professor__c prof = getTestProfessor();
+        DepartmentCourse__c depCourse = TestObjectFactory.createDepartmentCourse(dep, course);
+        insert depCourse;
+        DepartmentProfessor__c depProf = TestObjectFactory.createDepartmentProfessor(dep, prof);
+        insert depProf;
+        DepartmentCourseProfessor__c depCourseProf = TestObjectFactory.createDepartmentCourseProfessor(dep, course, prof);
+        insert depCourseProf;
+        Lesson__c lsn = TestObjectFactory.createLesson(dep, course, prof);
+        insert lsn;
+        Boolean isThrown = false;
+        try {
+            delete lsn;
+        } catch (Exception e) {
+            isThrown = true;
+        }
+        System.assert(!isThrown, 'Exception not expected');
+    }
+
     static Account getTestAccount() {
         return [SELECT Id, IsActive__c FROM Account LIMIT 1];
     }
