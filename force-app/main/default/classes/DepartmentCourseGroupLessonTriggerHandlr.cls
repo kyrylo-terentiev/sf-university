@@ -1,4 +1,4 @@
-public with sharing class DepartmentCourseGroupLessonTriggerHandlr implements ITriggerHandler {
+public class DepartmentCourseGroupLessonTriggerHandlr implements ITriggerHandler {
 
     public static Boolean triggerDisabled = false;
 
