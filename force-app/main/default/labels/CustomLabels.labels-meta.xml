@@ -205,6 +205,24 @@ Ensure there is an active Department Course Group linking this Group and Course.
 Ensure there is a Department Course linking this department and course.</value>
     </labels>
     <labels>
+        <fullName>StudentGroupMemberNotFound</fullName>
+        <categories>validation,student,student group,student group member,attendance,lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentGroupMemberNotFound</shortDescription>
+        <value>No connection between the selected student and group found!
+Ensure there is a Student Group Member linking this student and group.</value>
+    </labels>
+    <labels>
+        <fullName>StudentGroupLessonNotFound</fullName>
+        <categories>validation,student,student group,lesson,attendance,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentGroupLessonNotFound</shortDescription>
+        <value>No connection between the selected group and lesson found!
+Ensure there is a Department Course Group Lesson linking this group and lesson.</value>
+    </labels>
+    <labels>
         <fullName>LessonDepartmentCourseProfessorNotFound</fullName>
         <categories>validation,lesson,course,professor,department course professor,department course,department professor</categories>
         <language>en_US</language>
