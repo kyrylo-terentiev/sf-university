@@ -89,14 +89,74 @@ public with sharing class StudentLessonAttendanceTriggerHelper {
     }
 
     private static void validateStudentGroupMember(List<StudentLessonAttendance__c> newList, Map<Id, StudentLessonAttendance__c> oldMap) {
-        
+        Set<Id> groupMemberIdSet = new Set<Id>();
+        for (StudentLessonAttendance__c attendance : newList) {
+            groupMemberIdSet.add(attendance.StudentGroupMember__c);
+        }
+        Map<Id, StudentGroupMember__c> groupMemberMap = new Map<Id, StudentGroupMember__c>([
+            SELECT IsActive__c
+            FROM StudentGroupMember__c
+            WHERE Id IN :groupMemberIdSet
+        ]);
+        for (StudentLessonAttendance__c attendance : newList) {
+            Boolean isActiveGroupMember = groupMemberMap.get(attendance.StudentGroupMember__c)?.IsActive__c != null
+                                          ? groupMemberMap.get(attendance.StudentGroupMember__c).IsActive__c
+                                          : false;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(attendance.Id);
+            Boolean isInactivation = isUpdate && !attendance.isActive__c;
+            if (!isActiveGroupMember && !isInactivation) {
+                attendance.addError(System.Label.InactiveStudentGroupMember);
+            }
+        }
     }
 
     private static void validateStudentGroupLesson(List<StudentLessonAttendance__c> newList, Map<Id, StudentLessonAttendance__c> oldMap) {
-        
+        Set<Id> groupLessonIdSet = new Set<Id>();
+        for (StudentLessonAttendance__c attendance : newList) {
+            groupLessonIdSet.add(attendance.DepartmentCourseGroupLesson__c);
+        }
+        Map<Id, DepartmentCourseGroupLesson__c> groupLessonMap = new Map<Id, DepartmentCourseGroupLesson__c>([
+            SELECT IsActive__c
+            FROM DepartmentCourseGroupLesson__c
+            WHERE Id IN :groupLessonIdSet
+        ]);
+        for (StudentLessonAttendance__c attendance : newList) {
+            Boolean isActiveGroupLesson = groupLessonMap.get(attendance.DepartmentCourseGroupLesson__c)?.IsActive__c != null
+                                          ? groupLessonMap.get(attendance.DepartmentCourseGroupLesson__c).IsActive__c
+                                          : false;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(attendance.Id);
+            Boolean isInactivation = isUpdate && !attendance.isActive__c;
+            if (!isActiveGroupLesson && !isInactivation) {
+                attendance.addError(System.Label.InactiveStudentGroupLesson);
+            }
+        }
     }
 
     private static void validateDuplicate(List<StudentLessonAttendance__c> newList, Map<Id, StudentLessonAttendance__c> oldMap) {
-        
+        Map<Id, Map<Id, StudentLessonAttendance__c>> studentToLessonToAttendanceMap = new Map<Id, Map<Id, StudentLessonAttendance__c>>();
+        for (StudentLessonAttendance__c groupLsn : newList) {
+            studentToLessonToAttendanceMap.put(groupLsn.Student__c, new Map<Id, StudentLessonAttendance__c>());
+            studentToLessonToAttendanceMap.get(groupLsn.Student__c).put(groupLsn.Lesson__c, null);
+        }
+        for (StudentLessonAttendance__c attendance : [SELECT Student__c, Lesson__c, IsActive__c 
+                                                      FROM StudentLessonAttendance__c 
+                                                      WHERE Student__c IN :studentToLessonToAttendanceMap.keySet()])
+        {
+            if (studentToLessonToAttendanceMap.get(attendance.Student__c).containsKey(attendance.Lesson__c)) {
+                studentToLessonToAttendanceMap.get(attendance.Student__c).put(attendance.Lesson__c, attendance);
+            }
+        }
+        for (StudentLessonAttendance__c attendance : newList) {
+            StudentLessonAttendance__c duplAttendance = studentToLessonToAttendanceMap.get(attendance.Student__c).get(attendance.Lesson__c);
+            Boolean isDuplicate = duplAttendance != null;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(attendance.Id);
+            if (isUpdate && isDuplicate) {
+                isDuplicate = oldMap.get(attendance.Id).Id != duplAttendance.Id;
+            }
+            Boolean isInactivation = isUpdate && !attendance.IsActive__c && oldMap.get(attendance.Id).IsActive__c;
+            if (isDuplicate && !isInactivation) {
+                attendance.addError(System.Label.StudentLessonAttendance);
+            }
+        }
     }
 }
