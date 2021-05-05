@@ -222,4 +222,12 @@ Ensure there is a Department Course Professor linking this Course and Professor.
         <value>No connection between the selected department and professor found!
 Ensure there is a Department Professor linking this department and professor.</value>
     </labels>
+    <labels>
+        <fullName>InvalidLessonTime</fullName>
+        <categories>validation,lesson,time</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonTime</shortDescription>
+        <value>Invalid lesson date or start/end time!</value>
+    </labels>
 </CustomLabels>

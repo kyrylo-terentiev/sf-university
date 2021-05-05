@@ -6,7 +6,7 @@ public with sharing class LessonTriggerHelper {
                 lsn.StartDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.StartTimePicklist__c);
                 lsn.EndDateTime__c = Utils.getDatetime(lsn.Date__c, lsn.EndTimePicklist__c);
             } catch (Exception e) {
-                lsn.addError('Invalid lesson date or start/end time!');
+                lsn.addError(System.Label.InvalidLessonTime);
             }
         }
     }
