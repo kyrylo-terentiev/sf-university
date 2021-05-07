@@ -7,5 +7,5 @@ trigger StudentLessonAttendanceTrigger on StudentLessonAttendance__c (
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.run(new StudentLessonAttendanceTriggerHandler(), 'StudentAttendanceTrigger');
+    TriggerDispatcher.run(new StudentLessonAttendanceTriggerHandler(), 'StudentLessonAttendanceTrigger');
 }

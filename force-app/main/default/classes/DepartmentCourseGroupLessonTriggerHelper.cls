@@ -143,4 +143,38 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
             }
         }
     }
+
+    public static void createStudentAttendance(List<DepartmentCourseGroupLesson__c> newList) {
+        Set<Id> groupIdSet = new Set<Id>();
+        for (DepartmentCourseGroupLesson__c groupLsn : newList) {
+            groupIdSet.add(groupLsn.StudentGroup__c);
+        }
+        Map<Id, List<Id>> groupToMemberStudentsMap = new Map<Id, List<Id>>();
+        for (StudentGroupMember__c groupMember : [SELECT Group__c, Student__c
+                                                  FROM StudentGroupMember__c
+                                                  WHERE Group__c IN :groupIdSet AND IsActive__c = TRUE])
+        {
+            if (groupToMemberStudentsMap.get(groupMember.Group__c) == null) {
+                groupToMemberStudentsMap.put(groupMember.Group__c, new List<Id>());
+            }
+            groupToMemberStudentsMap.get(groupMember.Group__c).add(groupMember.Student__c);
+        }
+        List<StudentLessonAttendance__c> attendanceListToInsert = new List<StudentLessonAttendance__c>();
+        for (DepartmentCourseGroupLesson__c groupLsn : newList) {
+            if (groupToMemberStudentsMap.get(groupLsn.StudentGroup__c) != null) {
+                for (Id studId : groupToMemberStudentsMap.get(groupLsn.StudentGroup__c)) {
+                    attendanceListToInsert.add(
+                        new StudentLessonAttendance__c(
+                            Student__c = studId,
+                            StudentGroup__c = groupLsn.StudentGroup__c,
+                            Lesson__c = groupLsn.Lesson__c
+                        )
+                    );
+                }
+            }
+        }
+        if (!attendanceListToInsert.isEmpty()) {
+            insert attendanceListToInsert;
+        }
+    }
 }

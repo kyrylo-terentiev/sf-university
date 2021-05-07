@@ -170,6 +170,14 @@ public class TestObjectFactory {
         );
     }
 
+    public static StudentLessonAttendance__c createStudentLessonAttendance(Student__c stud, StudentGroup__c studGroup, Lesson__c lsn) {
+        return new StudentLessonAttendance__c(
+            Student__c = stud.Id,
+            StudentGroup__c = studGroup.Id,
+            Lesson__c = lsn.Id
+        );
+    }
+
     public static List<Account> getTestAccounts() {
         return [
             SELECT Id
