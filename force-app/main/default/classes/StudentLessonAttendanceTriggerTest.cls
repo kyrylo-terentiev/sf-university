@@ -189,6 +189,6 @@ private class StudentLessonAttendanceTriggerTest {
     }
 
     static StudentLessonAttendance__c getTestStudentLessonAttendance() {
-        return [SELECT Id, Student__c, StudentGroup__c, StudentGroupMember__c, DepartmentCourseGroupLesson__c, IsActive__c FROM StudentLessonAttendance__c LIMIT 1];
+        return [SELECT Id, Student__c, StudentGroup__c, StudentGroupMember__c, DepartmentCourseGroupLesson__c FROM StudentLessonAttendance__c LIMIT 1];
     }
 }

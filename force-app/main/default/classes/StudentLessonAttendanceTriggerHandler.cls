@@ -11,6 +11,7 @@ public class StudentLessonAttendanceTriggerHandler implements ITriggerHandler {
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
+        StudentLessonAttendanceTriggerHelper.updateGroupLesson((List<StudentLessonAttendance__c>) newList);
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
@@ -18,6 +19,7 @@ public class StudentLessonAttendanceTriggerHandler implements ITriggerHandler {
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        StudentLessonAttendanceTriggerHelper.updateGroupLesson((List<StudentLessonAttendance__c>) newList);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {

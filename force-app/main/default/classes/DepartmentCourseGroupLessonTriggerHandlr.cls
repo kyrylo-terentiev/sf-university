@@ -19,8 +19,6 @@ public class DepartmentCourseGroupLessonTriggerHandlr implements ITriggerHandler
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
-        // update children (student lesson attendances)
-        // DepartmentCourseGroupLessonTriggerHelper.updateChildren((Map<Id, DepartmentCourseGroupLesson__c>) newMap, (Map<Id, DepartmentCourseGroupLesson__c>) oldMap);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
