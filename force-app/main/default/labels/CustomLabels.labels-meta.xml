@@ -272,4 +272,12 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <shortDescription>StudentLessonAttendance</shortDescription>
         <value>This student is already attending this lesson</value>
     </labels>
+    <labels>
+        <fullName>InvalidLessonTime</fullName>
+        <categories>validation,lesson,time</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonTime</shortDescription>
+        <value>Invalid lesson date or start/end time!</value>
+    </labels>
 </CustomLabels>
