@@ -273,11 +273,11 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <value>This student is already attending this lesson</value>
     </labels>
     <labels>
-        <fullName>InvalidLessonTime</fullName>
-        <categories>validation,lesson,time</categories>
+        <fullName>UpdateAttendancesFailure</fullName>
+        <categories>lesson,student lesson attendance,student,student group,student group lesson,aura</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>InvalidLessonTime</shortDescription>
-        <value>Invalid lesson date or start/end time!</value>
+        <shortDescription>UpdateAttendancesFailure</shortDescription>
+        <value>Failed to update attendances</value>
     </labels>
 </CustomLabels>
