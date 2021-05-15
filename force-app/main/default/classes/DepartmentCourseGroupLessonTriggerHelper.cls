@@ -177,4 +177,75 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
             insert attendanceListToInsert;
         }
     }
+
+    public static void updateChildren(Map<Id, DepartmentCourseGroupLesson__c> newMap, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        List<SObject> childrenToUpdate = new List<SObject>();
+        childrenToUpdate.addAll(getUpdatedStudentLessonAttendances(newMap, oldMap));
+        if (!childrenToUpdate.isEmpty()) {
+            update childrenToUpdate;
+        }
+    }
+
+    private static List<StudentLessonAttendance__c> getUpdatedStudentLessonAttendances(Map<Id, DepartmentCourseGroupLesson__c> newMap, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        List<StudentLessonAttendance__c> studentAttendancesToUpdate = new List<StudentLessonAttendance__c>();
+        Map<Id, List<StudentLessonAttendance__c>> groupLsnToStudentAttendancesMap = new Map<Id, List<StudentLessonAttendance__c>>();
+        for (StudentLessonAttendance__c attendance : [SELECT DepartmentCourseGroupLesson__c, IsActive__c 
+                                                   FROM StudentLessonAttendance__c 
+                                                   WHERE DepartmentCourseGroupLesson__c IN :newMap.keySet()])
+        {
+            if (groupLsnToStudentAttendancesMap.get(attendance.DepartmentCourseGroupLesson__c) == null) {
+                groupLsnToStudentAttendancesMap.put(attendance.DepartmentCourseGroupLesson__c, new List<StudentLessonAttendance__c>());
+            }
+            groupLsnToStudentAttendancesMap.get(attendance.DepartmentCourseGroupLesson__c).add(attendance);
+        }
+        for (Id groupLsnId : groupLsnToStudentAttendancesMap.keySet()) {
+            DepartmentCourseGroupLesson__c newGroupLsn = newMap.get(groupLsnId);
+            DepartmentCourseGroupLesson__c oldGroupLsn = oldMap.get(groupLsnId);
+            Boolean isInactivated = !newGroupLsn.IsActive__c && oldGroupLsn.IsActive__c;
+            if (isInactivated) {
+                for (StudentLessonAttendance__c attendance : groupLsnToStudentAttendancesMap.get(groupLsnId)) {
+                    if (attendance.IsActive__c) {
+                        attendance.IsActive__c = false;
+                        studentAttendancesToUpdate.add(attendance);
+                    }
+                }
+            }
+        }
+
+        return studentAttendancesToUpdate;
+    }
+
+    public static void updateLesson(List<DepartmentCourseGroupLesson__c> newList) {
+        Set<Id> lessonIdSet = new Set<Id>();
+        for (DepartmentCourseGroupLesson__c groupLsn : newList) {
+            lessonIdSet.add(groupLsn.Lesson__c);
+        }
+        Map<Id, List<DepartmentCourseGroupLesson__c>> lessonToGroupLessons = new Map<Id, List<DepartmentCourseGroupLesson__c>>();
+        for (DepartmentCourseGroupLesson__c groupLsn : [SELECT Lesson__c, AttendingStudents__c
+                                                      FROM DepartmentCourseGroupLesson__c
+                                                      WHERE Lesson__c IN :lessonIdSet
+                                                        AND IsActive__c = TRUE])
+        {
+            if (lessonToGroupLessons.get(groupLsn.Lesson__c) == null) {
+                lessonToGroupLessons.put(groupLsn.Lesson__c, new List<DepartmentCourseGroupLesson__c>());
+            }
+            lessonToGroupLessons.get(groupLsn.Lesson__c).add(groupLsn);
+        }
+        List<Lesson__c> lessonsToUpdate = new List<Lesson__c>();
+        for (Id lessonId : lessonToGroupLessons.keySet()) {
+            Decimal attendingStudents = 0;
+            for (DepartmentCourseGroupLesson__c groupLsn : lessonToGroupLessons.get(lessonId)) {
+                attendingStudents += groupLsn.AttendingStudents__c;
+            }
+            lessonsToUpdate.add(
+                new Lesson__c(
+                    Id = lessonId,
+                    AttendingStudents__c = attendingStudents
+                )
+            );
+        }
+        if (!lessonsToUpdate.isEmpty()) {
+            update lessonsToUpdate;
+        }
+    }
 }

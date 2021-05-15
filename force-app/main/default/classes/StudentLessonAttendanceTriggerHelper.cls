@@ -104,7 +104,8 @@ public with sharing class StudentLessonAttendanceTriggerHelper {
                                           ? groupMemberMap.get(attendance.StudentGroupMember__c).IsActive__c
                                           : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(attendance.Id);
-            if (!isActiveGroupMember && !isUpdate) {
+            Boolean isInactivation = isUpdate && !attendance.IsActive__c;
+            if (!isActiveGroupMember && !isInactivation) {
                 attendance.addError(System.Label.InactiveStudentGroupMember);
             }
         }
@@ -125,7 +126,8 @@ public with sharing class StudentLessonAttendanceTriggerHelper {
                                           ? groupLessonMap.get(attendance.DepartmentCourseGroupLesson__c).IsActive__c
                                           : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(attendance.Id);
-            if (!isActiveGroupLesson && !isUpdate) {
+            Boolean isInactivation = isUpdate && !attendance.IsActive__c;
+            if (!isActiveGroupLesson && !isInactivation) {
                 attendance.addError(System.Label.InactiveStudentGroupLesson);
             }
         }
@@ -186,7 +188,7 @@ public with sharing class StudentLessonAttendanceTriggerHelper {
         Map<Id, List<StudentLessonAttendance__c>> groupLessonToAttendances = new Map<Id, List<StudentLessonAttendance__c>>();
         for (StudentLessonAttendance__c attendance : [SELECT DepartmentCourseGroupLesson__c
                                                       FROM StudentLessonAttendance__c
-                                                      WHERE Id IN :groupLessonIdSet
+                                                      WHERE DepartmentCourseGroupLesson__c IN :groupLessonIdSet
                                                         AND IsAttending__c = TRUE])
         {
             if (groupLessonToAttendances.get(attendance.DepartmentCourseGroupLesson__c) == null) {
