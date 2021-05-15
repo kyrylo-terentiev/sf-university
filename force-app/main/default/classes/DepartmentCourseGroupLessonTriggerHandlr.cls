@@ -1,4 +1,4 @@
-public with sharing class DepartmentCourseGroupLessonTriggerHandlr implements ITriggerHandler {
+public class DepartmentCourseGroupLessonTriggerHandlr implements ITriggerHandler {
 
     public static Boolean triggerDisabled = false;
 
@@ -11,6 +11,8 @@ public with sharing class DepartmentCourseGroupLessonTriggerHandlr implements IT
     }
 
     public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
+        DepartmentCourseGroupLessonTriggerHelper.createStudentAttendance((List<DepartmentCourseGroupLesson__c>) newList);
+        DepartmentCourseGroupLessonTriggerHelper.updateLesson((List<DepartmentCourseGroupLesson__c>) newList);
     }
     
     public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
@@ -18,6 +20,8 @@ public with sharing class DepartmentCourseGroupLessonTriggerHandlr implements IT
     }
 
     public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+        DepartmentCourseGroupLessonTriggerHelper.updateChildren((Map<Id, DepartmentCourseGroupLesson__c>) newMap, (Map<Id, DepartmentCourseGroupLesson__c>) oldMap);
+        DepartmentCourseGroupLessonTriggerHelper.updateLesson((List<DepartmentCourseGroupLesson__c>) newList);
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {

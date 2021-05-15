@@ -171,6 +171,30 @@ Ensure there is a Department Professor linking this Course and Professor.</value
         <value>Cannot create/update members/courses of an inactive student group</value>
     </labels>
     <labels>
+        <fullName>InactiveStudentGroupLesson</fullName>
+        <categories>validation,lesson,student group,attendance,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveStudentGroupLesson</shortDescription>
+        <value>Cannot add/update attendances for inactive student group lessons</value>
+    </labels>
+    <labels>
+        <fullName>InactiveStudentGroupMember</fullName>
+        <categories>validation,lesson,student group,attendance,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveStudentGroupMember</shortDescription>
+        <value>Cannot add/update attendances for student group members</value>
+    </labels>
+    <labels>
+        <fullName>InvalidLessonTime</fullName>
+        <categories>validation,lesson,time</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonTime</shortDescription>
+        <value>Invalid lesson date or start/end time!</value>
+    </labels>
+    <labels>
         <fullName>InvalidPersonName</fullName>
         <categories>validation,name,account</categories>
         <language>en_US</language>
@@ -221,6 +245,32 @@ Ensure there is a Department Course Professor linking this Course and Professor.
         <shortDescription>LessonDepartmentProfessorNotFound</shortDescription>
         <value>No connection between the selected department and professor found!
 Ensure there is a Department Professor linking this department and professor.</value>
+    </labels>
+    <labels>
+        <fullName>StudentGroupLessonNotFound</fullName>
+        <categories>validation,student,student group,lesson,attendance,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentGroupLessonNotFound</shortDescription>
+        <value>No connection between the selected group and lesson found!
+Ensure there is a Department Course Group Lesson linking this group and lesson.</value>
+    </labels>
+    <labels>
+        <fullName>StudentGroupMemberNotFound</fullName>
+        <categories>validation,student,student group,student group member,attendance,lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentGroupMemberNotFound</shortDescription>
+        <value>No connection between the selected student and group found!
+Ensure there is a Student Group Member linking this student and group.</value>
+    </labels>
+    <labels>
+        <fullName>StudentLessonAttendance</fullName>
+        <categories>validation,duplicate,lesson,student,student group member,department course group lesson,attendance</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentLessonAttendance</shortDescription>
+        <value>This student is already attending this lesson</value>
     </labels>
     <labels>
         <fullName>InvalidLessonTime</fullName>

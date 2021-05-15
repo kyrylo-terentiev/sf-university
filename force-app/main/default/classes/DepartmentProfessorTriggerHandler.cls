@@ -6,31 +6,31 @@ public class DepartmentProfessorTriggerHandler implements ITriggerHandler {
         return triggerDisabled;
     }
 
-    public void beforeInsert(List<sObject> newList) {
+    public void beforeInsert(List<SObject> newList) {
         DepartmentProfessorTriggerHelper.validateProfessor((List<DepartmentProfessor__c>) newList, null);
         DepartmentProfessorTriggerHelper.validateDepartment((List<DepartmentProfessor__c>) newList, null);
         DepartmentProfessorTriggerHelper.validateDepartmentProfessor((List<DepartmentProfessor__c>) newList, null);
     }
 
-    public void afterInsert(List<sObject> newList, Map<Id, sObject> newMap) {
+    public void afterInsert(List<SObject> newList, Map<Id, SObject> newMap) {
     }
     
-    public void beforeUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+    public void beforeUpdate(List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap) {
         DepartmentProfessorTriggerHelper.validateProfessor((List<DepartmentProfessor__c>) newList, (Map<Id, DepartmentProfessor__c>) oldMap);
         DepartmentProfessorTriggerHelper.validateDepartment((List<DepartmentProfessor__c>) newList, (Map<Id, DepartmentProfessor__c>) oldMap);
         DepartmentProfessorTriggerHelper.validateDepartmentProfessor((List<DepartmentProfessor__c>) newList, (Map<Id, DepartmentProfessor__c>) oldMap);
     }
 
-    public void afterUpdate(List<sObject> newList, Map<Id, sObject> newMap, List<sObject> oldList, Map<Id, sObject> oldMap) {
+    public void afterUpdate(List<SObject> newList, Map<Id, SObject> newMap, List<SObject> oldList, Map<Id, SObject> oldMap) {
         DepartmentProfessorTriggerHelper.updateChildren((Map<Id, DepartmentProfessor__c>) newMap, (Map<Id, DepartmentProfessor__c>) oldMap);
     }
 
-    public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+    public void beforeDelete(List<SObject> oldList, Map<Id, SObject> oldMap) {
     }
 
-    public void afterDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+    public void afterDelete(List<SObject> oldList, Map<Id, SObject> oldMap) {
     }
 
-    public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
+    public void afterUndelete(List<SObject> newList, Map<Id, SObject> newMap) {
     }
 }

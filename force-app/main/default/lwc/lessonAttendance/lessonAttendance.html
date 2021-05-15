@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Attendances" icon-name="custom:custom25">
+        <div class="slds-m-around_small">
+            <template if:true={attendances}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={attendances}
+                    columns={columns}
+                    onsave={handleSave}
+                    draft-values={draftValues}>
+                </lightning-datatable>
+            </template>
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <template if:false={attendances}>
+                    No attendances
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

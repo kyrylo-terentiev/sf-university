@@ -44,7 +44,7 @@ public with sharing class ProfessorTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, Professor__c> newMap, Map<Id, Professor__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedDepartmentProfessors(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;

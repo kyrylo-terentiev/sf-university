@@ -8,6 +8,24 @@
         <label>General</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Name</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Course__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IsOnline__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Department__c</field>
             </layoutItems>
@@ -17,17 +35,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>GroupsAttending__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>Course__c</field>
+                <field>AttendingGroups__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Type__c</field>
+                <behavior>Readonly</behavior>
+                <field>AttendingStudents__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -68,10 +80,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Room__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsOnline__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -150,10 +158,14 @@
         <relatedList>DepartmentCourseGroupLesson__c.Lesson__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedNoteList</relatedList>
+        <fields>Student__c</fields>
+        <fields>StudentGroup__c</fields>
+        <fields>IsAttending__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>StudentLessonAttendance__c.Lesson__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedFileList</relatedList>
+        <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>

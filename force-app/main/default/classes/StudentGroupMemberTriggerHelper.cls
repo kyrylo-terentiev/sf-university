@@ -73,8 +73,9 @@ public with sharing class StudentGroupMemberTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedGroups(newMap, oldMap));
+        childrenToUpdate.addAll(getUpdatedStudentLessonAttendances(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;
         }
@@ -107,5 +108,34 @@ public with sharing class StudentGroupMemberTriggerHelper {
         }
 
         return groupsToUpdate;
+    }
+
+    private static List<StudentLessonAttendance__c> getUpdatedStudentLessonAttendances(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
+        List<StudentLessonAttendance__c> studentAttendancesToUpdate = new List<StudentLessonAttendance__c>();
+        Map<Id, List<StudentLessonAttendance__c>> groupMemberToStudentAttendancesMap = new Map<Id, List<StudentLessonAttendance__c>>();
+        for (StudentLessonAttendance__c attendance : [SELECT StudentGroupMember__c, IsActive__c 
+                                                   FROM StudentLessonAttendance__c 
+                                                   WHERE StudentGroupMember__c IN :newMap.keySet()])
+        {
+            if (groupMemberToStudentAttendancesMap.get(attendance.StudentGroupMember__c) == null) {
+                groupMemberToStudentAttendancesMap.put(attendance.StudentGroupMember__c, new List<StudentLessonAttendance__c>());
+            }
+            groupMemberToStudentAttendancesMap.get(attendance.StudentGroupMember__c).add(attendance);
+        }
+        for (Id groupMemberId : groupMemberToStudentAttendancesMap.keySet()) {
+            StudentGroupMember__c newGroupMember = newMap.get(groupMemberId);
+            StudentGroupMember__c oldGroupMember = oldMap.get(groupMemberId);
+            Boolean isInactivated = !newGroupMember.IsActive__c && oldGroupMember.IsActive__c;
+            if (isInactivated) {
+                for (StudentLessonAttendance__c attendance : groupMemberToStudentAttendancesMap.get(groupMemberId)) {
+                    if (attendance.IsActive__c) {
+                        attendance.IsActive__c = false;
+                        studentAttendancesToUpdate.add(attendance);
+                    }
+                }
+            }
+        }
+
+        return studentAttendancesToUpdate;
     }
 }

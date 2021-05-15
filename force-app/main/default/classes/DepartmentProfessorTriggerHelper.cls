@@ -73,7 +73,7 @@ public with sharing class DepartmentProfessorTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, DepartmentProfessor__c> newMap, Map<Id, DepartmentProfessor__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedDepartmentCourseProfessors(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;

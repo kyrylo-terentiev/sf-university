@@ -1,7 +1,7 @@
 public with sharing class CourseTriggerHelper {
     
     public static void updateChildren(Map<Id, Course__c> newMap, Map<Id, Course__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedDepartmentCourses(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;
