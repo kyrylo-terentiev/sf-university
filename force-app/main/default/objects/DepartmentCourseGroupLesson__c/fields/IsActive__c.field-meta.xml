@@ -3,7 +3,7 @@
     <fullName>IsActive__c</fullName>
     <defaultValue>true</defaultValue>
     <externalId>false</externalId>
-    <label>Active Department Course Group Lesson</label>
+    <label>Active Group Lesson</label>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
 </CustomField>

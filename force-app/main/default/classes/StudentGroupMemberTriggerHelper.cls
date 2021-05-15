@@ -73,7 +73,7 @@ public with sharing class StudentGroupMemberTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedGroups(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;

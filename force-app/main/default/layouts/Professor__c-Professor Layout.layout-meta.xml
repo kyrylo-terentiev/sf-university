@@ -141,6 +141,48 @@
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Course__c</fields>
+        <fields>Department__c</fields>
+        <fields>Type__c</fields>
+        <fields>StartDateTime__c</fields>
+        <fields>EndDateTime__c</fields>
+        <fields>Room__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>Lesson__c.Professor__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Course__c</fields>
+        <fields>Department__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>DepartmentCourseProfessor__c.Professor__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Department__c.NAME</fields>
+        <fields>Department__c.Faculty__c</fields>
+        <fields>Department__c.HeadOfDepartment__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>DepartmentProfessor__c.Professor__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Department__c</fields>
+        <fields>ActiveMembers__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>StudentGroup__c.GroupCourator__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Faculty__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>Department__c.HeadOfDepartment__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>Faculty__c.Dean__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>
         <fields>ACTIVITY.TASK</fields>
@@ -158,34 +200,6 @@
         <fields>CORE.USERS.FULL_NAME</fields>
         <fields>TASK.LAST_UPDATE</fields>
         <relatedList>RelatedHistoryList</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Course__c</fields>
-        <fields>Department__c</fields>
-        <fields>IsActive__c</fields>
-        <relatedList>DepartmentCourseProfessor__c.Professor__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Department__c.NAME</fields>
-        <fields>IsActive__c</fields>
-        <relatedList>DepartmentProfessor__c.Professor__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>Department__c.HeadOfDepartment__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>Faculty__c.Dean__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>StudentGroup__c.GroupCourator__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <relatedList>Lesson__c.Professor__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

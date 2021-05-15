@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LessonAttendanceCompactLayout</fullName>
+    <fields>Lesson__c</fields>
+    <fields>Student__c</fields>
+    <fields>StudentGroup__c</fields>
+    <fields>Course__c</fields>
+    <fields>IsAttending__c</fields>
+    <label>Lesson Attendance Compact Layout</label>
+</CompactLayout>

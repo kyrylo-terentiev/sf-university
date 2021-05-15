@@ -150,10 +150,13 @@
         <relatedList>DepartmentCourseGroupLesson__c.Lesson__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedNoteList</relatedList>
+        <fields>Student__c</fields>
+        <fields>StudentGroup__c</fields>
+        <fields>IsAttending__c</fields>
+        <relatedList>StudentLessonAttendance__c.Lesson__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <relatedList>RelatedFileList</relatedList>
+        <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
