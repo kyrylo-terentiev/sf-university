@@ -12,20 +12,33 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HeadOfDepartment__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Required</behavior>
                 <field>Faculty__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ActiveProfessors__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IsActive__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
-        <style>TwoColumnsTopToBottom</style>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>FullName__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>HeadOfDepartment__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ActiveCourses__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -78,7 +91,7 @@
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>Course__c.NAME</fields>
-        <fields>Course__c.CourseShortName__c</fields>
+        <fields>Course__c.ShortName__c</fields>
         <fields>Course__c.Degree__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourse__c.Department__c</relatedList>

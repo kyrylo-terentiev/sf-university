@@ -18,6 +18,14 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>FullName__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ActiveDepartments__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IsActive__c</field>
             </layoutItems>
@@ -84,7 +92,7 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>CourseShortName__c</fields>
+        <fields>ShortName__c</fields>
         <fields>Degree__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>Course__c.Faculty__c</relatedList>

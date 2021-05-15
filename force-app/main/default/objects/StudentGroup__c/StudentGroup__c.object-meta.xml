@@ -161,6 +161,9 @@
     </nameField>
     <pluralLabel>Student Groups</pluralLabel>
     <searchLayouts>
+        <searchResultsAdditionalFields>Department__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>HeadOfGroup__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GroupCourator__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ActiveMembers__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>

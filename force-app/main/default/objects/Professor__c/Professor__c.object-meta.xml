@@ -160,6 +160,8 @@
     </nameField>
     <pluralLabel>Professors</pluralLabel>
     <searchLayouts>
+        <searchResultsAdditionalFields>Position__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Degree__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>

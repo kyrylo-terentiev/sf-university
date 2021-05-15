@@ -162,8 +162,12 @@
     </nameField>
     <pluralLabel>Departments</pluralLabel>
     <searchLayouts>
+        <searchResultsAdditionalFields>FullName__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Faculty__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>HeadOfDepartment__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveProfessors__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveCourses__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

@@ -161,7 +161,12 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Courses</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>ShortName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Faculty__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Degree__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
