@@ -77,37 +77,48 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>Course__c</fields>
-        <fields>Professor__c</fields>
-        <relatedList>DepartmentCourseProfessor__c.Department__c</relatedList>
+        <fields>Course__c.NAME</fields>
+        <fields>Course__c.CourseShortName__c</fields>
+        <fields>Course__c.Degree__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>DepartmentCourse__c.Department__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>Professor__c.NAME</fields>
         <fields>Professor__c.Degree__c</fields>
-        <fields>Professor__c.IsActive__c</fields>
+        <fields>IsActive__c</fields>
         <relatedList>DepartmentProfessor__c.Department__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <fields>Course__c.NAME</fields>
-        <fields>Course__c.Degree__c</fields>
-        <fields>Course__c.IsActive__c</fields>
-        <relatedList>DepartmentCourse__c.Department__c</relatedList>
+        <fields>Course__c</fields>
+        <fields>Professor__c</fields>
+        <fields>IsActive__c</fields>
+        <relatedList>DepartmentCourseProfessor__c.Department__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
         <fields>ActiveMembers__c</fields>
         <fields>HeadOfGroup__c</fields>
         <fields>IsActive__c</fields>
+        <fields>GroupCourator__c</fields>
         <relatedList>StudentGroup__c.Department__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Degree__c</fields>
-        <fields>FormOfStudy__c</fields>
+        <fields>Course__c</fields>
+        <fields>Professor__c</fields>
+        <fields>StartDateTime__c</fields>
+        <fields>EndDateTime__c</fields>
+        <fields>Type__c</fields>
+        <fields>Room__c</fields>
         <fields>IsActive__c</fields>
-        <relatedList>Student__c.Department__c</relatedList>
+        <relatedList>Lesson__c.Department__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Room__c.Department__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

@@ -8,12 +8,71 @@
         <value>This account already has a professor</value>
     </labels>
     <labels>
+        <fullName>DepartmentCourseGroupDepartmentCourseNotFound</fullName>
+        <categories>validation,department course group,course,department course,student group</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DepartmentCourseGroupDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected course and department found!
+Ensure there is a Department Course linking this Course and Department.</value>
+    </labels>
+    <labels>
+        <fullName>DepartmentCourseProfessorDepartmentCourseNotFound</fullName>
+        <categories>validation,department course professor,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DepartmentCourseProfessorDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this Course and Department.</value>
+    </labels>
+    <labels>
+        <fullName>DepartmentCourseProfessorDepartmentProfessorNotFound</fullName>
+        <categories>validation,department course professor,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DepartmentCourseProfessorDepartmentProfessorNotFound</shortDescription>
+        <value>No connection between the selected department and professor found!
+Ensure there is a Department Professor linking this Course and Professor.</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentCourseGroup</fullName>
+        <categories>validation,duplicate,student group,department course group,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseGroup</shortDescription>
+        <value>This group is already taking this class</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentCourseGroupLesson</fullName>
+        <categories>validation,duplicate,lesson,student group,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseGroupLesson</shortDescription>
+        <value>This group is already attending this lesson</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateDepartmentCourseProfessor</fullName>
+        <categories>validation,department,professor,department professor,course,department course,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseProfessor</shortDescription>
+        <value>The professor is already teaching this course on this department</value>
+    </labels>
+    <labels>
         <fullName>DuplicateDepartmentProfessor</fullName>
         <categories>validation,department,professor,department professor,duplicate</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>DuplicateDepartmentProfessor</shortDescription>
         <value>The professor is already working in this department</value>
+    </labels>
+    <labels>
+        <fullName>DuplicateLesson</fullName>
+        <categories>validation,duplicate,lesson,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateLesson</shortDescription>
+        <value>This rofessor has already a lesson at this time</value>
     </labels>
     <labels>
         <fullName>DuplicateStudentGroupMember</fullName>
@@ -45,7 +104,15 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveDepartmentCourse</shortDescription>
-        <value>Cannot add/update department course professors for inactive department course</value>
+        <value>Cannot add/update professors/lessons/group for inactive department course</value>
+    </labels>
+    <labels>
+        <fullName>InactiveDepartmentCourseProfessor</fullName>
+        <categories>validation,lesson,professor,course,department professor,department course,department course professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveDepartmentCourseProfessor</shortDescription>
+        <value>Cannot add/update lessons for inactive department course professor</value>
     </labels>
     <labels>
         <fullName>InactiveDepartmentProfessor</fullName>
@@ -53,7 +120,15 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveDepartmentProfessor</shortDescription>
-        <value>Cannot add/update department course professors for inactive department professor</value>
+        <value>Cannot add/update courses or lessons for inactive department professor</value>
+    </labels>
+    <labels>
+        <fullName>InactiveGroupCourator</fullName>
+        <categories>validation,student group,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveGroupCourator</shortDescription>
+        <value>The Group Courator should be an active Department Professor</value>
     </labels>
     <labels>
         <fullName>InactiveHeadOfGroup</fullName>
@@ -62,6 +137,14 @@
         <protected>true</protected>
         <shortDescription>InactiveHeadOfGroup</shortDescription>
         <value>The Head of Group should be an active member of the Group</value>
+    </labels>
+    <labels>
+        <fullName>InactiveLesson</fullName>
+        <categories>validation,lesson,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveLesson</shortDescription>
+        <value>Cannot add/update groups for inactive lessons</value>
     </labels>
     <labels>
         <fullName>InactiveProfessor</fullName>
@@ -85,7 +168,31 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveStudentGroup</shortDescription>
-        <value>Cannot create/update members of an inactive student group</value>
+        <value>Cannot create/update members/courses of an inactive student group</value>
+    </labels>
+    <labels>
+        <fullName>InactiveStudentGroupLesson</fullName>
+        <categories>validation,lesson,student group,attendance,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveStudentGroupLesson</shortDescription>
+        <value>Cannot add/update attendances for inactive student group lessons</value>
+    </labels>
+    <labels>
+        <fullName>InactiveStudentGroupMember</fullName>
+        <categories>validation,lesson,student group,attendance,student group member</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InactiveStudentGroupMember</shortDescription>
+        <value>Cannot add/update attendances for student group members</value>
+    </labels>
+    <labels>
+        <fullName>InvalidLessonTime</fullName>
+        <categories>validation,lesson,time</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonTime</shortDescription>
+        <value>Invalid lesson date or start/end time!</value>
     </labels>
     <labels>
         <fullName>InvalidPersonName</fullName>
@@ -102,5 +209,75 @@
         <protected>true</protected>
         <shortDescription>Invalid Student ID</shortDescription>
         <value>Must match the following pattern: AA00000000</value>
+    </labels>
+    <labels>
+        <fullName>LessonDepartmentCourseGroupNotFound</fullName>
+        <categories>validation,lesson,course,group,department course,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseGroupNotFound</shortDescription>
+        <value>No active connections between the selected Student Group and Course found!
+Ensure there is an active Department Course Group linking this Group and Course.</value>
+    </labels>
+    <labels>
+        <fullName>LessonDepartmentCourseNotFound</fullName>
+        <categories>validation,lesson,department,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this department and course.</value>
+    </labels>
+    <labels>
+        <fullName>LessonDepartmentCourseProfessorNotFound</fullName>
+        <categories>validation,lesson,course,professor,department course professor,department course,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentCourseProfessorNotFound</shortDescription>
+        <value>No connection between the selected Department Course and Department Professor found!
+Ensure there is a Department Course Professor linking this Course and Professor.</value>
+    </labels>
+    <labels>
+        <fullName>LessonDepartmentProfessorNotFound</fullName>
+        <categories>validation,lesson,department,professor,department professor</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LessonDepartmentProfessorNotFound</shortDescription>
+        <value>No connection between the selected department and professor found!
+Ensure there is a Department Professor linking this department and professor.</value>
+    </labels>
+    <labels>
+        <fullName>StudentGroupLessonNotFound</fullName>
+        <categories>validation,student,student group,lesson,attendance,department course group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentGroupLessonNotFound</shortDescription>
+        <value>No connection between the selected group and lesson found!
+Ensure there is a Department Course Group Lesson linking this group and lesson.</value>
+    </labels>
+    <labels>
+        <fullName>StudentGroupMemberNotFound</fullName>
+        <categories>validation,student,student group,student group member,attendance,lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentGroupMemberNotFound</shortDescription>
+        <value>No connection between the selected student and group found!
+Ensure there is a Student Group Member linking this student and group.</value>
+    </labels>
+    <labels>
+        <fullName>StudentLessonAttendance</fullName>
+        <categories>validation,duplicate,lesson,student,student group member,department course group lesson,attendance</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StudentLessonAttendance</shortDescription>
+        <value>This student is already attending this lesson</value>
+    </labels>
+    <labels>
+        <fullName>InvalidLessonTime</fullName>
+        <categories>validation,lesson,time</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonTime</shortDescription>
+        <value>Invalid lesson date or start/end time!</value>
     </labels>
 </CustomLabels>

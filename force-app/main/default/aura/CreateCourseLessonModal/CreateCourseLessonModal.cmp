@@ -1,0 +1,33 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" >
+    <aura:html tag="style">
+        .slds-modal__container {
+            max-width: 80rem !important;
+            width:80% !important;
+        }
+    </aura:html>
+    <aura:attribute name="title" type="String" default="Add Lesson"/>
+    <aura:attribute name="lessonId" type="Id"/>
+    <aura:attribute name="isAddGroupsStep" type="Boolean" default="false"/>
+
+    <div class="modal-header slds-modal__header">
+        <h2><div class="slds-modal__title slds-hyphenate slds-text-heading--medium">{!v.title}</div></h2>
+    </div>
+    <div class="modal-body slds-modal__container">
+        <aura:if isTrue="{!not(v.isAddGroupsStep)}">
+            <c:createCourseLesson aura:id="createLesson" courseId="{!v.recordId}" onclose="{!c.closeModal}" onaddgroups="{!c.handleAddGroups}"></c:createCourseLesson>
+            <aura:set attribute="else">
+                <c:createCourseLessonGroups aura:id="addGroups" lessonId="{!v.lessonId}" onclose="{!c.closeModal}"></c:createCourseLessonGroups>
+            </aura:set>
+        </aura:if>
+    </div>
+    <div class="modal-footer slds-modal__footer slds-align_absolute-center">
+        <lightning:button label="Cancel" title="Cancel" variant="neutral" onclick="{! c.closeModal }" class="slds-m-right_small"/>
+        <aura:if isTrue="{!not(v.isAddGroupsStep)}">
+            <lightning:button label="Save" title="Save" variant="neutral" onclick="{! c.handleSaveLesson }" class="slds-m-right_small"/>
+            <lightning:button label="Save &amp; Add Groups" title="Save &amp; Add Groups" variant="brand" onclick="{! c.handleSaveAndAddGroups }"/>
+            <aura:set attribute="else">
+                <lightning:button label="Save Groups" title="Save Groups" variant="brand" onclick="{! c.handleSaveGroups }" />
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

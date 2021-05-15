@@ -155,8 +155,9 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Department Professor</label>
     <nameField>
+        <displayFormat>DP-{0000}</displayFormat>
         <label>Department Professor Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Department Professors</pluralLabel>
     <searchLayouts></searchLayouts>

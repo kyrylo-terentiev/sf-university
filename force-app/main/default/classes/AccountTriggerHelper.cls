@@ -18,7 +18,7 @@ public with sharing class AccountTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, Account> newMap, Map<Id, Account> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedProfessors(newMap, oldMap));
         childrenToUpdate.addAll(getUpdatedStudents(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {

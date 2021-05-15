@@ -141,7 +141,7 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>FacultyCompactLayout</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A faculty is a division within a university comprising one subject area or a group of related subject areas</description>
     <enableActivities>true</enableActivities>

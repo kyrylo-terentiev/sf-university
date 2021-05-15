@@ -29,11 +29,37 @@ public with sharing class StudentGroupTriggerHelper {
     }
 
     public static void validateGroupCourator(List<StudentGroup__c> newList) {
-
+        Map<String, String> groupToCouratorMap = new Map<String, String>();
+        Map<String, StudentGroup__c> groupMap = new Map<String, StudentGroup__c>();
+        Set<Id> departmentIdSet = new Set<Id>();
+        Integer id = 0;
+        for (StudentGroup__c studGroup : newList) {
+            departmentIdSet.add(studGroup.Department__c);
+            if (studGroup.GroupCourator__c != null) {
+                groupMap.put(studGroup.Id != null ? String.valueOf(studGroup.Id) : String.valueOf(id), studGroup);
+                groupToCouratorMap.put(studGroup.Id != null ? String.valueOf(studGroup.Id) : String.valueOf(id), studGroup.GroupCourator__c);
+            }
+            id++;
+        }
+        Map<Id, DepartmentProfessor__c> profToDepProf = new Map<Id, DepartmentProfessor__c>();
+        for (DepartmentProfessor__c depProf : [SELECT Professor__c, IsActive__c
+                                               FROM DepartmentProfessor__c
+                                               WHERE Department__c IN: departmentIdSet])
+        {
+            profToDepProf.put(depProf.Professor__c, depProf);
+        }
+        for (String groupId : groupMap.keySet()) {
+            if (groupToCouratorMap.get(groupId) != null) {
+                DepartmentProfessor__c groupCourator = profToDepProf.get(groupToCouratorMap.get(groupId));
+                if ((groupCourator != null && !groupCourator.IsActive__c) || (groupCourator == null && groupMap.get(groupId).GroupCourator__c != null)) {
+                    groupMap.get(groupId).GroupCourator__c.addError(System.Label.InactiveGroupCourator);
+                }
+            }
+        }
     }
 
     public static void updateChildren(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedGroupMembers(newMap, oldMap));
         childrenToUpdate.addAll(getUpdatedDepartmentCourseGroups(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
@@ -85,12 +111,12 @@ public with sharing class StudentGroupTriggerHelper {
         for (Id groupId : groupToDepCourseGroupsMap.keySet()) {
             StudentGroup__c newGroup = newMap.get(groupId);
             StudentGroup__c oldGroup = oldMap.get(groupId);
-            Boolean isNameChanged = newGroup.Name != oldGroup.Name;
             Boolean isInactivated = !newGroup.IsActive__c && oldGroup.IsActive__c;
-            if (isNameChanged || isInactivated) {
+            if (isInactivated) {
                 for (DepartmentCourseGroup__c depCourseGroup : groupToDepCourseGroupsMap.get(groupId)) {
-                    if (isNameChanged) depCourseGroup.Name = newGroup.Name;
-                    if (isInactivated) depCourseGroup.IsActive__c = newGroup.IsActive__c;
+                    if (depCourseGroup.IsActive__c) {
+                        depCourseGroup.IsActive__c = false;
+                    }
                     depCourseGroupsToUpdate.add(depCourseGroup);
                 }
             }

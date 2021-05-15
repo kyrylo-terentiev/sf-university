@@ -155,8 +155,9 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Department Course</label>
     <nameField>
+        <displayFormat>DC-{0000}</displayFormat>
         <label>Department Course Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Department Courses</pluralLabel>
     <searchLayouts></searchLayouts>

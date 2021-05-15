@@ -1,8 +1,10 @@
 @isTest
 public class TestObjectFactory {
 
+    private static final String STUDENT_ID = 'AA00000000';
+
     public static Account createAccount() {
-        Account acc = new Account(
+        return new Account(
             Name = 'TestName',
             FirstName__c = 'TestFirstName',
             LastName__c = 'TestLastName',
@@ -10,7 +12,6 @@ public class TestObjectFactory {
             DateOfBirth__c = Date.newInstance(1999, 1, 1),
             IsActive__c = true
         );
-        return acc;
     }
 
     public static List<Account> createAccounts(Integer accountNum) {
@@ -22,14 +23,13 @@ public class TestObjectFactory {
     }
 
     public static Professor__c createProfessor(Account acc) {
-        Professor__c prof = new Professor__c(
+        return new Professor__c(
             Name = acc.Name,
             Account__c = acc.Id,
             Degree__c = 'Bachelor',
             Position__c = 'Professor',
             IsActive__c = true
         );
-        return prof;
     }
 
     public static List<Professor__c> createProfessors(List<Account> accList) {
@@ -41,115 +41,141 @@ public class TestObjectFactory {
     }
 
     public static Student__c createStudent(Account acc) {
-        Student__c stud = new Student__c(
+        return createStudent(acc, STUDENT_ID);
+    }
+
+    public static Student__c createStudent(Account acc, String studentId) {
+        return new Student__c(
             Name = 'TestName',
-            StudentID__c = 'AA00000000',
+            StudentID__c = studentId,
             Account__c = acc.Id,
             Degree__c = 'Bachelor',
             FormOfStudy__c = 'Full-Time',
             IsActive__c = true
         );
-        return stud;
     }
 
     public static List<Student__c> createStudents(List<Account> accList) {
-        String studentIdTemplate = 'AA00000000';
         List<Student__c> studentList = new List<Student__c>();
         for (Integer i = 0; i < accList.size(); i++) {
-            String ending = String.valueOf(i);
-            String studentId = studentIdTemplate.substring(0, studentIdTemplate.length() - ending.length()) + ending;
-            Student__c stud = createStudent(accList[i]);
-            stud.StudentID__c = studentId;
-            studentList.add(stud);
+            studentList.add(createStudent(accList[i], STUDENT_ID.substring(0, STUDENT_ID.length() - String.valueOf(i).length()) + String.valueOf(i)));
         }
         return studentList;
     }
 
-    public static StudentGroup__c createStudentGroup() {
-        StudentGroup__c studGroup = new StudentGroup__c(
+    public static StudentGroup__c createStudentGroup(Department__c dep) {
+        return new StudentGroup__c(
             Name = 'TestStudentGroup',
+            Department__c = dep.Id,
             IsActive__c = true
         );
-        return studGroup;
     }
 
     public static List<StudentGroupMember__c> createStudentGroupMembers(StudentGroup__c studGroup, List<Student__c> studList) {
         List<StudentGroupMember__c> memberList = new List<StudentGroupMember__c>();
         for (Student__c stud : studList) {
-            StudentGroupMember__c member = new StudentGroupMember__c(
+            memberList.add(new StudentGroupMember__c(
                 Group__c = studGroup.Id,
                 Student__c = stud.Id,
                 IsActive__c = true
-            );
-            memberList.add(member);
+            ));
         }
         return memberList;
     }
 
     public static Faculty__c createFaculty(Professor__c dean) {
-        Faculty__c fac = new Faculty__c(
+        return new Faculty__c(
             Name = 'TestFaculty',
             Dean__c = dean.Id,
             IsActive__c = true
         );
-        return fac;
     }
 
     public static Course__c createCourse(Faculty__c fac) {
-        Course__c course = new Course__c(
+        return createCourse(fac, 'TC');
+    }
+
+    public static Course__c createCourse(Faculty__c fac, String shortName) {
+        return new Course__c(
             Name = 'TestCourse',
+            CourseShortName__c = shortName,
             Faculty__c = fac.Id,
             IsActive__c = true
         );
-        return course;
     }
 
     public static Department__c createDepartment(Faculty__c fac, Professor__c head) {
-        Department__c dep = new Department__c(
+        return new Department__c(
             Name = 'TestDepartment',
             Faculty__c = fac.Id,
             HeadOfDepartment__c = head.Id,
             IsActive__c = true
         );
-        return dep;
     }
 
     public static DepartmentCourse__c createDepartmentCourse(Department__c dep, Course__c course) {
-        DepartmentCourse__c depCourse = new DepartmentCourse__c(
-            Name = 'TestDepartmentCourse',
+        return new DepartmentCourse__c(
             Department__c = dep.Id,
             Course__c = course.Id,
             IsActive__c = true
         );
-        return depCourse;
     }
 
-    public static DepartmentCourseGroup__c createDepartmentCourseGroup(DepartmentCourse__c depCourse, StudentGroup__c studGroup) {
-        DepartmentCourseGroup__c depCourseGroup = new DepartmentCourseGroup__c(
-            DepartmentCourse__c = depCourse.Id,
+    public static DepartmentCourseGroup__c createDepartmentCourseGroup(Course__c course, StudentGroup__c studGroup) {
+        return new DepartmentCourseGroup__c(
+            Course__c = course.Id,
             StudentGroup__c = studGroup.Id,
             IsActive__c = true
         );
-        return depCourseGroup;
     }
 
     public static DepartmentProfessor__c createDepartmentProfessor(Department__c dep, Professor__c prof) {
-        DepartmentProfessor__c depProf = new DepartmentProfessor__c(
-            Name = 'TestDepartmentProfessor',
+        return new DepartmentProfessor__c(
             Department__c = dep.Id,
             Professor__c = prof.Id
         );
-        return depProf;
     }
 
-    public static DepartmentCourseProfessor__c createDepartmentCourseProfessor(DepartmentCourse__c depCourse, DepartmentProfessor__c depProf) {
-        DepartmentCourseProfessor__c depCourseProf = new DepartmentCourseProfessor__c(
-            Department__c = depCourse.Department__c,
-            DepartmentCourse__c = depCourse.Id,
-            DepartmentProfessor__c = depProf.Id,
+    public static DepartmentCourseProfessor__c createDepartmentCourseProfessor(Department__c dep, Course__c course, Professor__c prof) {
+        return new DepartmentCourseProfessor__c(
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            Professor__c = prof.Id,
             IsActive__c = true
         );
-        return depCourseProf;
+    }
+
+    public static Lesson__c createLesson(Department__c dep, Course__c course, Professor__c prof) {
+        return createLesson(dep, course, prof, Date.today(), 'Lecture', 'I', '08:00', '09:35');
+    }
+
+    public static DepartmentCourseGroupLesson__c createDepartmentCourseGroupLesson(Lesson__c lsn, StudentGroup__c studGroup) {
+        return new DepartmentCourseGroupLesson__c(
+            Lesson__c = lsn.Id,
+            StudentGroup__c = studGroup.Id
+        );
+    }
+
+    public static Lesson__c createLesson(Department__c dep, Course__c course, Professor__c prof, Date lessonDate, String type, String orderNumber, String startTime, String endTime) {
+        return new Lesson__c(
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            Professor__c = prof.Id,
+            Date__c = lessonDate,
+            OrderNumber__c = orderNumber,
+            StartTimePicklist__c = startTime,
+            EndTimePicklist__c = endTime,
+            Type__c = type,
+            IsActive__c = true
+        );
+    }
+
+    public static StudentLessonAttendance__c createStudentLessonAttendance(Student__c stud, StudentGroup__c studGroup, Lesson__c lsn) {
+        return new StudentLessonAttendance__c(
+            Student__c = stud.Id,
+            StudentGroup__c = studGroup.Id,
+            Lesson__c = lsn.Id
+        );
     }
 
     public static List<Account> getTestAccounts() {

@@ -69,7 +69,7 @@ private class DepartmentCourseTriggerTest {
         insert depCourse;
         DepartmentProfessor__c depProf = TestObjectFactory.createDepartmentProfessor(dep, prof);
         insert depProf;
-        DepartmentCourseProfessor__c depCourseProf = TestObjectFactory.createDepartmentCourseProfessor(depCourse, depProf);
+        DepartmentCourseProfessor__c depCourseProf = TestObjectFactory.createDepartmentCourseProfessor(dep, course, prof);
         insert depCourseProf;
         depCourse.IsActive__c = false;
         Test.startTest();

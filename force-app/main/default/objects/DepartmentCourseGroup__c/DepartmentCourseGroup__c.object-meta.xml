@@ -155,9 +155,10 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Department Course Group</label>
     <nameField>
+        <displayFormat>DCG-{0000}</displayFormat>
         <label>Department Course Group Name</label>
         <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Department Course Groups</pluralLabel>
     <searchLayouts></searchLayouts>

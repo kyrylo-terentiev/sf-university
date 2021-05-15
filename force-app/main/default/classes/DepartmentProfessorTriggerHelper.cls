@@ -1,20 +1,5 @@
 public with sharing class DepartmentProfessorTriggerHelper {
      
-    public static void setDepartmentProfessorName(List<DepartmentProfessor__c> newList) {
-        Map<Id, DepartmentProfessor__c> profToDepProfMap = new Map<Id, DepartmentProfessor__c>();
-        for (DepartmentProfessor__c depProf : newList) {
-            profToDepProfMap.put(depProf.Professor__c, depProf);
-        }
-        Map<Id, Professor__c> profMap = new Map<Id, Professor__c>([
-            SELECT Name
-            FROM Professor__c
-            WHERE Id IN :profToDepProfMap.keySet()
-        ]);
-        for (Id profId : profToDepProfMap.keySet()) {
-            profToDepProfMap.get(profId).Name = profMap.get(profId).Name;
-        }
-    }
-
     public static void validateDepartment(List<DepartmentProfessor__c> newList, Map<Id, DepartmentProfessor__c> oldMap) {
         Set<Id> depIdSet = new Set<Id>();
         for (DepartmentProfessor__c depProf : newList) {
@@ -26,7 +11,9 @@ public with sharing class DepartmentProfessorTriggerHelper {
             WHERE Id IN :depIdSet
         ]);
         for (DepartmentProfessor__c depProf : newList) {
-            Boolean isActiveDep = depMap.get(depProf.Department__c).IsActive__c;
+            Boolean isActiveDep = depMap.get(depProf.Department__c)?.IsActive__c != null
+                                  ? depMap.get(depProf.Department__c).IsActive__c
+                                  : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depProf.Id);
             Boolean isInactivation = isUpdate && !depProf.IsActive__c && oldMap.get(depProf.Id).IsActive__c;
             if (!isActiveDep && !isInactivation) {
@@ -46,7 +33,9 @@ public with sharing class DepartmentProfessorTriggerHelper {
             WHERE Id IN :profIdSet
         ]);
         for (DepartmentProfessor__c depProf : newList) {
-            Boolean isActiveProf = profMap.get(depProf.Professor__c).IsActive__c;
+            Boolean isActiveProf = profMap.get(depProf.Professor__c)?.IsActive__c != null
+                                   ? profMap.get(depProf.Professor__c).IsActive__c
+                                   : false;
             Boolean isUpdate = oldMap != null && oldMap.containsKey(depProf.Id);
             Boolean isInactivation = isUpdate && !depProf.IsActive__c;
             if (!isActiveProf && !isInactivation) {
@@ -84,7 +73,7 @@ public with sharing class DepartmentProfessorTriggerHelper {
     }
 
     public static void updateChildren(Map<Id, DepartmentProfessor__c> newMap, Map<Id, DepartmentProfessor__c> oldMap) {
-        List<sObject> childrenToUpdate = new List<sObject>();
+        List<SObject> childrenToUpdate = new List<SObject>();
         childrenToUpdate.addAll(getUpdatedDepartmentCourseProfessors(newMap, oldMap));
         if (!childrenToUpdate.isEmpty()) {
             update childrenToUpdate;

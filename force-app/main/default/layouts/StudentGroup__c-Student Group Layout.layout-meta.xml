@@ -145,10 +145,19 @@
         <relatedList>StudentGroupMember__c.Group__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>NAME</fields>
-        <fields>DepartmentCourse__c</fields>
+        <fields>Course__c</fields>
+        <fields>Department__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourseGroup__c.StudentGroup__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Lesson__c</fields>
+        <fields>Course__c</fields>
+        <fields>Type__c</fields>
+        <fields>IsActive__c</fields>
+        <fields>StartDateTime__c</fields>
+        <fields>EndDateTime__c</fields>
+        <relatedList>DepartmentCourseGroupLesson__c.StudentGroup__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>
