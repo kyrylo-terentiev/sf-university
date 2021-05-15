@@ -7,7 +7,8 @@
     <fields>StartDateTime__c</fields>
     <fields>EndDateTime__c</fields>
     <fields>Room__c</fields>
-    <fields>GroupsAttending__c</fields>
+    <fields>AttendingGroups__c</fields>
+    <fields>AttendingStudents__c</fields>
     <fields>IsActive__c</fields>
     <label>Lesson Compact Layout</label>
 </CompactLayout>

@@ -12,15 +12,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
+                <field>Lesson__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
                 <field>StudentGroup__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Course__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsAttending__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -29,8 +25,8 @@
                 <field>Student__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Lesson__c</field>
+                <behavior>Edit</behavior>
+                <field>IsAttending__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

@@ -187,6 +187,14 @@ Ensure there is a Department Professor linking this Course and Professor.</value
         <value>Cannot add/update attendances for student group members</value>
     </labels>
     <labels>
+        <fullName>InvalidLessonTime</fullName>
+        <categories>validation,lesson,time</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonTime</shortDescription>
+        <value>Invalid lesson date or start/end time!</value>
+    </labels>
+    <labels>
         <fullName>InvalidPersonName</fullName>
         <categories>validation,name,account</categories>
         <language>en_US</language>
@@ -263,13 +271,5 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <protected>true</protected>
         <shortDescription>StudentLessonAttendance</shortDescription>
         <value>This student is already attending this lesson</value>
-    </labels>
-    <labels>
-        <fullName>InvalidLessonTime</fullName>
-        <categories>validation,lesson,time</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>InvalidLessonTime</shortDescription>
-        <value>Invalid lesson date or start/end time!</value>
     </labels>
 </CustomLabels>
