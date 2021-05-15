@@ -4,7 +4,7 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-import getAttendances from '@salesforce/apex/LessonAttendanceController.getAttendances';
+import getAttendances from '@salesforce/apex/LessonAttendanceController.getActiveAttendances';
 import updateAttendances from '@salesforce/apex/LessonAttendanceController.updateAttendances';
 
 import ID_FIELD from '@salesforce/schema/StudentLessonAttendance__c.Id';

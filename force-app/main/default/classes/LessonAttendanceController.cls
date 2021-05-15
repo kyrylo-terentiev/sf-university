@@ -1,7 +1,7 @@
 public with sharing class LessonAttendanceController {
      
     @AuraEnabled(cacheable=true)
-    public static List<StudentLessonAttendance__c> getAttendances(Id lessonId) {
+    public static List<StudentLessonAttendance__c> getActiveAttendances(Id lessonId) {
         return [
             SELECT Id
                 , Student__c
