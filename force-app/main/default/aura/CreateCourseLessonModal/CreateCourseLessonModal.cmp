@@ -1,8 +1,8 @@
 <aura:component implements="force:lightningQuickActionWithoutHeader,flexipage:availableForRecordHome,force:hasRecordId,lightning:actionOverride,lightning:isUrlAddressable" access="global">
     <aura:html tag="style">
         .slds-modal__container {
-            max-width: 80rem !important;
-            width:80% !important;
+            max-width: 85rem !important;
+            width: 85% !important;
         }
     </aura:html>
     <aura:attribute name="title" type="String" default="Add Lesson"/>
@@ -13,7 +13,7 @@
     <div class="modal-header slds-modal__header">
         <h2><div class="slds-modal__title slds-hyphenate slds-text-heading--medium">{!v.title}</div></h2>
     </div>
-    <div class="modal-body slds-modal__container">
+    <div class="modal-body slds-modal__container slds-p-around_small">
         <aura:if isTrue="{!not(v.isAddGroupsStep)}">
             <c:createCourseLesson aura:id="createLesson" recordId="{!v.recordId}" onclose="{!c.closeModal}" onaddgroups="{!c.handleAddGroups}"></c:createCourseLesson>
             <aura:set attribute="else">
