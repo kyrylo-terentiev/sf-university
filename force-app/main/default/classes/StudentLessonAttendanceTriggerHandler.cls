@@ -26,6 +26,7 @@ public class StudentLessonAttendanceTriggerHandler implements ITriggerHandler {
     }
 
     public void afterDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+        StudentLessonAttendanceTriggerHelper.updateGroupLesson((List<StudentLessonAttendance__c>) oldList);
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {
