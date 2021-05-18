@@ -4,6 +4,9 @@
     <fields>Name</fields>
     <fields>FullName__c</fields>
     <fields>Faculty__c</fields>
+    <fields>ActiveGroups__c</fields>
+    <fields>ActiveStudents__c</fields>
+    <fields>ActiveProfessors__c</fields>
     <fields>HeadOfDepartment__c</fields>
     <fields>IsActive__c</fields>
     <label>DepartmentCompactLayout</label>

@@ -165,8 +165,9 @@
         <searchResultsAdditionalFields>FullName__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Faculty__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>HeadOfDepartment__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveGroups__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveStudents__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ActiveProfessors__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>ActiveCourses__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>

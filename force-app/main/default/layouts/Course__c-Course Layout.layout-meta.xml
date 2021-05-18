@@ -197,13 +197,14 @@
     </relatedLists>
     <relatedLists>
         <fields>Professor__c</fields>
-        <fields>DepartmentCourse__c</fields>
         <fields>Department__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourseProfessor__c.Course__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Department__c.NAME</fields>
+        <fields>AssessmentForm__c</fields>
+        <fields>CourseWork__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourse__c.Course__c</relatedList>
     </relatedLists>

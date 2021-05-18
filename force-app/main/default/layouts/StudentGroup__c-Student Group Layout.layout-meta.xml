@@ -107,6 +107,11 @@
             <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
+            <actionName>FeedItem.ContentPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>7</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
             <actionName>LogACall</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>8</sortOrder>
@@ -131,18 +136,13 @@
             <actionType>StandardButton</actionType>
             <sortOrder>12</sortOrder>
         </platformActionListItems>
-        <platformActionListItems>
-            <actionName>FeedItem.ContentPost</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>7</sortOrder>
-        </platformActionListItems>
     </platformActionList>
     <relatedLists>
         <customButtons>Activate_Deactivate_All</customButtons>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>Student__c.NAME</fields>
+        <fields>Student__c.Degree__c</fields>
         <fields>Student__c.FormOfStudy__c</fields>
-        <fields>Student__c.StudentID__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>StudentGroupMember__c.Group__c</relatedList>
     </relatedLists>
