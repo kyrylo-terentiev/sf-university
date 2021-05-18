@@ -1,10 +1,16 @@
-import { api, LightningElement } from 'lwc';
+import { api, wire, LightningElement } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class CreateCourseLesson extends NavigationMixin(LightningElement) {
-    @api courseId;
+
+    @api recordId;
+
     lessonId;
     saveAndAddGroups = false;
+
+    connectedCallback() {
+        console.log('recordId: ' + this.recordId);
+    }
 
     @api 
     handleSave() {
