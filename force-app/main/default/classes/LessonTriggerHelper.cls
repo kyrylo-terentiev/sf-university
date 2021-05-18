@@ -229,4 +229,20 @@ public with sharing class LessonTriggerHelper {
 
         return groupLessonsToUpdate;
     }
+
+    public static void deleteChildren(Map<Id, Lesson__c> oldMap) {
+        List<SObject> childrenToDelete = new List<SObject>();
+        childrenToDelete.addAll(getGroupLessonsToDelete(oldMap));
+        if (!childrenToDelete.isEmpty()) {
+            delete childrenToDelete;
+        }
+    }
+
+    private static List<DepartmentCourseGroupLesson__c> getGroupLessonsToDelete(Map<Id, Lesson__c> oldMap) {
+        return [
+            SELECT Lesson__c 
+            FROM DepartmentCourseGroupLesson__c 
+            WHERE Lesson__c IN :oldMap.keySet()
+        ];
+    }
 }
