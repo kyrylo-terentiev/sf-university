@@ -112,12 +112,14 @@ private class StudentGroupMemberTriggerTest {
         for (StudentGroupMember__c member : members) {
             member.IsActive__c = false;
         }
+        Test.startTest();
         Boolean isThrown = false;
         try {
             update members;
         } catch (Exception e) {
             isThrown = true;
         }
+        Test.stopTest();
         System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
