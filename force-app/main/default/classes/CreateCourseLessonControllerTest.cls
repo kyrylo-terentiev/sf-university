@@ -43,7 +43,7 @@ private class CreateCourseLessonControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         System.assertNotEquals(null, res, 'Result expected');
         System.assertEquals(res.size(), 1, 'One available group expected');
         System.assertEquals(res.get(studGroup.Name), studGroup.Id, 'Available group expected');
@@ -63,7 +63,7 @@ private class CreateCourseLessonControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -81,7 +81,7 @@ private class CreateCourseLessonControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         System.assertNotEquals(null, res, 'Result expected');
         System.assertEquals(res.size(), 1, 'One attending group expected');
         System.assertEquals(res.get(studGroup.Name), studGroup.Id, 'Attending group expected');
@@ -100,7 +100,7 @@ private class CreateCourseLessonControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         System.assertEquals(1, groupLsnList.size(), 'One attending group expected');
         System.assertEquals(studGroup.Id, groupLsnList[0].StudentGroup__c, 'Attending group expected');
     }

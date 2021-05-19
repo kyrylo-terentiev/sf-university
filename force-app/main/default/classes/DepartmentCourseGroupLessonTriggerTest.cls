@@ -37,7 +37,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
@@ -53,7 +53,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -69,7 +69,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -85,7 +85,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -100,7 +100,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
@@ -116,7 +116,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Lesson__c getTestLesson() {

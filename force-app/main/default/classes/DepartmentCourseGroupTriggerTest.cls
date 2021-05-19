@@ -35,7 +35,7 @@ private class DepartmentCourseGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest 
@@ -51,7 +51,7 @@ private class DepartmentCourseGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -68,7 +68,7 @@ private class DepartmentCourseGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -84,7 +84,7 @@ private class DepartmentCourseGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -105,7 +105,7 @@ private class DepartmentCourseGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         DepartmentCourseGroupLesson__c groupLsnAfter = getTestDepartmentCourseGroupLesson();
         System.assertEquals(courseGroup.IsActive__c, groupLsnAfter.IsActive__c, 'Group Lesson should be deactivated with Course Group');
     }
@@ -125,7 +125,7 @@ private class DepartmentCourseGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Course__c getTestCourse() {

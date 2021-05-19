@@ -43,7 +43,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         StudentLessonAttendance__c attendance = getTestStudentLessonAttendance();
         System.assertEquals(stud.Id, attendance.Student__c, 'Attendance should be related to student');
         System.assertEquals(studGroup.Id, attendance.StudentGroup__c, 'Attendance should be related to student group');
@@ -67,7 +67,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -87,7 +87,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -102,7 +102,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -118,7 +118,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -135,7 +135,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -152,7 +152,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
@@ -169,7 +169,7 @@ private class StudentLessonAttendanceTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Lesson__c getTestLesson() {

@@ -280,4 +280,20 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <shortDescription>UpdateAttendancesFailure</shortDescription>
         <value>Failed to update attendances</value>
     </labels>
+    <labels>
+        <fullName>TestExceptionExpected</fullName>
+        <categories>test,assertion</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TestExceptionExpected</shortDescription>
+        <value>Exception expected!</value>
+    </labels>
+    <labels>
+        <fullName>TestExceptionNotExpected</fullName>
+        <categories>test,assertion</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TestExceptionNotExpected</shortDescription>
+        <value>Exception not expected!</value>
+    </labels>
 </CustomLabels>

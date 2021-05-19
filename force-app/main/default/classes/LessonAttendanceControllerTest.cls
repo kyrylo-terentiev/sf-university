@@ -44,7 +44,7 @@ private class LessonAttendanceControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
@@ -59,7 +59,7 @@ private class LessonAttendanceControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         StudentLessonAttendance__c attendanceAfter = getTestAttendance();
         System.assert(attendanceAfter.IsAttending__c, 'Update expected');
     }
@@ -75,7 +75,7 @@ private class LessonAttendanceControllerTest {
             isThrown = true;
         }
         Test.stopTest();
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     static Lesson__c getTestLesson() {

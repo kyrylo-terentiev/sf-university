@@ -1,5 +1,5 @@
 @isTest
-private class LessonTest {
+private class LessonTriggerTest {
     @testSetup 
     static void setup() {
         Account acc = TestObjectFactory.createAccount();
@@ -32,7 +32,7 @@ private class LessonTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
@@ -49,7 +49,7 @@ private class LessonTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -66,7 +66,7 @@ private class LessonTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -85,7 +85,7 @@ private class LessonTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -108,7 +108,7 @@ private class LessonTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -138,11 +138,11 @@ private class LessonTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
-    static void testDelete() {
+    static void testUndelete() {
         Department__c dep = getTestDepartment();
         Course__c course = getTestCourse();
         Professor__c prof = getTestProfessor();
@@ -154,13 +154,14 @@ private class LessonTest {
         insert depCourseProf;
         Lesson__c lsn = TestObjectFactory.createLesson(dep, course, prof);
         insert lsn;
+        delete lsn;
         Boolean isThrown = false;
         try {
-            delete lsn;
+            undelete lsn;
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Account getTestAccount() {
