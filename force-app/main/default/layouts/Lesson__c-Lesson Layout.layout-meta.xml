@@ -191,11 +191,14 @@
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>StudentGroup__c</fields>
+        <fields>AttendingStudents__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourseGroupLesson__c.Lesson__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>Student__c</fields>
         <fields>StudentGroup__c</fields>
         <fields>IsAttending__c</fields>
