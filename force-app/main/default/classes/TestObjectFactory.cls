@@ -9,6 +9,7 @@ public class TestObjectFactory {
             FirstName__c = 'TestFirstName',
             LastName__c = 'TestLastName',
             MiddleName__c = 'TestMiddleName',
+            Email__c = 'testing@test.com',
             DateOfBirth__c = Date.newInstance(1999, 1, 1),
             IsActive__c = true
         );
