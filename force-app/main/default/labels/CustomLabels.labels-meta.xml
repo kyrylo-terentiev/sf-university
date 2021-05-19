@@ -72,7 +72,7 @@ Ensure there is a Department Professor linking this Course and Professor.</value
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>DuplicateLesson</shortDescription>
-        <value>This rofessor has already a lesson at this time</value>
+        <value>This Professor has already a lesson at this time</value>
     </labels>
     <labels>
         <fullName>DuplicateStudentGroupMember</fullName>

@@ -103,6 +103,22 @@ private class DepartmentCourseGroupLessonTriggerTest {
         System.assert(!isThrown, 'Exception not expected');
     }
 
+    @isTest
+    static void testUndelete() {
+        Lesson__c lsn = getTestLesson();
+        StudentGroup__c studGroup = getTestStudentGroup();
+        DepartmentCourseGroupLesson__c groupLsn = TestObjectFactory.createDepartmentCourseGroupLesson(lsn, studGroup);
+        insert groupLsn;
+        delete groupLsn;
+        Boolean isThrown = false;
+        try {
+            undelete groupLsn;
+        } catch (Exception e) {
+            isThrown = true;
+        }
+        System.assert(!isThrown, 'Exception not expected');
+    }
+
     static Lesson__c getTestLesson() {
         return [SELECT Id, IsActive__c FROM Lesson__c LIMIT 1];
     }
