@@ -18,7 +18,7 @@ private class StudentTriggerTest {
             isThrown = true;
         }
         Student__c studAfter = [SELECT Name, Account__c FROM Student__c WHERE Id = :studBefore.Id];
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         System.assertEquals(acc.Id, studAfter.Account__c, 'Student should have master account');
         System.assertEquals(acc.Name, studAfter.Name, 'Student name should equal to master account name');
     }
@@ -35,7 +35,7 @@ private class StudentTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -50,7 +50,7 @@ private class StudentTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest 
@@ -79,7 +79,7 @@ private class StudentTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         Student__c studAfter = [SELECT IsActive__c FROM Student__c WHERE Id = :studBefore.Id];
         List<StudentGroupMember__c> membersAfter = [SELECT IsActive__c FROM StudentGroupMember__c WHERE Id IN :memberIdSet];
         for (StudentGroupMember__c member : membersAfter) {
@@ -99,7 +99,7 @@ private class StudentTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest

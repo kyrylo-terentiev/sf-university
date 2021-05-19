@@ -5,7 +5,7 @@
     <externalId>false</externalId>
     <label>Lesson</label>
     <referenceTo>Lesson__c</referenceTo>
-    <relationshipLabel>Attendance</relationshipLabel>
+    <relationshipLabel>Attendances</relationshipLabel>
     <relationshipName>LessonAttendances</relationshipName>
     <required>false</required>
     <trackTrending>false</trackTrending>

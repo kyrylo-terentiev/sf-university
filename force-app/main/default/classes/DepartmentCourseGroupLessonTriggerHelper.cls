@@ -2,6 +2,7 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
     
     public static void validate(List<DepartmentCourseGroupLesson__c> newList, Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
         validateLesson(newList, oldMap);
+        setProfessor(newList);
         setCourse(newList);
         setDepartmentCourseGroup(newList);
         validateDepartmentCourseGroup(newList, oldMap);
@@ -30,6 +31,24 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
             }
         }
     }
+
+    private static void setProfessor(List<DepartmentCourseGroupLesson__c> newList) {
+        Set<Id> lessonIdSet = new Set<Id>();
+        for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
+            lessonIdSet.add(depCourseGroupLsn.Lesson__c);
+        }
+        Map<Id, Id> lessonToProfessorMap = new Map<Id, Id>();
+        for (Lesson__c lsn : [SELECT Professor__c
+                              FROM Lesson__c
+                              WHERE Id IN :lessonIdSet])
+        {
+            lessonToProfessorMap.put(lsn.Id, lsn.Professor__c);
+        }
+        for (DepartmentCourseGroupLesson__c depCourseGroupLsn : newList) {
+            depCourseGroupLsn.Professor__c = lessonToProfessorMap.get(depCourseGroupLsn.Lesson__c);
+        }
+    }
+
 
     private static void setCourse(List<DepartmentCourseGroupLesson__c> newList) {
         Set<Id> lessonIdSet = new Set<Id>();
@@ -213,6 +232,22 @@ public with sharing class DepartmentCourseGroupLessonTriggerHelper {
         }
 
         return studentAttendancesToUpdate;
+    }
+
+    public static void deleteChildren(Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        List<SObject> childrenToDelete = new List<SObject>();
+        childrenToDelete.addAll(getStudentAttendancesToDelete(oldMap));
+        if (!childrenToDelete.isEmpty()) {
+            delete childrenToDelete;
+        }
+    }
+
+    private static List<StudentLessonAttendance__c> getStudentAttendancesToDelete(Map<Id, DepartmentCourseGroupLesson__c> oldMap) {
+        return [
+            SELECT DepartmentCourseGroupLesson__c, IsActive__c 
+            FROM StudentLessonAttendance__c 
+            WHERE DepartmentCourseGroupLesson__c IN :oldMap.keySet()
+        ];
     }
 
     public static void updateLesson(List<DepartmentCourseGroupLesson__c> newList) {

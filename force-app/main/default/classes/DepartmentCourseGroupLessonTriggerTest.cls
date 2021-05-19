@@ -37,7 +37,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest
@@ -53,7 +53,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -69,7 +69,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -85,7 +85,7 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -100,7 +100,23 @@ private class DepartmentCourseGroupLessonTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
+    }
+
+    @isTest
+    static void testUndelete() {
+        Lesson__c lsn = getTestLesson();
+        StudentGroup__c studGroup = getTestStudentGroup();
+        DepartmentCourseGroupLesson__c groupLsn = TestObjectFactory.createDepartmentCourseGroupLesson(lsn, studGroup);
+        insert groupLsn;
+        delete groupLsn;
+        Boolean isThrown = false;
+        try {
+            undelete groupLsn;
+        } catch (Exception e) {
+            isThrown = true;
+        }
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Lesson__c getTestLesson() {

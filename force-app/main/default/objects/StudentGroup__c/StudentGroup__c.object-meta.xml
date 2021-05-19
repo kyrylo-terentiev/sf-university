@@ -161,6 +161,15 @@
     </nameField>
     <pluralLabel>Student Groups</pluralLabel>
     <searchLayouts>
+        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
+        <excludedStandardButtons>Accept</excludedStandardButtons>
+        <excludedStandardButtons>IsotopeSubscription</excludedStandardButtons>
+        <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <searchResultsAdditionalFields>Department__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>HeadOfGroup__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>GroupCourator__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ActiveMembers__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>

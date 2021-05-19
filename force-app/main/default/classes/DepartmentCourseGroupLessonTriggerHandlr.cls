@@ -25,9 +25,11 @@ public class DepartmentCourseGroupLessonTriggerHandlr implements ITriggerHandler
     }
 
     public void beforeDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+        DepartmentCourseGroupLessonTriggerHelper.deleteChildren((Map<Id, DepartmentCourseGroupLesson__c>) oldMap);
     }
 
     public void afterDelete(List<sObject> oldList, Map<Id, sObject> oldMap) {
+        DepartmentCourseGroupLessonTriggerHelper.updateLesson((List<DepartmentCourseGroupLesson__c>) oldList);
     }
 
     public void afterUndelete(List<sObject> newList, Map<Id, sObject> newMap) {

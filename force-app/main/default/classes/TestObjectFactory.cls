@@ -9,6 +9,7 @@ public class TestObjectFactory {
             FirstName__c = 'TestFirstName',
             LastName__c = 'TestLastName',
             MiddleName__c = 'TestMiddleName',
+            Email__c = 'testing@test.com',
             DateOfBirth__c = Date.newInstance(1999, 1, 1),
             IsActive__c = true
         );
@@ -86,6 +87,7 @@ public class TestObjectFactory {
     public static Faculty__c createFaculty(Professor__c dean) {
         return new Faculty__c(
             Name = 'TestFaculty',
+            FullName__c = 'TestFaculty',
             Dean__c = dean.Id,
             IsActive__c = true
         );
@@ -98,7 +100,7 @@ public class TestObjectFactory {
     public static Course__c createCourse(Faculty__c fac, String shortName) {
         return new Course__c(
             Name = 'TestCourse',
-            CourseShortName__c = shortName,
+            ShortName__c = shortName,
             Faculty__c = fac.Id,
             IsActive__c = true
         );
@@ -107,6 +109,7 @@ public class TestObjectFactory {
     public static Department__c createDepartment(Faculty__c fac, Professor__c head) {
         return new Department__c(
             Name = 'TestDepartment',
+            FullName__c = 'TestDepartment',
             Faculty__c = fac.Id,
             HeadOfDepartment__c = head.Id,
             IsActive__c = true

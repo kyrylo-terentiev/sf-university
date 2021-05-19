@@ -163,6 +163,7 @@
     <searchLayouts>
         <searchResultsAdditionalFields>FullName__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>FormOfStudy__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Degree__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>StudentID__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>

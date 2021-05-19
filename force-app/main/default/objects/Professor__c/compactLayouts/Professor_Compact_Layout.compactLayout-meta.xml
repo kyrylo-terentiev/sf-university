@@ -3,6 +3,7 @@
     <fullName>Professor_Compact_Layout</fullName>
     <fields>Name</fields>
     <fields>FullName__c</fields>
+    <fields>Degree__c</fields>
     <fields>IsActive__c</fields>
     <label>Professor Compact Layout</label>
 </CompactLayout>

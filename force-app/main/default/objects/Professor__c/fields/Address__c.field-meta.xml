@@ -3,7 +3,7 @@
     <fullName>Address__c</fullName>
     <externalId>false</externalId>
     <formula>Account__r.BillingStreet + IF(ISBLANK(Account__r.BillingStreet), &quot;&quot;, BR()) + 
-Account__r.BillingCity + IF(ISBLANK(Account__r.BillingCity), &quot;&quot;, &quot;, &quot;) + 
+Account__r.BillingCity + IF(ISBLANK(Account__r.BillingCity), &quot;&quot;, BR()) + 
 Account__r.BillingState + IF(ISBLANK(Account__r.BillingState), &quot;&quot;, &quot; &quot;) + 
 Account__r.BillingPostalCode + IF(ISBLANK(Account__r.BillingPostalCode), &quot;&quot;, BR()) + 
 Account__r.BillingCountry</formula>

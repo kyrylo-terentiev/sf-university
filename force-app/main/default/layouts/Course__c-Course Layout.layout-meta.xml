@@ -13,28 +13,28 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>CourseShortName__c</field>
+                <field>Faculty__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Description__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>ShortName__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Degree__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Faculty__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Description__c</field>
-            </layoutItems>
-            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IsActive__c</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -197,13 +197,14 @@
     </relatedLists>
     <relatedLists>
         <fields>Professor__c</fields>
-        <fields>DepartmentCourse__c</fields>
         <fields>Department__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourseProfessor__c.Course__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Department__c.NAME</fields>
+        <fields>AssessmentForm__c</fields>
+        <fields>CourseWork__c</fields>
         <fields>IsActive__c</fields>
         <relatedList>DepartmentCourse__c.Course__c</relatedList>
     </relatedLists>

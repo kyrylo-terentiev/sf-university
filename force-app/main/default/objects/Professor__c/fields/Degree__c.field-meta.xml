@@ -3,7 +3,7 @@
     <fullName>Degree__c</fullName>
     <externalId>false</externalId>
     <label>Academic Degree</label>
-    <required>true</required>
+    <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

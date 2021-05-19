@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AI_171</fullName>
+    <columns>NAME</columns>
+    <columns>StudentGroup__c</columns>
+    <columns>Course__c</columns>
+    <columns>Type__c</columns>
+    <columns>Lesson__c</columns>
+    <columns>StartDateTime__c</columns>
+    <columns>EndDateTime__c</columns>
+    <columns>IsActive__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>StudentGroupID__c</field>
+        <operation>equals</operation>
+        <value>a0509000001XbkH</value>
+    </filters>
+    <filters>
+        <field>IsActive__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>AI-171</label>
+</ListView>

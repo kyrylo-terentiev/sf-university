@@ -3,7 +3,7 @@
     <fullName>ActiveMembers__c</fullName>
     <externalId>false</externalId>
     <inlineHelpText>Number of active members in the group</inlineHelpText>
-    <label>Active Members</label>
+    <label>Active Students</label>
     <summaryFilterItems>
         <field>StudentGroupMember__c.IsActive__c</field>
         <operation>equals</operation>

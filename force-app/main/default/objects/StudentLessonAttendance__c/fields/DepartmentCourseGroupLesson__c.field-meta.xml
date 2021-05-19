@@ -5,8 +5,8 @@
     <externalId>false</externalId>
     <label>Group Lesson</label>
     <referenceTo>DepartmentCourseGroupLesson__c</referenceTo>
-    <relationshipLabel>Lesson Attendances</relationshipLabel>
-    <relationshipName>Attendance</relationshipName>
+    <relationshipLabel>Attendances</relationshipLabel>
+    <relationshipName>LessonAttendances</relationshipName>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

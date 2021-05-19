@@ -86,11 +86,13 @@
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <type>Default</type>
+        <content>CreateCourseLessonModal</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
     </actionOverrides>
     <actionOverrides>
         <actionName>New</actionName>
-        <formFactor>Large</formFactor>
         <type>Default</type>
     </actionOverrides>
     <actionOverrides>
@@ -162,14 +164,12 @@
     </nameField>
     <pluralLabel>Lessons</pluralLabel>
     <searchLayouts>
+        <searchResultsAdditionalFields>Department__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Course__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Professor__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>StartDateTime__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>EndDateTime__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Room__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Department__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>IsOnline__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>

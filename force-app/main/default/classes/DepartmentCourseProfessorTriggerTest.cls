@@ -30,7 +30,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest 
@@ -48,7 +48,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -65,7 +65,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -83,7 +83,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -101,7 +101,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest
@@ -120,7 +120,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         DepartmentCourseProfessor__c depCourseProfAfter = getTestDepartmentCourseProfessor();
         Lesson__c lsnAfter = getTestLesson();
         System.assertEquals(depCourseProfAfter.IsActive__c, lsnAfter.isActive__c, 'Lesson should be deactivated with depatment course professor');
@@ -140,7 +140,7 @@ private class DepartmentCourseProfessorTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Faculty__c getTestFaculty() {

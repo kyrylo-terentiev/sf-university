@@ -34,7 +34,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     @isTest 
@@ -51,7 +51,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -69,7 +69,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -90,7 +90,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -111,7 +111,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(isThrown, 'Exception expected');
+        System.assert(isThrown, System.Label.TestExceptionExpected);
     }
 
     @isTest 
@@ -135,7 +135,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         StudentGroup__c groupAfter = [SELECT IsActive__c FROM StudentGroup__c WHERE Id = :groupBefore.Id];
         List<StudentGroupMember__c> membersAfter = [SELECT IsActive__c FROM StudentGroupMember__c WHERE Id IN :memberIdSet];
         for (StudentGroupMember__c member : membersAfter) {
@@ -169,7 +169,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
         StudentGroup__c studGroupAfter = [SELECT IsActive__c FROM StudentGroup__c WHERE Id = :studGroup.Id];
         DepartmentCourseGroup__c depCourseGroupAfter = [SELECT IsActive__c FROM DepartmentCourseGroup__c WHERE Id = :depCourseGroup.Id];
         System.assertEquals(depCourseGroupAfter.IsActive__c, studGroupAfter.IsActive__c, 'Department course group should be inactivated with student group');
@@ -190,7 +190,7 @@ private class StudentGroupTriggerTest {
         } catch (Exception e) {
             isThrown = true;
         }
-        System.assert(!isThrown, 'Exception not expected');
+        System.assert(!isThrown, System.Label.TestExceptionNotExpected);
     }
 
     static Account getTestAccount() {

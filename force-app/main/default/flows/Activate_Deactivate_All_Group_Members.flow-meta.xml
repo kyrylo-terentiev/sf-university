@@ -165,8 +165,8 @@
     <screens>
         <name>Choose_Action</name>
         <label>Choose Action</label>
-        <locationX>584</locationX>
-        <locationY>206</locationY>
+        <locationX>583</locationX>
+        <locationY>205</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>

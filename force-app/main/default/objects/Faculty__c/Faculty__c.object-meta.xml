@@ -161,7 +161,12 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Faculties</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>FullName__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Dean__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>ActiveDepartments__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>IsActive__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

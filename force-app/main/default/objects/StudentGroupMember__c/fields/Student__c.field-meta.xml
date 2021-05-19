@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <label>Student</label>
     <referenceTo>Student__c</referenceTo>
-    <relationshipLabel>Participating Grops</relationshipLabel>
+    <relationshipLabel>Group Memberships</relationshipLabel>
     <relationshipName>GroupMembers</relationshipName>
     <relationshipOrder>1</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>

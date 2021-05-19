@@ -18,9 +18,9 @@
     <filters>
         <field>StudentGroupID__c</field>
         <operation>equals</operation>
-        <value>a0509000001XF5q</value>
+        <value>a0509000001XbkC</value>
     </filters>
-    <label>АИ-176</label>
+    <label>AI-176</label>
     <sharedTo>
         <group>AI_176</group>
     </sharedTo>

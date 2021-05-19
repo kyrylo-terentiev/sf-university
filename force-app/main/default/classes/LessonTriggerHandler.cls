@@ -24,7 +24,7 @@ public class LessonTriggerHandler implements ITriggerHandler {
     }
 
     public void beforeDelete(List<SObject> oldList, Map<Id, SObject> oldMap) {
-
+        LessonTriggerHelper.deleteChildren((Map<Id, Lesson__c>) oldMap);
     }
 
     public void afterDelete(List<SObject> oldList, Map<Id, SObject> oldMap) {

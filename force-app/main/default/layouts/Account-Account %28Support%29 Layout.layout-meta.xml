@@ -67,6 +67,10 @@
                 <behavior>Edit</behavior>
                 <field>User__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Email__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
