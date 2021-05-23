@@ -144,7 +144,7 @@ Ensure there is a Department Professor linking this Course and Professor.</value
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveLesson</shortDescription>
-        <value>Cannot add/update groups for inactive lessons</value>
+        <value>Cannot add/update groups/tasks for inactive lessons</value>
     </labels>
     <labels>
         <fullName>InactiveProfessor</fullName>
@@ -229,6 +229,15 @@ Ensure there is an active Department Course Group linking this Group and Course.
 Ensure there is a Department Course linking this department and course.</value>
     </labels>
     <labels>
+        <fullName>TaskDepartmentCourseNotFound</fullName>
+        <categories>validation,task,department,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this department and course.</value>
+    </labels>
+    <labels>
         <fullName>LessonDepartmentCourseProfessorNotFound</fullName>
         <categories>validation,lesson,course,professor,department course professor,department course,department professor</categories>
         <language>en_US</language>
@@ -295,5 +304,13 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <protected>true</protected>
         <shortDescription>UpdateAttendancesFailure</shortDescription>
         <value>Failed to update attendances</value>
+    </labels>
+    <labels>
+        <fullName>WrongLessonForTask</fullName>
+        <categories>lesson,task,validation,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WrongLessonForTask</shortDescription>
+        <value>Selected department and course have no connection with the selected lesson</value>
     </labels>
 </CustomLabels>
