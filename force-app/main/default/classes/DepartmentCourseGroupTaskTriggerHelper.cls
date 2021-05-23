@@ -5,6 +5,7 @@ public with sharing class DepartmentCourseGroupTaskTriggerHelper {
         setCourse(newList);
         setDepartmentCourseGroup(newList);
         validateDepartmentCourseGroup(newList);
+        validateDuplicate(newList, oldMap);
     }
 
     private static void validateTask(List<DepartmentCourseGroupTask__c> newList, Map<Id, DepartmentCourseGroupTask__c> oldMap) {
@@ -115,6 +116,34 @@ public with sharing class DepartmentCourseGroupTaskTriggerHelper {
                 if (!isAttendingLesson) {
                     groupTask.addError(System.Label.TaskGroupNotAttendingLesson);
                 }
+            }
+        }
+    }
+
+    private static void validateDuplicate(List<DepartmentCourseGroupTask__c> newList, Map<Id, DepartmentCourseGroupTask__c> oldMap) {
+        Map<Id, Map<Id, DepartmentCourseGroupTask__c>> groupToTskToGroupTskMap = new Map<Id, Map<Id, DepartmentCourseGroupTask__c>>();
+        for (DepartmentCourseGroupTask__c groupLsn : newList) {
+            groupToTskToGroupTskMap.put(groupLsn.DepartmentCourseGroup__c, new Map<Id, DepartmentCourseGroupTask__c>());
+            groupToTskToGroupTskMap.get(groupLsn.DepartmentCourseGroup__c).put(groupLsn.Task__c, null);
+        }
+        for (DepartmentCourseGroupTask__c groupLsn : [SELECT DepartmentCourseGroup__c, Task__c, IsActive__c 
+                                                        FROM DepartmentCourseGroupTask__c 
+                                                        WHERE DepartmentCourseGroup__c IN :groupToTskToGroupTskMap.keySet()])
+        {
+            if (groupToTskToGroupTskMap.get(groupLsn.DepartmentCourseGroup__c).containsKey(groupLsn.Task__c)) {
+                groupToTskToGroupTskMap.get(groupLsn.DepartmentCourseGroup__c).put(groupLsn.Task__c, groupLsn);
+            }
+        }
+        for (DepartmentCourseGroupTask__c groupTsk : newList) {
+            DepartmentCourseGroupTask__c duplGroupTsk = groupToTskToGroupTskMap.get(groupTsk.DepartmentCourseGroup__c).get(groupTsk.Task__c);
+            Boolean isDuplicate = duplGroupTsk != null;
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(groupTsk.Id);
+            if (isUpdate && isDuplicate) {
+                isDuplicate = oldMap.get(groupTsk.Id).Id != duplGroupTsk.Id;
+            }
+            Boolean isInactivation = isUpdate && !groupTsk.IsActive__c && oldMap.get(groupTsk.Id).IsActive__c;
+            if (isDuplicate && !isInactivation) {
+                groupTsk.addError(System.Label.DuplicateDepartmentCourseGroupTask);
             }
         }
     }

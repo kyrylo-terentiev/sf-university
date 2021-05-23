@@ -1,4 +1,4 @@
-trigger DepartmentCourseGroupTaskTrigger on Account (
+trigger DepartmentCourseGroupTaskTrigger on DepartmentCourseGroupTask__c (
     before insert,
     after insert,
     before update,

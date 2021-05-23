@@ -1,4 +1,4 @@
-trigger TaskTrigger on Account (
+trigger TaskTrigger on Task__c (
     before insert,
     after insert,
     before update,
