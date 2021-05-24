@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR01_Markable</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( !Task__r.IsMarkable__c, Mark__c != NULL )</errorConditionFormula>
+    <errorDisplayField>Mark__c</errorDisplayField>
+    <errorMessage>This Task is not markable</errorMessage>
+</ValidationRule>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>DepartmentCourseCompactLayout</fullName>
+    <fields>Department__c</fields>
     <fields>Course__c</fields>
+    <fields>AssessmentForm__c</fields>
+    <fields>CourseWork__c</fields>
+    <fields>IsActive__c</fields>
     <label>Department Course Compact Layout</label>
 </CompactLayout>

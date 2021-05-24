@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Домашнє завдання</fullName>
+        <default>false</default>
+        <label>Домашнє завдання</label>
+    </customValue>
+    <customValue>
+        <fullName>Лабораторна робота</fullName>
+        <default>false</default>
+        <label>Лабораторна робота</label>
+    </customValue>
+    <customValue>
+        <fullName>Практична робота</fullName>
+        <default>false</default>
+        <label>Практична робота</label>
+    </customValue>
+    <customValue>
+        <fullName>Тест</fullName>
+        <default>false</default>
+        <label>Тест</label>
+    </customValue>
+    <customValue>
+        <fullName>Розрахунково-графічна робота</fullName>
+        <default>false</default>
+        <label>Розрахунково-графічна робота</label>
+    </customValue>
+    <customValue>
+        <fullName>Модульна контрольна робота</fullName>
+        <default>false</default>
+        <label>Модульна контрольна робота</label>
+    </customValue>
+    <customValue>
+        <fullName>Інше</fullName>
+        <default>false</default>
+        <label>Інше</label>
+    </customValue>
+    <masterLabel>Task Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

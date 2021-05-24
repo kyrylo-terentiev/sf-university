@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR02_MaxMark</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (Task__r.IsMarkable__c, OR( Mark__c = NULL, Mark__c &lt; 0, Mark__c &gt; Task__r.MaxMark__c))</errorConditionFormula>
+    <errorDisplayField>Mark__c</errorDisplayField>
+    <errorMessage>The Mark can&apos;t be negative or greater than Max Mark specified on Task</errorMessage>
+</ValidationRule>

@@ -3,5 +3,6 @@
     <fullName>Student_Group_Member_Compact_Layour</fullName>
     <fields>Group__c</fields>
     <fields>Student__c</fields>
+    <fields>IsActive__c</fields>
     <label>Student Group Member Compact Layour</label>
 </CompactLayout>

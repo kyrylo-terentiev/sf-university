@@ -228,29 +228,11 @@ Ensure there is a Department Professor linking this Course and Professor.</value
 Ensure there is an active Department Course Group linking this Group and Course.</value>
     </labels>
     <labels>
-        <fullName>TaskDepartmentCourseGroupNotFound</fullName>
-        <categories>validation,task,course,group,department course,department course group,department course group task</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>TaskDepartmentCourseGroupNotFound</shortDescription>
-        <value>No active connections between the selected Student Group and Task found!
-Ensure there is an active Department Course Group linking this Group and Task's course.</value>
-    </labels>
-    <labels>
         <fullName>LessonDepartmentCourseNotFound</fullName>
         <categories>validation,lesson,department,course,department course</categories>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>LessonDepartmentCourseNotFound</shortDescription>
-        <value>No connection between the selected department and course found!
-Ensure there is a Department Course linking this department and course.</value>
-    </labels>
-    <labels>
-        <fullName>TaskDepartmentCourseNotFound</fullName>
-        <categories>validation,task,department,course,department course</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>TaskDepartmentCourseNotFound</shortDescription>
         <value>No connection between the selected department and course found!
 Ensure there is a Department Course linking this department and course.</value>
     </labels>
@@ -299,6 +281,32 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <value>This student is already attending this lesson</value>
     </labels>
     <labels>
+        <fullName>TaskDepartmentCourseGroupNotFound</fullName>
+        <categories>validation,task,course,group,department course,department course group,department course group task</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskDepartmentCourseGroupNotFound</shortDescription>
+        <value>No active connections between the selected Student Group and Task found!
+Ensure there is an active Department Course Group linking this Group and Task&apos;s course.</value>
+    </labels>
+    <labels>
+        <fullName>TaskDepartmentCourseNotFound</fullName>
+        <categories>validation,task,department,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this department and course.</value>
+    </labels>
+    <labels>
+        <fullName>TaskGroupNotAttendingLesson</fullName>
+        <categories>lesson,task,group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskGroupNotAttendingLesson</shortDescription>
+        <value>Selected group does not attend the task&apos;s lesson</value>
+    </labels>
+    <labels>
         <fullName>TestExceptionExpected</fullName>
         <categories>test,assertion</categories>
         <language>en_US</language>
@@ -329,13 +337,5 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <protected>true</protected>
         <shortDescription>WrongLessonForTask</shortDescription>
         <value>Selected department and course have no connection with the selected lesson</value>
-    </labels>
-    <labels>
-        <fullName>TaskGroupNotAttendingLesson</fullName>
-        <categories>lesson,task,group,department course group lesson</categories>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>TaskGroupNotAttendingLesson</shortDescription>
-        <value>Selected group does not attend the task's lesson</value>
     </labels>
 </CustomLabels>
