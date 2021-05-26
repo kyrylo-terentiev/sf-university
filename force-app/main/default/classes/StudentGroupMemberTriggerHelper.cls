@@ -81,7 +81,7 @@ public with sharing class StudentGroupMemberTriggerHelper {
         }
     }
 
-    public static List<StudentGroup__c> getUpdatedGroups(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
+    private static List<StudentGroup__c> getUpdatedGroups(Map<Id, StudentGroupMember__c> newMap, Map<Id, StudentGroupMember__c> oldMap) {
         Map<Id, StudentGroupMember__c> studToGroupMemberMap = new Map<Id, StudentGroupMember__c>();
         for (StudentGroupMember__c groupMember : newMap.values()) {
             studToGroupMemberMap.put(groupMember.Student__c, groupMember);

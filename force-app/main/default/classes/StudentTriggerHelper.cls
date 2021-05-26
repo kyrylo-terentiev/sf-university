@@ -31,7 +31,7 @@ public with sharing class StudentTriggerHelper {
         }
     }
 
-    public static List<StudentGroupMember__c> getUpdatedGroupMembers(Map<Id, Student__c> newMap, Map<Id, Student__c> oldMap) {
+    private static List<StudentGroupMember__c> getUpdatedGroupMembers(Map<Id, Student__c> newMap, Map<Id, Student__c> oldMap) {
         List<StudentGroupMember__c> groupMembersToUpdate = new List<StudentGroupMember__c>();
         Map<Id, List<StudentGroupMember__c>> studToGroupMembersMap = new Map<Id, List<StudentGroupMember__c>>();
         for (StudentGroupMember__c groupMember : [SELECT Student__c, Group__c, IsActive__c 

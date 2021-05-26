@@ -180,12 +180,12 @@
             <sortOrder>4</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>NewTask</actionName>
+            <actionName>FeedItem.ContentPost</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>5</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>FeedItem.ContentPost</actionName>
+            <actionName>NewTask</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>6</sortOrder>
         </platformActionListItems>
@@ -206,6 +206,15 @@
         <relatedList>StudentLessonAttendance__c.Lesson__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
+        <fields>NAME</fields>
+        <fields>Type__c</fields>
+        <fields>DueDate__c</fields>
+        <fields>Status__c</fields>
+        <fields>IsMarkable__c</fields>
+        <relatedList>Task__c.Lesson__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -213,7 +222,6 @@
         <fields>TASK.RECORDTYPE</fields>
         <fields>EVENT.START_DATE_TIME</fields>
         <fields>EVENT.END_DATE_TIME</fields>
-        <fields>Room__c</fields>
         <relatedList>RelatedActivityList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -221,7 +229,6 @@
         <fields>TASK.RECORDTYPE</fields>
         <fields>EVENT.START_DATE_TIME</fields>
         <fields>EVENT.END_DATE_TIME</fields>
-        <fields>Room__c</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

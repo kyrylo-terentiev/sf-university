@@ -70,7 +70,7 @@
   </types>
   <types>
     <members>*</members>
-    <name>Workflow</name>
+    <name>FlexiPage</name>
   </types>
   <version>51.0</version>
 </Package>
