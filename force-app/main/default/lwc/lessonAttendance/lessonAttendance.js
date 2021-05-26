@@ -1,14 +1,9 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
-import { updateRecord } from 'lightning/uiRecordApi';
-import { getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import getAttendances from '@salesforce/apex/LessonAttendanceController.getActiveAttendances';
 import updateAttendances from '@salesforce/apex/LessonAttendanceController.updateAttendances';
-
-import ID_FIELD from '@salesforce/schema/StudentLessonAttendance__c.Id';
-import ATTENDING_FIELD from '@salesforce/schema/StudentLessonAttendance__c.IsAttending__c';
 
 const COLS = [
     {

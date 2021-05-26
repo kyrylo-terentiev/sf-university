@@ -338,4 +338,12 @@ Ensure there is a Department Course linking this department and course.</value>
         <shortDescription>WrongLessonForTask</shortDescription>
         <value>Selected department and course have no connection with the selected lesson</value>
     </labels>
+    <labels>
+        <fullName>InvalidLessonStartDatetime</fullName>
+        <categories>lesson,task,validation</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonStartDatetime</shortDescription>
+        <value>Lessons can be created only for future date</value>
+    </labels>
 </CustomLabels>
