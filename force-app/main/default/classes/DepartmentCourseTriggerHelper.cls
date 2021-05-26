@@ -52,7 +52,7 @@ public with sharing class DepartmentCourseTriggerHelper {
         }
     }
 
-    public static List<DepartmentCourseProfessor__c> getUpdatedDepartmentCourseProfessors(Map<Id, DepartmentCourse__c> newMap, Map<Id, DepartmentCourse__c> oldMap) {
+    private static List<DepartmentCourseProfessor__c> getUpdatedDepartmentCourseProfessors(Map<Id, DepartmentCourse__c> newMap, Map<Id, DepartmentCourse__c> oldMap) {
         List<DepartmentCourseProfessor__c> depCourseProfsToUpdate = new List<DepartmentCourseProfessor__c>();
         Map<Id, List<DepartmentCourseProfessor__c>> depCourseToDepCourseProfsMap = new Map<Id, List<DepartmentCourseProfessor__c>>();
         for (DepartmentCourseProfessor__c depCourseProf : [SELECT DepartmentCourse__c, IsActive__c 

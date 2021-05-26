@@ -51,6 +51,14 @@ Ensure there is a Department Professor linking this Course and Professor.</value
         <value>This group is already attending this lesson</value>
     </labels>
     <labels>
+        <fullName>DuplicateDepartmentCourseGroupTask</fullName>
+        <categories>validation,duplicate,task,student group,department course group,department course group task</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DuplicateDepartmentCourseGroupTask</shortDescription>
+        <value>This group is already assigned to this task</value>
+    </labels>
+    <labels>
         <fullName>DuplicateDepartmentCourseProfessor</fullName>
         <categories>validation,department,professor,department professor,course,department course,department course professor</categories>
         <language>en_US</language>
@@ -144,7 +152,7 @@ Ensure there is a Department Professor linking this Course and Professor.</value
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>InactiveLesson</shortDescription>
-        <value>Cannot add/update groups for inactive lessons</value>
+        <value>Cannot add/update groups/tasks for inactive lessons</value>
     </labels>
     <labels>
         <fullName>InactiveProfessor</fullName>
@@ -273,6 +281,32 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <value>This student is already attending this lesson</value>
     </labels>
     <labels>
+        <fullName>TaskDepartmentCourseGroupNotFound</fullName>
+        <categories>validation,task,course,group,department course,department course group,department course group task</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskDepartmentCourseGroupNotFound</shortDescription>
+        <value>No active connections between the selected Student Group and Task found!
+Ensure there is an active Department Course Group linking this Group and Task&apos;s course.</value>
+    </labels>
+    <labels>
+        <fullName>TaskDepartmentCourseNotFound</fullName>
+        <categories>validation,task,department,course,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskDepartmentCourseNotFound</shortDescription>
+        <value>No connection between the selected department and course found!
+Ensure there is a Department Course linking this department and course.</value>
+    </labels>
+    <labels>
+        <fullName>TaskGroupNotAttendingLesson</fullName>
+        <categories>lesson,task,group,department course group lesson</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TaskGroupNotAttendingLesson</shortDescription>
+        <value>Selected group does not attend the task&apos;s lesson</value>
+    </labels>
+    <labels>
         <fullName>TestExceptionExpected</fullName>
         <categories>test,assertion</categories>
         <language>en_US</language>
@@ -295,5 +329,21 @@ Ensure there is a Student Group Member linking this student and group.</value>
         <protected>true</protected>
         <shortDescription>UpdateAttendancesFailure</shortDescription>
         <value>Failed to update attendances</value>
+    </labels>
+    <labels>
+        <fullName>WrongLessonForTask</fullName>
+        <categories>lesson,task,validation,department course</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>WrongLessonForTask</shortDescription>
+        <value>Selected department and course have no connection with the selected lesson</value>
+    </labels>
+    <labels>
+        <fullName>InvalidLessonStartDatetime</fullName>
+        <categories>lesson,task,validation</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidLessonStartDatetime</shortDescription>
+        <value>Lessons can be created only for future date</value>
     </labels>
 </CustomLabels>

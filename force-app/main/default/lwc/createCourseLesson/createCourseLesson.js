@@ -1,4 +1,4 @@
-import { api, wire, LightningElement } from 'lwc';
+import { api, LightningElement } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 export default class CreateCourseLesson extends NavigationMixin(LightningElement) {

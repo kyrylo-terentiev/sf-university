@@ -78,6 +78,14 @@
         <fields>NAME</fields>
         <relatedList>DepartmentCourseGroupLesson__c.DepartmentCourseGroup__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>DepartmentCourseGroupTask__c.DepartmentCourseGroup__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>TaskAssignment__c.DepartmentCourseGroup__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

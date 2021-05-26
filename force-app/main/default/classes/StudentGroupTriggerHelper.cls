@@ -67,7 +67,7 @@ public with sharing class StudentGroupTriggerHelper {
         }
     }
 
-    public static List<StudentGroupMember__c> getUpdatedGroupMembers(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
+    private static List<StudentGroupMember__c> getUpdatedGroupMembers(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
         List<StudentGroupMember__c> groupMembersToUpdate = new List<StudentGroupMember__c>();
         Map<Id, List<StudentGroupMember__c>> groupToGroupMembersMap = new Map<Id, List<StudentGroupMember__c>>();
         for (StudentGroupMember__c groupMember : [SELECT Student__c, Group__c, IsActive__c 
@@ -96,7 +96,7 @@ public with sharing class StudentGroupTriggerHelper {
         return groupMembersToUpdate;
     }
 
-    public static List<DepartmentCourseGroup__c> getUpdatedDepartmentCourseGroups(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
+    private static List<DepartmentCourseGroup__c> getUpdatedDepartmentCourseGroups(Map<Id, StudentGroup__c> newMap, Map<Id, StudentGroup__c> oldMap) {
         List<DepartmentCourseGroup__c> depCourseGroupsToUpdate = new List<DepartmentCourseGroup__c>();
         Map<Id, List<DepartmentCourseGroup__c>> groupToDepCourseGroupsMap = new Map<Id, List<DepartmentCourseGroup__c>>();
         for (DepartmentCourseGroup__c depCourseGroup : [SELECT StudentGroup__c, IsActive__c 

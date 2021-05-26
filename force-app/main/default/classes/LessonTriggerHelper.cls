@@ -12,11 +12,23 @@ public with sharing class LessonTriggerHelper {
     }
 
     public static void validate(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        validateDatetime(newList, oldMap);
         setDepartmentCourse(newList);
         setDepartmentProfessor(newList);
         setDepartmentCourseProfessor(newList);
         validateDepartmentCourseProfessor(newList, oldMap);
         validateDuplicate(newList);
+    }
+
+    private static void validateDatetime(List<Lesson__c> newList, Map<Id, Lesson__c> oldMap) {
+        for (Lesson__c lsn : newList) {
+            Boolean isPastDate = lsn.StartDateTime__c < Datetime.now();
+            Boolean isUpdate = oldMap != null && oldMap.containsKey(lsn.Id);
+            Boolean isDateChanged = isUpdate && oldMap.get(lsn.Id).StartDateTime__c != lsn.StartDateTime__c;
+            if (isPastDate && isDateChanged) {
+                lsn.StartDateTime__c.addError(System.Label.InvalidLessonStartDatetime);
+            }
+        }
     }
 
     private static void setDepartmentCourse(List<Lesson__c> newList) {
