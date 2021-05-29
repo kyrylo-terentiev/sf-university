@@ -181,6 +181,31 @@ public class TestObjectFactory {
         );
     }
 
+    public static Task__c createTask(Department__c dep, Course__c course, Lesson__c lsn) {
+        return new Task__c(
+            Name = 'TestTask',
+            Department__c = dep.Id,
+            Course__c = course.Id,
+            Lesson__c = lsn.Id
+        );
+    }
+
+    public static Task__c createTask(Department__c dep, Course__c course) {
+        return new Task__c(
+            Name = 'TestTask',
+            Department__c = dep.Id,
+            Course__c = course.Id
+        );
+    }
+
+    public static TaskAssignment__c createTaskAssignment(Task__c tsk, Student__c stud, StudentGroup__c studGroup) {
+        return new TaskAssignment__c(
+            Task__c = tsk.Id,
+            Student__c = stud.Id,
+            StudentGroup__c = studGroup.Id
+        );
+    }
+
     public static List<Account> getTestAccounts() {
         return [
             SELECT Id
