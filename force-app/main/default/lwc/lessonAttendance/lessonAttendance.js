@@ -31,14 +31,14 @@ export default class LessonAttendance extends LightningElement {
     @track attendances;
 
     @wire(getAttendances, { lessonId: '$recordId' })
-    wiredAttendances({ error, data }) {
-        if(data) {
+    wiredAttendances(result) {
+        if(result.data) {
             this.isLoading = false;
             let studentUrl;
             let studentName;
             let groupUrl;
             let groupName;
-            this.attendances = data.map(row => { 
+            this.attendances = result.data.map(row => { 
                 studentUrl = `/${row.Student__c}`;
                 studentName = row.Student__r.Name;
                 groupUrl = `/${row.StudentGroup__c}`
@@ -48,7 +48,7 @@ export default class LessonAttendance extends LightningElement {
             if (this.attendances.length === 0) {
                 this.attendances = undefined;
             }
-        } else if(error) {
+        } else if(result.error) {
             this.isLoading = false;
             this.attendances = undefined;
         }
@@ -67,9 +67,8 @@ export default class LessonAttendance extends LightningElement {
                     variant: 'success'
                 })
             );
-            return refreshApex(this.attendances).then(() => {
-                this.draftValues = [];
-            });
+            this.draftValues = null;
+            return refreshApex(this.attendances);
         }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
